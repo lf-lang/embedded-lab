@@ -1,0 +1,24 @@
+target C {
+    build: "../platform/build_pico.sh",
+    //no-compile: true,
+    threading: false,
+}
+
+preamble {=
+    #include <pico/stdlib.h>
+=}
+
+main reactor {
+    timer t1(0, 100 msec);
+    state bool:led;
+    reaction(startup) {=
+        stdio_init_all();
+        gpio_init(25);
+        gpio_set_dir(25, GPIO_OUT);
+    =}
+    
+    reaction(t1) {=
+        self->led ^= self->led; 
+        gpio_put(25, self->led);
+    =}
+}
