@@ -20,6 +20,8 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Nrf52")
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Zephyr")
     target_compile_definitions(core PUBLIC PLATFORM_ZEPHYR)
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Pico")
+    message("Pico")
+    target_link_libraries(core pico_stdlib)
     target_compile_definitions(core PUBLIC PLATFORM_PICO)
 endif()
 

@@ -4,3 +4,15 @@
 [submodule "lib/pololu-3pi-2040-robot"]
 	path = lib/pololu-3pi-2040-robot
 	url = git@github.com:pololu/pololu-3pi-2040-robot.git
+[submodule "tool/picoprobe"]
+	path = tool/picoprobe
+	url = git@github.com:raspberrypi/picoprobe.git
+[submodule "tool/picotool"]
+	path = tool/picotool
+	url = git@github.com:raspberrypi/picotool.git
+[submodule "lib/reactor-cpp"]
+	path = lib/reactor-cpp
+	url = git@github.com:lf-lang/reactor-cpp.git
+[submodule "lib/reactor-c"]
+	path = lib/reactor-c
+	url = git@github.com:lf-lang/reactor-c.git

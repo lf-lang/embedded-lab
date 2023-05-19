@@ -6,13 +6,13 @@ target C {
 
 preamble {=
     #include <pico/stdlib.h>
+    #include <hardware/gpio.h>
 =}
 
 main reactor {
     timer t1(0, 100 msec);
     state led:bool;
     reaction(startup) {=
-        stdio_init_all();
         gpio_init(25);
         gpio_set_dir(25, GPIO_OUT);
     =}

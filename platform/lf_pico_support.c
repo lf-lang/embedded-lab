@@ -24,6 +24,7 @@ int lf_critical_section_enter() {
  * @return 0 on success, platform-specific error number otherwise.
  */
 int lf_critical_section_exit() {
+
     return 0;
 }
 
@@ -40,12 +41,13 @@ int lf_notify_of_event() {
  * Initialize the LF clock. Must be called before using other clock-related APIs.
  */
 void lf_initialize_clock(void) {
+    // init stdlib peripherals
     stdio_init_all();
 }
 
 /**
  * Fetch the value of an internal (and platform-specific) physical clock and
- * store it in `t`.
+ * store it in `t`. in nanoseconds
  *
  * Ideally, the underlying platform clock should be monotonic. However, the
  * core lib tries to enforce monotonicity at higher level APIs (see tag.h).
@@ -53,9 +55,13 @@ void lf_initialize_clock(void) {
  * @return 0 for success, or -1 for failure
  */
 int lf_clock_gettime(instant_t* t) {
-    *t = get_absolute_time();
-    if (t) return 0;
-    return -1; 
+    absolute_time_t now;
+    uint64_t ns_from_boot;
+
+    now = get_absolute_time();
+    ns_from_boot = to_us_since_boot(now) * 1000;
+    *t = (instant_t) ns_from_boot;
+    return 0; 
 }
 
 /**
@@ -64,7 +70,7 @@ int lf_clock_gettime(instant_t* t) {
  * @return 0 for success, or -1 for failure.
  */
 int lf_sleep(interval_t sleep_duration) {
-    sleep_us(sleep_duration);
+    sleep_us((uint64_t) (sleep_duration / 1000));
     return 0;
 }
 
@@ -75,7 +81,9 @@ int lf_sleep(interval_t sleep_duration) {
  * @return int 0 if sleep completed, or -1 if it was interrupted.
  */
 int lf_sleep_until_locked(instant_t wakeup_time) {
-    sleep_until(wakeup_time) 
+    absolute_time_t target; 
+    target = from_us_since_boot((uint64_t) (wakeup_time / 1000));
+    sleep_until(target); 
     return 0;
 }
 
