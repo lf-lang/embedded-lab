@@ -16,4 +16,6 @@ Pico Support
 #define PRINTF_TAG "(" PRINTF_TIME ", " PRINTF_MICROSTEP ")"
 #define _LF_TIMEOUT 1
 
+// TODO: define interval_t and instant_t
+
 #endif // LF_PICO_SUPPORT_H

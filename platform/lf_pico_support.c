@@ -4,6 +4,8 @@
 #include "platform.h"
 #include "utils/util.h"
 #include "tag.h"
+#include <pico/stdlib.h>
+
 
 /**
  * Enter a critical section where logical time and the event queue are guaranteed
@@ -38,6 +40,7 @@ int lf_notify_of_event() {
  * Initialize the LF clock. Must be called before using other clock-related APIs.
  */
 void lf_initialize_clock(void) {
+    stdio_init_all();
 }
 
 /**
@@ -50,7 +53,9 @@ void lf_initialize_clock(void) {
  * @return 0 for success, or -1 for failure
  */
 int lf_clock_gettime(instant_t* t) {
-    return 0;
+    *t = get_absolute_time();
+    if (t) return 0;
+    return -1; 
 }
 
 /**
@@ -59,6 +64,7 @@ int lf_clock_gettime(instant_t* t) {
  * @return 0 for success, or -1 for failure.
  */
 int lf_sleep(interval_t sleep_duration) {
+    sleep_us(sleep_duration);
     return 0;
 }
 
@@ -69,6 +75,7 @@ int lf_sleep(interval_t sleep_duration) {
  * @return int 0 if sleep completed, or -1 if it was interrupted.
  */
 int lf_sleep_until_locked(instant_t wakeup_time) {
+    sleep_until(wakeup_time) 
     return 0;
 }
 
