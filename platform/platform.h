@@ -38,8 +38,6 @@ THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lf_types.h"
 
-#define LF_UNTHREADED
-
 #if defined(LF_THREADED) && defined(LF_UNTHREADED)
 #error LF_UNTHREADED and LF_THREADED runtime requested
 #endif

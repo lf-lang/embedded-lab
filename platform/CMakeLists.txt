@@ -10,15 +10,17 @@ if (DEFINED ENV{LF_SOURCE_GEN_DIRECTORY})
   
   message(PICO_PATH="${PICO_SDK_PATH}")
   message(ROBOT_PATH="${3PI_ROBOT_LIB_PATH}")
+  
+  # pico_sdk
+  message("SDK Found... Adding Cmake")
+  include("${PICO_SDK_PATH}/pico_sdk_init.cmake")
 endif()
 
 # debug messages
-
 project(${LF_PICO_TARGET} C CXX ASM)
-# pico_sdk
-include("${PICO_SDK_PATH}/pico_sdk_init.cmake")
 
-add_compile_options(-Wall -Wextra)
+# leverage compile definitions?
+add_compile_options(-Wall -Wextra -DLF_UNTHREADED)
 pico_sdk_init()
 
 set(CMAKE_SYSTEM_NAME "Pico")
@@ -52,6 +54,3 @@ target_include_directories(${LF_PICO_TARGET} PUBLIC include/core)
 target_include_directories(${LF_PICO_TARGET} PUBLIC include/core/platform)
 target_include_directories(${LF_PICO_TARGET} PUBLIC include/core/modal_models)
 target_include_directories(${LF_PICO_TARGET} PUBLIC include/core/utils)
-
-# figure out how and why to use the compile defs
-target_compile_definitions(${LF_PICO_TARGET} PUBLIC LF_UNTHREADED=1)

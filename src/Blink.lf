@@ -10,7 +10,7 @@ preamble {=
 
 main reactor {
     timer t1(0, 100 msec);
-    state bool:led;
+    state led:bool;
     reaction(startup) {=
         stdio_init_all();
         gpio_init(25);
