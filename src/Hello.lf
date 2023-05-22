@@ -1,0 +1,26 @@
+target C {
+    build: "../platform/build_pico.sh",
+    //no-compile: true,
+    threading: false,
+}
+
+import Display from "lib/Display.lf"
+
+preamble {=
+    #include <pico/stdlib.h>
+    #include <hardware/gpio.h>
+=}
+
+main reactor {
+    timer t1(0, 1000 sec);
+    state blank:bool(false);
+    d1 = new Display(); 
+    reaction(t1) -> d1.text, d1.blank {=
+        self->blank = !self->blank;
+        if (!self->blank) {
+            lf_set(d1.text, "Hello, World!"); 
+        } else {
+            lf_set(d1.blank, true);
+        }
+    =}
+}

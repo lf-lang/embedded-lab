@@ -18,7 +18,7 @@ main reactor {
     =}
     
     reaction(t1) {=
-        self->led ^= self->led; 
+        self->led = !self->led; 
         gpio_put(25, self->led);
     =}
 }

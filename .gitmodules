@@ -16,3 +16,10 @@
 [submodule "lib/reactor-c"]
 	path = lib/reactor-c
 	url = git@github.com:lf-lang/reactor-c.git
+[submodule "tool/openocd"]
+	path = tool/openocd
+	url = git@github.com:raspberrypi/openocd.git
+	branch = rp2040
+[submodule "lib/pico-examples"]
+	path = lib/pico-examples
+	url = git@github.com:raspberrypi/pico-examples.git

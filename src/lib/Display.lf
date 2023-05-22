@@ -1,0 +1,31 @@
+target C {
+    build: "../platform/build_pico.sh",
+    //no-compile: true,
+    threading: false,
+}
+
+preamble {=
+    #include <pico/stdlib.h>
+    #include <pololu_3pi_2040_robot.h>
+=}
+
+reactor Display(small_txt:bool(false)) {
+    input text:string;
+    input blank:bool;
+    reaction(startup) {=
+        display_init();
+        if (self->small_txt) {
+            display_set_font(font_8x8);
+        } else {
+            display_set_font(font_8x16);
+        }
+    =}    
+    reaction(text) {=
+        display_text(text->value, 0, 0, DISPLAY_NOW | 1);
+        display_show();
+    =}
+    reaction(blank) {=
+        display_fill(0);
+        display_show();
+    =}
+}

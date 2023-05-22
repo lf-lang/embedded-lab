@@ -1,0 +1,22 @@
+target C {
+    build: "../platform/build_pico.sh",
+    //no-compile: true,
+    threading: false,
+}
+
+preamble {=
+    #include <pico/stdlib.h>
+    #include <pololu_3pi_2040_robot.h>
+=}
+
+reactor Imu {
+    input trig:bool;
+    output x_accel:float;
+    output y_accel:float;
+    output z_accel:float;
+    reaction(startup) {=
+        
+    =}    
+    reaction(trig) {=
+    =}
+}
