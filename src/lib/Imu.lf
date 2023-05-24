@@ -7,6 +7,9 @@ target C {
 preamble {=
     #include <pico/stdlib.h>
     #include <pololu_3pi_2040_robot.h>
+
+    // static global imu instance struct
+    static imu_inst_t imu_inst;
 =}
 
 reactor Imu {
@@ -14,9 +17,20 @@ reactor Imu {
     output x_accel:float;
     output y_accel:float;
     output z_accel:float;
+
     reaction(startup) {=
-        
+        imu_init(&imu_inst);
+        imu_reset(&imu_inst);
+        imu_set_default(&imu_inst);
     =}    
-    reaction(trig) {=
+    reaction(trig) -> x_accel, y_accel, z_accel {=
+        axes_data_t acc_data;
+        axes_data_t gyro_data;
+        imu_read_acc(&imu_inst, &acc_data);
+        imu_read_gyro(&imu_inst, &gyro_data);
+
+        lf_set(x_accel, acc_data.x);
+        lf_set(y_accel, acc_data.y);
+        lf_set(z_accel, acc_data.z);
     =}
 }

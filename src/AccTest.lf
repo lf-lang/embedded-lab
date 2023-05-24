@@ -4,14 +4,30 @@ target C {
     threading: false,
 }
 
+import Display from "lib/Display.lf"
+import Imu from "lib/Imu.lf"
+
 preamble {=
-    #include <pico/stdlib.h>
-    #include <pololu_3pi_2040_robot.h>
+    // sprintf
+    #include <stdio.h>
 =}
 
 main reactor {
-    reaction(startup) {=
-    =}    
-    reaction() {=
+    timer t1(0, 1 sec);
+    state blank:bool(false);
+    d0 = new Display();
+    imu0 = new Imu();
+    reaction(t1) -> imu0.trig {=
+        lf_set(imu0.trig, true);
+    =}
+    reaction(imu0.x_accel, imu0.y_accel, imu0.z_accel) -> d0.line0, d0.line1 {=
+        /// TODO: define max string size for line
+        /// based on font you can have 4 or 8 lines 
+        static char buf0[17];
+        static char buf1[17];
+        snprintf(buf0, 17, "x:%.2f y:%.2f", imu0.x_accel->value, imu0.y_accel->value);
+        snprintf(buf1, 17, "z:%.2f", imu0.z_accel->value);
+        lf_set(d0.line0, buf0);
+        lf_set(d0.line1, buf1);
     =}
 }

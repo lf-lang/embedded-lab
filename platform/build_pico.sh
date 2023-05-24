@@ -19,7 +19,7 @@ cp "../../platform/launch.json" "${LF_SOURCE_GEN_DIRECTORY}/.vscode"
 mkdir build
 cd build
 cmake ..
-cmake --build .
+#cmake --build .
 code ../
 #cmake -b build
 #cmake --build .
