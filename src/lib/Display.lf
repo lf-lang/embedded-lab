@@ -7,29 +7,78 @@ target C {
 preamble {=
     #include <pico/stdlib.h>
     #include <pololu_3pi_2040_robot.h>
+    // add multiple instance guards
 =}
 
-reactor Display(small_txt:bool(false)) {
+reactor LogicalDisplay {
+    // inputs 
     input line0:string;
     input line1:string;
-    input blank:bool;
+    input line2:string;
+    input line3:string;
+    // buffer update action
+    logical action update;
     reaction(startup) {=
         display_init();
-        if (self->small_txt) {
-            display_set_font(font_8x8);
-        } else {
-            display_set_font(font_8x16);
-        }
-    =}    
-    reaction(line0, line1) {=
-        /// TODO: create the ability to use different screen lines
+        display_set_font(font_8x16);
+    =}
+    // TODO: maybe use a bank of subreactors?
+    reaction(line0) -> update {=
+        // clear line in buffer
         display_fill(0);
-        display_text(line0->value, 0, 0, DISPLAY_NOW | 1);
-        display_text(line1->value, 0, 16, DISPLAY_NOW | 1); 
+        display_text(line0->value, 0, 0, COLOR_WHITE | DISPLAY_NOW);
+        lf_schedule(update, 0); 
+    =}
+    reaction(line1) -> update {=
+        // clear line in buffer
+        display_text(line1->value, 0, 16, COLOR_WHITE_ON_BLACK); 
+        lf_schedule(update, 0); 
+    =}
+    reaction(line2) -> update {=
+        // clear line in buffer
+        display_text(line2->value, 0, 32, COLOR_WHITE_ON_BLACK);
+        lf_schedule(update, 0); 
+    =}
+    reaction(line3) -> update {=
+        // clear line in buffer
+        display_text(line3->value, 0, 48, COLOR_WHITE_ON_BLACK); 
+        lf_schedule(update, 0); 
+    =}    
+    reaction(update) {=
+        // clear and update screen
+        display_fill(0);
         display_show();
     =}
-    reaction(blank) {=
+}
+
+reactor Display {
+    // inputs 
+    input line0:string;
+    input line1:string;
+    input line2:string;
+    input line3:string;
+    // buffer update action
+    reaction(startup) {=
+        display_init();
+        display_set_font(font_8x16);
+    =}
+    // TODO: maybe use a bank of subreactors?
+    reaction(line0, line1, line2, line3) {=
+        // clear line in buffer
         display_fill(0);
+        if (line0->is_present) {
+            display_text(line0->value, 0, 0, COLOR_WHITE);
+        }
+        if (line1->is_present) {
+            display_text(line1->value, 0, 16, COLOR_WHITE); 
+        }
+        if (line2->is_present) {
+            display_text(line2->value, 0, 32, COLOR_WHITE);
+        }
+        if (line3->is_present) {
+            display_text(line3->value, 0, 48, COLOR_WHITE); 
+        }
+        // display buffer
         display_show();
     =}
 }

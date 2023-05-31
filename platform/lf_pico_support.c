@@ -4,8 +4,13 @@
 #include "platform.h"
 #include "utils/util.h"
 #include "tag.h"
-#include <pico/stdlib.h>
 
+#include <pico/stdlib.h>
+#include <pico/sync.h>
+
+static critical_section_t _lf_crit_sec;
+// semaphore used to notify if sleep was interupted by irq 
+static semaphore_t _lf_sem_irq_event;
 
 /**
  * Enter a critical section where logical time and the event queue are guaranteed
@@ -14,17 +19,23 @@
  * Users of this function must ensure that lf_init_critical_sections() is
  * called first and that lf_critical_section_exit() is called later.
  * @return 0 on success, platform-specific error number otherwise.
+ * TODO: needs to be used sparingly 
  */
 int lf_critical_section_enter() {
+    // disables irq and spin-locks core
+    critical_section_enter_blocking(&_lf_crit_sec);
     return 0;
 }
 
 /**
  * Exit the critical section entered with lf_lock_time().
  * @return 0 on success, platform-specific error number otherwise.
+ * TODO: needs to be used sparingly, find a better way for event queue
+ * mutual exclusion for embedded platforms. better leverage the nvic 
  */
 int lf_critical_section_exit() {
-
+    // restores system execution state
+    critical_section_exit(&_lf_crit_sec);
     return 0;
 }
 
@@ -34,6 +45,8 @@ int lf_critical_section_exit() {
  * @return 0 on success, platform-specific error number otherwise.
  */
 int lf_notify_of_event() {
+    // un-block threads that acquired this binary semaphore 
+    sem_release(&_lf_sem_irq_event);
     return 0;
 }
 
@@ -43,6 +56,10 @@ int lf_notify_of_event() {
 void lf_initialize_clock(void) {
     // init stdlib peripherals
     stdio_init_all();
+    // init sync structs
+    critical_section_init(&_lf_crit_sec);
+    sem_init(&_lf_sem_irq_event, 0, 1);
+    multicore_reset_core1();
 }
 
 /**
@@ -57,7 +74,6 @@ void lf_initialize_clock(void) {
 int lf_clock_gettime(instant_t* t) {
     absolute_time_t now;
     uint64_t ns_from_boot;
-
     now = get_absolute_time();
     ns_from_boot = to_us_since_boot(now) * 1000;
     *t = (instant_t) ns_from_boot;
@@ -70,6 +86,9 @@ int lf_clock_gettime(instant_t* t) {
  * @return 0 for success, or -1 for failure.
  */
 int lf_sleep(interval_t sleep_duration) {
+    if (sleep_duration < 0) {
+        return -1;
+    }
     sleep_us((uint64_t) (sleep_duration / 1000));
     return 0;
 }
@@ -81,11 +100,137 @@ int lf_sleep(interval_t sleep_duration) {
  * @return int 0 if sleep completed, or -1 if it was interrupted.
  */
 int lf_sleep_until_locked(instant_t wakeup_time) {
-    absolute_time_t target; 
+    if (wakeup_time < 0) {
+        return -1;
+    }
+    absolute_time_t target;
+    // reset semaphore to 0
+    sem_reset(&_lf_sem_irq_event, 0);
+    // TODO: maybe use a low power sleep here instead
     target = from_us_since_boot((uint64_t) (wakeup_time / 1000));
-    sleep_until(target); 
+    if(sem_acquire_block_until(&_lf_sem_irq_event, target)) {
+        // semaphore acquired successfully before timeout
+        // irq was called during sleep 
+        return -1;
+    } 
     return 0;
 }
 
+// For platforms with threading support, the following functions
+// abstract the API so that the LF runtime remains portable.
+
+#ifdef LF_THREADED
+
+/**
+ * @brief Get the number of cores on the host machine.
+ * pico has two physical cores and runs only two worker threads 
+ */
+int lf_available_cores() {
+    return 2;
+}
+
+void _pico_core_loader() {
+    // create method that executes provided
+    // functions with specific through a comunicating api call
+    // the api call will be used by thread create and join
+    // alternatively use free-rtos an launch tasks
+}
+
+/**
+ * Create a new thread, starting with execution of lf_thread
+ * getting passed arguments. The new handle is stored in thread_id.
+ *
+ * @return 0 on success, platform-specific error number otherwise.
+ * TODO: learn more about function pointers and resolving this interface
+ */
+int lf_thread_create(lf_thread_t* thread, void *(*lf_thread) (void *), void* arguments) {
+    /// TODO: wrap in secondary function that takes these arguments
+    /// run that function on core1 with provided args 
+    multicore_launch_core1(lf_thread);
+    // fill thread instance
+}
+
+/**
+ * Make calling thread wait for termination of the thread.  The
+ * exit status of the thread is stored in thread_return if thread_return
+ * is not NULL.
+ * @param thread The thread.
+ * @param thread_return A pointer to where to store the exit status of the thread.
+ *
+ * @return 0 on success, platform-specific error number otherwise.
+ */
+int lf_thread_join(lf_thread_t thread, void** thread_return) {
+
+}
+
+/**
+ * Initialize a mutex.
+ *
+ * @return 0 on success, platform-specific error number otherwise.
+ */
+int lf_mutex_init(lf_mutex_t* mutex) {
+
+}
+
+/**
+ * Lock a mutex.
+ *
+ * @return 0 on success, platform-specific error number otherwise.
+ */
+int lf_mutex_lock(lf_mutex_t* mutex) {
+
+}
+
+/**
+ * Unlock a mutex.
+ *
+ * @return 0 on success, platform-specific error number otherwise.
+ */
+int lf_mutex_unlock(lf_mutex_t* mutex) {
+
+}
+
+/**
+ * Initialize a conditional variable.
+ * TODO: use a semaphore
+ * @return 0 on success, platform-specific error number otherwise.
+ */
+int lf_cond_init(lf_cond_t* cond, lf_mutex_t* mutex) {
+
+}
+
+/**
+ * Wake up all threads waiting for condition variable cond.
+ *
+ * @return 0 on success, platform-specific error number otherwise.
+ */
+extern int lf_cond_broadcast(lf_cond_t* cond);
+
+/**
+ * Wake up one thread waiting for condition variable cond.
+ *
+ * @return 0 on success, platform-specific error number otherwise.
+ */
+extern int lf_cond_signal(lf_cond_t* cond);
+
+/**
+ * Wait for condition variable "cond" to be signaled or broadcast.
+ * "mutex" is assumed to be locked before.
+ *
+ * @return 0 on success, platform-specific error number otherwise.
+ */
+extern int lf_cond_wait(lf_cond_t* cond);
+
+/**
+ * Block current thread on the condition variable until condition variable
+ * pointed by "cond" is signaled or time pointed by "absolute_time_ns" in
+ * nanoseconds is reached.
+ *
+ * @return 0 on success, LF_TIMEOUT on timeout, and platform-specific error
+ *  number otherwise.
+ */
+extern int lf_cond_timedwait(lf_cond_t* cond, instant_t absolute_time_ns);
+
+#endif // LF_THREADED
 #endif // PLATFORM_PICO
 

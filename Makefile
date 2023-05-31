@@ -10,3 +10,4 @@ clean:
 	rm -rf src-gen/
 	rm -rf bin/
 	rm -rf include/
+	rm -rf build/

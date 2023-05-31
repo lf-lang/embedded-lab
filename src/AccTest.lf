@@ -13,13 +13,9 @@ preamble {=
 =}
 
 main reactor {
-    timer t1(0, 1 sec);
     state blank:bool(false);
     d0 = new Display();
     imu0 = new Imu();
-    reaction(t1) -> imu0.trig {=
-        lf_set(imu0.trig, true);
-    =}
     reaction(imu0.x_accel, imu0.y_accel, imu0.z_accel) -> d0.line0, d0.line1 {=
         /// TODO: define max string size for line
         /// based on font you can have 4 or 8 lines 

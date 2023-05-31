@@ -27,6 +27,7 @@ Pico Support
 // for time and microsteps, you can simply define
 // PRINTF_TIME and PRINTF_MICROSTEP directly in the same file that
 // defines the types instant_t, interval_t, and microstep_t.
+// TODO: int 64 print format for pico 
 #define PRINTF_TIME "%" PRId32
 #define PRINTF_MICROSTEP "%" PRIu32
 

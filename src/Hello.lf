@@ -11,16 +11,69 @@ preamble {=
     #include <hardware/gpio.h>
 =}
 
-main reactor {
-    timer t1(0, 1000 sec);
-    state blank:bool(false);
-    d1 = new Display(); 
-    reaction(t1) -> d1.text, d1.blank {=
-        self->blank = !self->blank;
-        if (!self->blank) {
-            lf_set(d1.text, "Hello, World!"); 
-        } else {
-            lf_set(d1.blank, true);
-        }
+reactor TimerHello {
+    timer t_set(0, 2 sec);
+    timer t_clear(1 sec, 2 sec);
+    output out:string;
+    reaction(t_set) -> out {=
+        lf_set(out, "Hello, World!");
+    =} 
+    reaction(t_clear) -> out {=
+        lf_set(out, "");
     =}
+}
+
+reactor StateHello {
+    timer t_blit(0, 1 sec);
+    state blank:bool(false);
+    output out:string;
+    reaction(t_blit) -> out {=
+        if (!self->blank) {
+            lf_set(out, "Hello, World!");
+        } else {
+            lf_set(out, "");
+        }
+        self->blank = !self->blank;
+    =}
+}
+
+reactor LogicalHello {
+    timer t_set(0, 2 sec);
+    logical action clear;
+    output out:string;
+    reaction(t_set) -> out, clear {=
+        lf_set(out, "Hello, World!");
+        // fires at logical time lt + 1
+        lf_schedule(clear, SEC(1));
+    =}
+    reaction(clear) -> out {=
+        lf_set(out, "");
+    =}
+}
+
+reactor PhysicalHello {
+    timer t_set(0, 2 sec);
+    physical action clear;
+    output out:string
+    reaction(t_set) -> out, clear {=
+        lf_set(out, "Hello, World!");
+        // fires at physical time pt + 1
+        lf_schedule(clear, SEC(1));
+    =}
+    reaction(clear) -> out {=
+        lf_set(out, "");
+    =}
+}
+
+main reactor {
+    state_hello = new StateHello();
+    timer_hello = new TimerHello();
+    logical_hello = new LogicalHello();
+    physical_hello = new PhysicalHello();
+    display = new Display();
+
+    state_hello.out -> display.line0;
+    timer_hello.out -> display.line1;
+    logical_hello.out -> display.line2;
+    physical_hello.out -> display.line3;
 }
