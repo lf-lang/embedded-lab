@@ -11,6 +11,7 @@ Pico Support
 
 #include <inttypes.h>
 #include <pico/stdlib.h>
+#include <pico/sync.h>
 
 // Define PRINTF_TIME and PRINTF_MICROSTEP, which are the printf
 // codes (like the d in %d to print an int) for time and microsteps.
@@ -61,5 +62,13 @@ Pico Support
 // instant -> rpi pico docs on time module
 
 #define _LF_TIMEOUT 1
+
+#ifdef LF_THREADED
+typedef recursive_mutex_t lf_mutex_t;
+typedef semaphore_t lf_cond_t;
+typedef uint32_t lf_thread_t; 
+/// TODO: might use a custom runner scheme
+/// TODO: atomic definitions
+#endif 
 
 #endif // LF_PICO_SUPPORT_H

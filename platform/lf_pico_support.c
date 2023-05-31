@@ -68,7 +68,7 @@ void lf_initialize_clock(void) {
  *
  * Ideally, the underlying platform clock should be monotonic. However, the
  * core lib tries to enforce monotonicity at higher level APIs (see tag.h).
- *
+ * TODO: might want to use the RTC
  * @return 0 for success, or -1 for failure
  */
 int lf_clock_gettime(instant_t* t) {
@@ -100,20 +100,37 @@ int lf_sleep(interval_t sleep_duration) {
  * @return int 0 if sleep completed, or -1 if it was interrupted.
  */
 int lf_sleep_until_locked(instant_t wakeup_time) {
+    int ret_code = 0;
     if (wakeup_time < 0) {
-        return -1;
+        ret_code = -1;
+        return ret_code;
     }
     absolute_time_t target;
     // reset semaphore to 0
+    // TODO: leverage the semaphore permit number 
     sem_reset(&_lf_sem_irq_event, 0);
-    // TODO: maybe use a low power sleep here instead
+    /// TODO: maybe use rtc here
     target = from_us_since_boot((uint64_t) (wakeup_time / 1000));
-    if(sem_acquire_block_until(&_lf_sem_irq_event, target)) {
-        // semaphore acquired successfully before timeout
-        // irq was called during sleep 
-        return -1;
-    } 
-    return 0;
+    // enable interrupts
+    lf_critical_section_exit(&_lf_crit_sec);
+    // sleep till target or return on processor event
+    if (!best_effort_wfe_or_timeout(target)) {
+        // check sleep interrupted by lf irq event
+        if (sem_try_acquire(&_lf_sem_irq_event)) {
+            ret_code = -1;
+        } else {
+            // sleep returned due to non-notified event
+            // TODO: might not be needed
+            // see best_effort_wfe_or_timeout
+            // run a spin-lock sleep on remaining time
+            if(sem_acquire_block_until(&_lf_sem_irq_event, target)) {
+                // irq signaled 
+                ret_code = -1;
+            }
+        }
+    }
+    lf_critical_section_enter(&_lf_crit_sec);
+    return ret_code;
 }
 
 // For platforms with threading support, the following functions
@@ -146,7 +163,7 @@ void _pico_core_loader() {
 int lf_thread_create(lf_thread_t* thread, void *(*lf_thread) (void *), void* arguments) {
     /// TODO: wrap in secondary function that takes these arguments
     /// run that function on core1 with provided args 
-    multicore_launch_core1(lf_thread);
+    // multicore_launch_core1(lf_thread);
     // fill thread instance
 }
 
@@ -160,7 +177,6 @@ int lf_thread_create(lf_thread_t* thread, void *(*lf_thread) (void *), void* arg
  * @return 0 on success, platform-specific error number otherwise.
  */
 int lf_thread_join(lf_thread_t thread, void** thread_return) {
-
 }
 
 /**
@@ -169,16 +185,22 @@ int lf_thread_join(lf_thread_t thread, void** thread_return) {
  * @return 0 on success, platform-specific error number otherwise.
  */
 int lf_mutex_init(lf_mutex_t* mutex) {
-
+    recursive_mutex_init(mutex);
+    return 0;
 }
 
 /**
  * Lock a mutex.
  *
  * @return 0 on success, platform-specific error number otherwise.
+ * TODO: should this block?
  */
 int lf_mutex_lock(lf_mutex_t* mutex) {
-
+    if (!recursive_mutex_is_initialized(mutex)) {
+        return -1;
+    }
+    recursive_mutex_enter_blocking(mutex);
+    return 0;
 }
 
 /**
@@ -187,16 +209,22 @@ int lf_mutex_lock(lf_mutex_t* mutex) {
  * @return 0 on success, platform-specific error number otherwise.
  */
 int lf_mutex_unlock(lf_mutex_t* mutex) {
-
+    if (!recursive_mutex_is_initialized(mutex)) {
+        return -1;
+    }
+    recursive_mutex_exit(mutex);
+    return 0;
 }
 
 /**
  * Initialize a conditional variable.
- * TODO: use a semaphore
+ * TODO: use a semaphore, dont need a mutex here?
  * @return 0 on success, platform-specific error number otherwise.
  */
 int lf_cond_init(lf_cond_t* cond, lf_mutex_t* mutex) {
-
+    // set max permits to number of threads
+    sem_init(cond, 0, NUMBER_OF_WORKERS);
+    return 0;
 }
 
 /**
@@ -204,14 +232,27 @@ int lf_cond_init(lf_cond_t* cond, lf_mutex_t* mutex) {
  *
  * @return 0 on success, platform-specific error number otherwise.
  */
-extern int lf_cond_broadcast(lf_cond_t* cond);
+int lf_cond_broadcast(lf_cond_t* cond) {
+    // release all permits
+    while(sem_release(cond));
+    // check all released
+    if (sem_available(cond) != NUMBER_OF_WORKERS) {
+        return -1;
+    }
+    return 0;
+}
 
 /**
  * Wake up one thread waiting for condition variable cond.
  *
  * @return 0 on success, platform-specific error number otherwise.
  */
-extern int lf_cond_signal(lf_cond_t* cond);
+int lf_cond_signal(lf_cond_t* cond) {
+    if(!sem_release(cond)) {
+        return -1;
+    }
+    return 0;
+}
 
 /**
  * Wait for condition variable "cond" to be signaled or broadcast.
@@ -219,7 +260,10 @@ extern int lf_cond_signal(lf_cond_t* cond);
  *
  * @return 0 on success, platform-specific error number otherwise.
  */
-extern int lf_cond_wait(lf_cond_t* cond);
+int lf_cond_wait(lf_cond_t* cond) {
+    sem_acquire_blocking(cond);
+    return 0;
+}
 
 /**
  * Block current thread on the condition variable until condition variable
@@ -229,7 +273,14 @@ extern int lf_cond_wait(lf_cond_t* cond);
  * @return 0 on success, LF_TIMEOUT on timeout, and platform-specific error
  *  number otherwise.
  */
-extern int lf_cond_timedwait(lf_cond_t* cond, instant_t absolute_time_ns);
+int lf_cond_timedwait(lf_cond_t* cond, instant_t absolute_time_ns) {
+    absolute_time_t target;
+    target = from_us_since_boot((uint64_t) (absolute_time_ns / 1000));
+    if (!sem_acquire_block_until(cond, target)) {
+        return LF_TIMEOUT; 
+    }
+    return 0;
+}
 
 #endif // LF_THREADED
 #endif // PLATFORM_PICO
