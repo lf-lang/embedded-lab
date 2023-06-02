@@ -1,0 +1,27 @@
+target C {
+    build: "../platform/build_pico.sh",
+    //no-compile: true,
+    threading: false,
+}
+
+import Display from "lib/Display.lf"
+import Button from "lib/Button.lf"
+
+preamble {=
+    // sprintf
+    #include <stdio.h>
+=}
+
+main reactor {
+    state blank:bool(false);
+    d0 = new Display();
+    btn = new Button();
+    reaction(btn.press) -> d0.line0 {=
+        if (self->blank) {
+            lf_set(d0.line0, "");
+        } else {
+            lf_set(d0.line0, "Pressed!");
+        }
+        self->blank = !self->blank;
+    =} 
+}

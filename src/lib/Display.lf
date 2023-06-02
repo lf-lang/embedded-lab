@@ -66,18 +66,12 @@ reactor Display {
     reaction(line0, line1, line2, line3) {=
         // clear line in buffer
         display_fill(0);
-        if (line0->is_present) {
-            display_text(line0->value, 0, 0, COLOR_WHITE);
-        }
-        if (line1->is_present) {
-            display_text(line1->value, 0, 16, COLOR_WHITE); 
-        }
-        if (line2->is_present) {
-            display_text(line2->value, 0, 32, COLOR_WHITE);
-        }
-        if (line3->is_present) {
-            display_text(line3->value, 0, 48, COLOR_WHITE); 
-        }
+        // TODO: an assumption that last asserted value stays always on port
+        // TODO: state assumption
+        display_text(line0->value, 0, 0, COLOR_WHITE);
+        display_text(line1->value, 0, 16, COLOR_WHITE); 
+        display_text(line2->value, 0, 32, COLOR_WHITE);
+        display_text(line3->value, 0, 48, COLOR_WHITE); 
         // display buffer
         display_show();
     =}

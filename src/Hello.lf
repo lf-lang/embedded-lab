@@ -12,8 +12,8 @@ preamble {=
 =}
 
 reactor TimerHello {
-    timer t_set(0, 2 sec);
-    timer t_clear(1 sec, 2 sec);
+    timer t_set(0, 1 sec);
+    timer t_clear(500 msec, 1 sec);
     output out:string;
     reaction(t_set) -> out {=
         lf_set(out, "Hello, World!");
@@ -38,13 +38,13 @@ reactor StateHello {
 }
 
 reactor LogicalHello {
-    timer t_set(0, 2 sec);
+    timer t_set(0, 3 sec);
     logical action clear;
     output out:string;
     reaction(t_set) -> out, clear {=
         lf_set(out, "Hello, World!");
         // fires at logical time lt + 1
-        lf_schedule(clear, SEC(1));
+        lf_schedule(clear, MSEC(1500));
     =}
     reaction(clear) -> out {=
         lf_set(out, "");
@@ -52,13 +52,13 @@ reactor LogicalHello {
 }
 
 reactor PhysicalHello {
-    timer t_set(0, 2 sec);
+    timer t_set(0, 4 sec);
     physical action clear;
     output out:string
     reaction(t_set) -> out, clear {=
         lf_set(out, "Hello, World!");
         // fires at physical time pt + 1
-        lf_schedule(clear, SEC(1));
+        lf_schedule(clear, SEC(2));
     =}
     reaction(clear) -> out {=
         lf_set(out, "");
