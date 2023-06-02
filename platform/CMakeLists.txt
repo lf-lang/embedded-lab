@@ -57,7 +57,7 @@ pico_enable_stdio_uart(${LF_PICO_TARGET} 1)
 pico_add_extra_outputs(${LF_PICO_TARGET}) 
 
 # link sources  
-target_link_libraries(${LF_PICO_TARGET} pico_stdlib)
+target_link_libraries(${LF_PICO_TARGET} pico_stdlib pico_multicore pico_sync)
 target_link_libraries(${LF_PICO_TARGET} pololu_3pi_2040_robot)
 target_link_libraries(${LF_PICO_TARGET} core)
 

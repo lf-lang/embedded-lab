@@ -6,11 +6,14 @@
 #include "tag.h"
 
 #include <pico/stdlib.h>
+#include <pico/multicore.h>
 #include <pico/sync.h>
 
+// critical section struct binding
 static critical_section_t _lf_crit_sec;
 // semaphore used to notify if sleep was interupted by irq 
 static semaphore_t _lf_sem_irq_event;
+static uint32_t _lf_num_nested_critical_sections = 0;
 
 /**
  * Enter a critical section where logical time and the event queue are guaranteed
@@ -22,8 +25,13 @@ static semaphore_t _lf_sem_irq_event;
  * TODO: needs to be used sparingly 
  */
 int lf_critical_section_enter() {
+    if (!critical_section_is_initialized(&_lf_crit_sec)) {
+        return 1;
+    } 
     // disables irq and spin-locks core
-    critical_section_enter_blocking(&_lf_crit_sec);
+    if (_lf_num_nested_critical_sections++ == 0) {
+        critical_section_enter_blocking(&_lf_crit_sec);
+    }
     return 0;
 }
 
@@ -34,8 +42,14 @@ int lf_critical_section_enter() {
  * mutual exclusion for embedded platforms. better leverage the nvic 
  */
 int lf_critical_section_exit() {
+    if (!critical_section_is_initialized(&_lf_crit_sec) ||
+        _lf_num_nested_critical_sections <= 0) {
+        return 1;
+    } 
     // restores system execution state
-    critical_section_exit(&_lf_crit_sec);
+    if (--_lf_num_nested_critical_sections == 0) {
+        critical_section_exit(&_lf_crit_sec);
+    }
     return 0;
 }
 
@@ -109,25 +123,11 @@ int lf_sleep_until_locked(instant_t wakeup_time) {
     // reset semaphore to 0
     // TODO: leverage the semaphore permit number 
     sem_reset(&_lf_sem_irq_event, 0);
-    /// TODO: maybe use rtc here
     target = from_us_since_boot((uint64_t) (wakeup_time / 1000));
-    // enable interrupts
     lf_critical_section_exit(&_lf_crit_sec);
     // sleep till target or return on processor event
-    if (!best_effort_wfe_or_timeout(target)) {
-        // check sleep interrupted by lf irq event
-        if (sem_try_acquire(&_lf_sem_irq_event)) {
-            ret_code = -1;
-        } else {
-            // sleep returned due to non-notified event
-            // TODO: might not be needed
-            // see best_effort_wfe_or_timeout
-            // run a spin-lock sleep on remaining time
-            if(sem_acquire_block_until(&_lf_sem_irq_event, target)) {
-                // irq signaled 
-                ret_code = -1;
-            }
-        }
+    if(sem_acquire_block_until(&_lf_sem_irq_event, target)) {
+        ret_code = -1;
     }
     lf_critical_section_enter(&_lf_crit_sec);
     return ret_code;
@@ -151,6 +151,7 @@ void _pico_core_loader() {
     // functions with specific through a comunicating api call
     // the api call will be used by thread create and join
     // alternatively use free-rtos an launch tasks
+    /// TODO: create a dispatcher program that runs on the second core similar to rtic
 }
 
 /**
