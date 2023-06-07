@@ -26,7 +26,7 @@ message(PICO_PATH="${PICO_SDK_PATH}")
 message(ROBOT_PATH="${3PI_ROBOT_LIB_PATH}")
 
 # debug messages
-include("$ENV{PICO_SDK_PATH}/pico_sdk_init.cmake")
+include("${PICO_SDK_PATH}/pico_sdk_init.cmake")
 project(${LF_PICO_TARGET} C CXX ASM)
 
 # leverage compile definitions?
