@@ -52,5 +52,5 @@ Mkfile.old
 dkms.conf
 
 src-gen/
-include/
 .vscode/
+lib/pico-sdk/
