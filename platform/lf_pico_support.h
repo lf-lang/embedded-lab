@@ -64,11 +64,14 @@ Pico Support
 #define _LF_TIMEOUT 1
 
 #ifdef LF_THREADED
+
 typedef recursive_mutex_t lf_mutex_t;
 typedef semaphore_t lf_cond_t;
 typedef uint32_t lf_thread_t; 
+
 /// TODO: might use a custom runner scheme
 /// TODO: atomic definitions
+
 #endif 
 
 #endif // LF_PICO_SUPPORT_H

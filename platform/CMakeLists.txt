@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # set library paths
+# TODO: use a singluar SDK path filled in by lingo
 if (DEFINED ENV{LF_SOURCE_GEN_DIRECTORY})   
   get_filename_component(LF_PICO_TARGET $ENV{LF_SOURCE_GEN_DIRECTORY} NAME)
   message(DIR_NAME="${LF_PICO_TARGET}")
@@ -38,6 +39,8 @@ message(SYSTEM=${CMAKE_SYSTEM_NAME})
 # libraries
 add_subdirectory(${3PI_ROBOT_LIB_PATH}/pololu_3pi_2040_robot pololu_3pi_2040_robot)
 add_subdirectory(core)
+# link in reactor-c platform support dependencies
+target_link_libraries(core pico_stdlib pico_multicore pico_sync)
 
 # generated sources
 FILE(GLOB GEN_SOURCES *.c)
@@ -49,11 +52,11 @@ add_executable(
 
 # pico_sdk configs
 # OPTION 1 : USB stdio
-#pico_enable_stdio_usb(${LF_PICO_TARGET} 1)
-#pico_enable_stdio_uart(${LF_PICO_TARGET} 0)
+pico_enable_stdio_usb(${LF_PICO_TARGET} 1)
+pico_enable_stdio_uart(${LF_PICO_TARGET} 0)
 # OPTION 2 : UART stdio
-pico_enable_stdio_usb(${LF_PICO_TARGET} 0)
-pico_enable_stdio_uart(${LF_PICO_TARGET} 1)
+#pico_enable_stdio_usb(${LF_PICO_TARGET} 0)
+#pico_enable_stdio_uart(${LF_PICO_TARGET} 1)
 pico_add_extra_outputs(${LF_PICO_TARGET}) 
 
 # link sources  

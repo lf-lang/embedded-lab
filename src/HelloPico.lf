@@ -1,0 +1,13 @@
+target C {
+    build: "../platform/build_pico.sh",
+    platform: "Pico",
+    //no-compile: true,
+    threading: false,
+    cmake-include: ["../platform/pico_config.txt"],
+}
+
+main reactor {
+    reaction(startup) {=
+        printf("Hello World!\n");
+    =}
+}
