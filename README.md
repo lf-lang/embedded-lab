@@ -1,17 +1,6 @@
 # lf-pico
 Support for the lingua franca runtime on the raspberry pi pico
 
-## Cloning
-The repository depends on various submodules but many aren't required for specific modes of operation.
-The pico-sdk module is required for running on any rp2040 based platform.
-For running code on the [pololu 3pi 2040](https://www.pololu.com/category/300/3pi-plus-2040-robot) robot, the pololu-3pi-2040-robot submodule is required. 
-TODO: remove submodule and support a custom robot lib. 
-For debugging purposes, a secondary pico can be used and must be flashed with the picoprobe firmware.
-Run to initialize all submodules.     
-``
-git submodule update --init --recursive
-``
-
 ## Overview
 Tooling here allows for directly flashing lf programs to the
 rpi-pico or using a secondary pico board as a 
@@ -20,6 +9,7 @@ debugger using the [picoprobe](https://github.com/raspberrypi/picoprobe) applica
 Adding the pico-sdk to the global path allows for easier cmake additions in headers and avoids
 relative headers but is not required. For the specific platform, define the environment variable **PICO_SDK_PATH** with the path to the cloned sdk.
 
+TODO: lingo init steps
 
 ## Flashing
 - Install Toolchain
