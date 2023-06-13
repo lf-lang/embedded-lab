@@ -1,0 +1,13 @@
+[package]
+name = "lf-pico"
+version = "0.1.0"
+
+[[app]]
+target = "C"
+platform = "Pico"
+main_reactor = "./src/HelloPico.lf"
+
+[app.dependencies]
+# TODO
+
+[app.properties]
