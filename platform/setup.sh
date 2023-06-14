@@ -16,8 +16,7 @@ echo $ROOT_DIR
 # only init if not in path
 # do not recursive init
 if [[ -z "${PICO_SDK_PATH}" ]]; then
-    echo "cloning pico-sdk"
-    git clone -b develop "git@github.com:raspberrypi/pico-sdk.git" ./lib/pico-sdk/
+    echo "init pico-sdk"
     cd ./lib/pico-sdk
     git submodule update --init
     # dont add to env if not there
@@ -40,15 +39,15 @@ cmake ..
 cmake --build .
 
 # setup probe binary
-cd $ROOT_DIR
-mkdir tmp
-git clone git@github.com:raspberrypi/picotool.git ./tmp/picotool 
-cd ./tmp/picotool/
-git submodule update --init --recursive
-mkdir build/
-cd build
-cmake ..
-cmake --build .
+#cd $ROOT_DIR
+#mkdir tmp
+#git clone git@github.com:raspberrypi/picotool.git ./tmp/picotool 
+#cd ./tmp/picotool/
+#git submodule update --init --recursive
+#mkdir build/
+#cd build
+#cmake ..
+#cmake --build .
 
 
 cd $ROOT_DIR
