@@ -11,12 +11,22 @@ relative headers but is not required. For the specific platform, define the envi
 
 TODO: lingo init steps
 
-## Scripts
-Use platform/setup.sh
+## Setup
+TODO: merge into main LFC branch
+The setup uses this branch of LFC to properly generate the cmake and provide the correct support files 
+[pico](https://github.com/lf-lang/lingua-franca/tree/pico). Checkout this branch and build the lfc tool.
+After, run the setup script from the root directory. This will populate the sdk submodule and build
+the picoprobe.uf2 used for debugging the robot.
+```
+platform/setup.sh
+```
+
+TODO: use picotool for auto testing and flashing
 
 ## Flashing
 - Install Toolchain
-the pico uses the GNU arm toolchain. Install [here](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
+The pico uses the GNU arm toolchain. 
+Install [here](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
 
 `` 
 sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib

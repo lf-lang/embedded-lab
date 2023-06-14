@@ -1,9 +1,7 @@
-if (DEFINED ENV{PICO_3PI_SDK_PATH})
-  set(3PI_ROBOT_LIB_PATH $ENV{PICO_3PI_SDK_PATH})
-else()
-  #set(3PI_ROBOT_LIB_PATH robot_lib/)
-  set(3PI_ROBOT_LIB_PATH ./../../lib/pololu-3pi-2040-robot/c)
+if (DEFINED ENV{ROBOT_LIB_PATH})
+  set(ROBOT_LIB $ENV{ROBOT_LIB_PATH})
+  message(ROBOT_LIB="${ROBOT_LIB}")
 endif()
 
-add_subdirectory(${3PI_ROBOT_LIB_PATH}/pololu_3pi_2040_robot pololu_3pi_2040_robot)
+add_subdirectory(${ROBOT_LIB} pololu_3pi_2040_robot)
 target_link_libraries(${LF_MAIN_TARGET} pololu_3pi_2040_robot)

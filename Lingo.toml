@@ -8,6 +8,8 @@ platform = "Pico"
 main_reactor = "./src/HelloPico.lf"
 
 [app.dependencies]
+# add a sdk path property
+# provide the cmake with a configuration
 # TODO
 
 [app.properties]
