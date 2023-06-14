@@ -6,8 +6,14 @@ target C {
     cmake-include: ["../platform/pico_config.txt"],
 }
 
+preamble {=
+    #include <stdio.h>
+    #include "pico/stdlib.h"
+=}
+
 main reactor {
-    reaction(startup) {=
+    timer t1(0, 1 sec); 
+    reaction(t1) {=
         printf("Hello World!\n");
     =}
 }

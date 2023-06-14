@@ -21,3 +21,5 @@ cmake --build .
 #cmake -b build
 #cmake --build .
 
+# try to flash
+# monitor on screen
