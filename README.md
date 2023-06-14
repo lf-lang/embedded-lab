@@ -11,6 +11,9 @@ relative headers but is not required. For the specific platform, define the envi
 
 TODO: lingo init steps
 
+## Scripts
+Use platform/setup.sh
+
 ## Flashing
 - Install Toolchain
 the pico uses the GNU arm toolchain. Install [here](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)

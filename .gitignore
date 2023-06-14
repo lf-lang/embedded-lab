@@ -54,6 +54,3 @@ dkms.conf
 # lf
 src-gen/
 .vscode/
-
-# pico deps
-lib/pico-sdk/

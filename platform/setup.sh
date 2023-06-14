@@ -8,13 +8,20 @@ sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-n
 
 ROOT_DIR=$PWD
 echo $ROOT_DIR
+# TODO: check root dir
 
 # clone pico-sdk
+# TODO: 
+# maybe keep it as a submodule
+# only init if not in path
+# do not recursive init
 if [[ -z "${PICO_SDK_PATH}" ]]; then
     echo "cloning pico-sdk"
     git clone -b develop "git@github.com:raspberrypi/pico-sdk.git" ./lib/pico-sdk/
     cd ./lib/pico-sdk
     git submodule update --init
+    # dont add to env if not there
+    # use a lingo property 
     echo "export PICO_SDK_PATH=$ROOT_DIR/lib/pico-sdk" >> ~/.bashrc
     source ~/.bashrc
 else
@@ -32,10 +39,20 @@ cd build
 cmake ..
 cmake --build .
 
+# setup probe binary
+cd $ROOT_DIR
+mkdir tmp
+git clone git@github.com:raspberrypi/picotool.git ./tmp/picotool 
+cd ./tmp/picotool/
+git submodule update --init --recursive
+mkdir build/
+cd build
+cmake ..
+cmake --build .
+
+
 cd $ROOT_DIR
 cp ./tmp/picoprobe/build/picoprobe.uf2 ./picoprobe.uf2
 
-# setup pico-tool
-rm -rf ./tmp/
 
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # vscode settings
+# TODO: lfc should handle this
 cd ${LF_SOURCE_GEN_DIRECTORY}
 mkdir .vscode
 cp "../../platform/launch.json" "${LF_SOURCE_GEN_DIRECTORY}/.vscode"
