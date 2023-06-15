@@ -12,16 +12,43 @@ relative headers but is not required. For the specific platform, define the envi
 TODO: lingo init steps
 
 ## Setup
-TODO: merge into main LFC branch
-The setup uses this branch of LFC to properly generate the cmake and provide the correct support files 
-[pico](https://github.com/lf-lang/lingua-franca/tree/pico). Checkout this branch and build the lfc tool.
+The setup uses this branch of LFC to properly generate the cmake and
+provide the correct support files, 
+[pico](https://github.com/lf-lang/lingua-franca/tree/pico). 
+Checkout this branch and build the lfc tool or download
+the tool release [here]().
+
 After, run the setup script from the root directory. This will populate the sdk submodule and build
 the picoprobe.uf2 used for debugging the robot.
 ```
-platform/setup.sh
+platform/pico_setup.sh
 ```
 
-TODO: use picotool for auto testing and flashing
+### WSL Setup
+It is recommend to use WSL when developing on a windows machine.
+Use the following [installation](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) instructions to install usb support.
+
+To mount the a pico device to the wsl instance, run the following in
+an administrator powershell to find the correct bus and attach.
+
+```
+usbipd wsl list
+usbipd wsl attach --busid <busid>
+```
+
+In the wsl instance, run the following to verify the device has mounted.
+
+```
+lsusb
+```
+
+TODO: add how to install udev permissions what is udev?
+For debuging with the picoprobe, udev permissions have to 
+be setup and restart everytime the probe is used.
+
+```
+sudo service udev restart && sudo udevadm trigger
+```
 
 ## Flashing
 - Install Toolchain
@@ -51,3 +78,8 @@ and an elf file.
 TODO: Add instructions on how to analyze and automatically flash binaries using the pico-tool
 
 ## Debugging
+Use minicom to open a console terminal an interact with the pico.
+TODO: doesnt work on the robot?
+```
+minicom -b 115200 -o -D /dev/ttyACM0
+```

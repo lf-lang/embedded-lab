@@ -1,0 +1,25 @@
+add_library(robot
+  src/battery.c
+  src/button.c
+  src/display.c
+  src/font_8x8.c
+  src/font_8x16.c
+  src/ir_sensors.c
+  src/motors.c
+  src/rgb_leds.c
+  src/sh1106.c
+  src/yellow_led.c
+  src/imu.c
+)
+pico_generate_pio_header(robot
+  ${CMAKE_CURRENT_LIST_DIR}/qtr_sensor_counter.pio
+)
+target_include_directories(robot PUBLIC include)
+target_link_libraries(robot
+  pico_stdlib
+  hardware_adc
+  hardware_pio
+  hardware_pwm
+  hardware_spi
+  hardware_i2c
+)

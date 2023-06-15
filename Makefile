@@ -11,4 +11,3 @@ clean:
 	rm -rf bin/
 	rm -rf include/
 	rm -rf build/
-	rm picoprobe.uf2
