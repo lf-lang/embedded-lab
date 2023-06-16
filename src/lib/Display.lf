@@ -1,6 +1,5 @@
 target C {
-    build: "../platform/build_pico.sh",
-    //no-compile: true,
+    platform: "Pico",
     threading: false,
 }
 

@@ -1,8 +1,10 @@
 target C {
-    build: "../platform/build_pico.sh",
     platform: "Pico",
-    //no-compile: true,
+    files: ["../lib/"],
+    no-compile: true,
     threading: false,
+    cmake-include: ["../platform/pico_config.txt", 
+                    "../platform/robot_lib.txt"],
 }
 
 import Display from "lib/Display.lf"

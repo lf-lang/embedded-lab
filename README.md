@@ -9,8 +9,6 @@ debugger using the [picoprobe](https://github.com/raspberrypi/picoprobe) applica
 Adding the pico-sdk to the global path allows for easier cmake additions in headers and avoids
 relative headers but is not required. For the specific platform, define the environment variable **PICO_SDK_PATH** with the path to the cloned sdk.
 
-TODO: lingo init steps
-
 ## Setup
 The setup uses this branch of LFC to properly generate the cmake and
 provide the correct support files, 
@@ -18,8 +16,10 @@ provide the correct support files,
 Checkout this branch and build the lfc tool or download
 the tool release [here]().
 
-After, run the setup script from the root directory. This will populate the sdk submodule and build
-the picoprobe.uf2 used for debugging the robot.
+After, run the setup script from the root directory.
+This will populate a directory ./pico/ with all raspberry pi pico
+related dependencies and will build a few simple examples 
+for getting started. script [source](https://github.com/michaelstoops/pico-setup/tree/master) 
 ```
 platform/pico_setup.sh
 ```
@@ -51,6 +51,7 @@ sudo service udev restart && sudo udevadm trigger
 ```
 
 ## Flashing
+TODO: use picotool
 - Install Toolchain
 The pico uses the GNU arm toolchain. 
 Install [here](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)

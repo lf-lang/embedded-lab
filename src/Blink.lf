@@ -1,8 +1,12 @@
 target C {
-    build: "../platform/build_pico.sh",
-    //no-compile: true,
+    platform: "Pico",
+    files: ["../lib/"],
+    no-compile: true,
     threading: false,
+    cmake-include: ["../platform/pico_config.txt", 
+                    "../platform/robot_lib.txt"],
 }
+
 
 preamble {=
     #include <pico/stdlib.h>
