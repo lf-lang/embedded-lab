@@ -1,0 +1,34 @@
+target C {
+    platform: "Pico",
+    threading: false,
+}
+
+preamble {=
+    #include <math.h> 
+    #include <hardware/pio.h>
+    #include <pololu_3pi_2040_robot.h>
+
+    // pin defines
+    #define RIGHT_ENCODER_AB 8
+    #define LEFT_ENCODER_AB 12
+    #define RIGHT_SM 0
+    #define LEFT_SM 1
+=}
+
+reactor Encoders {
+    timer t1(0, 10 msec);
+    output right_cnt:int; 
+    output left_cnt:int;
+    reaction(startup) {=
+        PIO pio = pio0;
+        pio_add_program(pio, &quadrature_encoder_program);
+        quadrature_encoder_program_init(pio, RIGHT_SM, RIGHT_ENCODER_AB, 0);
+        quadrature_encoder_program_init(pio, LEFT_SM, LEFT_ENCODER_AB, 0);
+    =}
+    reaction(t1) -> left_cnt, right_cnt {=
+        int32_t rcnt = quadrature_encoder_get_count(pio0, RIGHT_SM);
+        int32_t lcnt = quadrature_encoder_get_count(pio0, LEFT_SM);
+        lf_set(right_cnt, rcnt);
+        lf_set(left_cnt, lcnt);
+    =}
+}

@@ -1,0 +1,82 @@
+target C {
+    platform: "Pico",
+    threading: false,
+}
+
+preamble {=
+    #include <math.h>
+    
+    #include <hardware/gpio.h>
+    #include <hardware/pwm.h>
+    #include <hardware/clocks.h>
+
+    // pin defines
+    #define RIGHT_MOTOR_DIR 10
+    #define LEFT_MOTOR_DIR 11
+    #define RIGHT_MOTOR_SPEED 14
+    #define LEFT_MOTOR_SPEED 15
+=}
+
+// the pwm pins map to the same pwm slice
+// each is controlled by a different channel
+// input pwr: clamped value [-1.0 , 1.0]
+// determines the pwm frequency
+// should be high enough for the motor low pass
+// tradeoff with pwm granularity
+reactor Motors {
+    input left_pwr:float;
+    input right_pwr:float;
+    state wrap_cnt:uint16_t(0);
+
+    reaction(startup) {=
+        pwm_config cfg;
+        uint32_t slice;
+        
+        uint32_t f_clk_sys = clock_get_hz(clk_sys); 
+        uint16_t wrap_cnt = 0xffff;
+        uint8_t div = 1;
+        
+        // setup motor direction pin
+        gpio_init(RIGHT_MOTOR_DIR);
+        gpio_set_dir(RIGHT_MOTOR_DIR, GPIO_OUT);
+        gpio_init(LEFT_MOTOR_DIR);
+        gpio_set_dir(LEFT_MOTOR_DIR, GPIO_OUT);
+        
+        // setup motor pwm pins
+        gpio_set_function(RIGHT_MOTOR_SPEED, GPIO_FUNC_PWM);
+        gpio_set_function(LEFT_MOTOR_SPEED, GPIO_FUNC_PWM);
+
+        // config pwm slice (7)
+        slice = pwm_gpio_to_slice_num(RIGHT_MOTOR_SPEED); 
+        // TODO: optimize these
+        cfg = pwm_get_default_config();
+        pwm_config_set_clkdiv_int_frac(&cfg, div, 0);
+        pwm_config_set_wrap(&cfg, wrap_cnt);
+        pwm_init(slice, &cfg, true);
+        self->wrap_cnt = wrap_cnt;
+    =}
+
+    reaction(left_pwr) {=
+        bool dir;
+        uint16_t speed;
+        // TODO: use macros
+        left_pwr->value = fminf(fmaxf(left_pwr->value, -1.0), 1.0);
+        // switch motor direction when positive
+        dir = (left_pwr->value > 0);
+        speed = fabsf(left_pwr->value) * self->wrap_cnt;
+        gpio_put(LEFT_MOTOR_DIR, dir);
+        pwm_set_gpio_level(LEFT_MOTOR_SPEED, speed);
+    =}
+    
+    reaction(right_pwr) {=
+        bool dir;
+        uint16_t speed;
+        // TODO: use macros
+        right_pwr->value = fminf(fmaxf(right_pwr->value, -1.0), 1.0);
+        // switch motor direction when negative
+        dir = (right_pwr->value > 0);
+        speed = fabsf(right_pwr->value) * self->wrap_cnt;
+        gpio_put(RIGHT_MOTOR_DIR, dir);
+        pwm_set_gpio_level(RIGHT_MOTOR_SPEED, speed);
+    =}
+}

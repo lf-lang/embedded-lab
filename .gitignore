@@ -54,6 +54,7 @@ dkms.conf
 # lf
 src-gen/
 .vscode/
+include/
 
 # pico setup script location
 pico/

@@ -1,0 +1,63 @@
+target C {
+    platform: "Pico",
+    files: ["../lib/"],
+    no-compile: true,
+    threading: false,
+    cmake-include: ["../platform/pico_config.txt", 
+                    "../platform/robot_lib.txt"],
+}
+
+import Display from "lib/Display.lf"
+import Motors from "lib/Motors.lf"
+import Encoders from "lib/Encoders.lf"
+
+preamble {=
+    // sprintf
+    #include <stdio.h>
+=}
+
+main reactor {
+    d0 = new Display();
+    m0 = new Motors();
+    e0 = new Encoders();
+
+    logical action start;
+    logical action stop;
+
+    reaction(startup) -> start, m0.left_pwr, m0.right_pwr, d0.line0 {=
+        lf_set(m0.left_pwr, 0);
+        lf_set(m0.right_pwr, 0);
+        lf_set(d0.line0, "STOP");
+        lf_schedule(start, SEC(5));
+    =}
+
+    reaction(start) -> m0.left_pwr, m0.right_pwr, d0.line0 {=
+        lf_set(m0.left_pwr, 0.2);
+        lf_set(m0.right_pwr, 0.2);
+        lf_set(d0.line0, "RUNNING");
+    =}
+
+    reaction(e0.left_cnt) -> d0.line1, stop {=
+        static char buf[17];
+        snprintf(buf, 17, "lcnt: %d", e0.left_cnt->value);
+        lf_set(d0.line1, buf);
+        if (e0.left_cnt->value <= -1080) {
+            lf_schedule(stop, 0);
+        } 
+    =}
+    
+    reaction(e0.right_cnt) -> d0.line2, stop {=
+        static char buf[17];
+        snprintf(buf, 17, "rcnt: %d", e0.right_cnt->value);
+        lf_set(d0.line2, buf); 
+        if (e0.right_cnt->value <= -1080) {
+            lf_schedule(stop, 0);
+        } 
+    =}
+    
+    reaction(stop) -> m0.left_pwr, m0.right_pwr, d0.line0 {=
+        lf_set(m0.left_pwr, 0);
+        lf_set(m0.right_pwr, 0);
+        lf_set(d0.line0, "STOP");
+    =}
+}

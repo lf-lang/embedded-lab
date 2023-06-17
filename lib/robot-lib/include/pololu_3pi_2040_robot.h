@@ -1,9 +1,8 @@
 // Copyright (C) Pololu Corporation.  See LICENSE.txt for details.
 
-/// @file pololu_3pi_2040_robot.h
+/// @file robot.h
 ///
 /// This is the main header file for the C library for the
-/// Pololu 3pi+ 2040 Robot.
 
 #pragma once
 
@@ -11,10 +10,10 @@
 #include "button.h"
 #include "display.h"
 #include "ir_sensors.h"
-#include "motors.h"
 #include "rgb_leds.h"
 #include "sh1106.h"
 #include "imu.h"
+#include <quadrature_encoder.pio.h>
 
 /// Turns the yellow LED on if the argument is 1, or off if the argument is 0.
 void yellow_led(bool);
