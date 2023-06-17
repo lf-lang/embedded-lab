@@ -14,7 +14,7 @@ The setup uses this branch of LFC to properly generate the cmake and
 provide the correct support files, 
 [pico](https://github.com/lf-lang/lingua-franca/tree/pico). 
 Checkout this branch and build the lfc tool or download
-the tool release [here]().
+the tool release TODO:[here]().
 
 After, run the setup script from the root directory.
 This will populate a directory ./pico/ with all raspberry pi pico
