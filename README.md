@@ -53,21 +53,18 @@ sudo service udev restart && sudo udevadm trigger
 ## Flashing
 After setup, run the following in the root 
 
-``
+```
 lfc src/<app>.lf
-
 code ./src-gen/<app>/
-``
+```
+
 If the vscode instance was setup properly during setup, all necessary plugins will be installed
 and cmake will automatically build. If this process doesnt start immediately, run
 
 ```
 mkdir build
-
 cd build
-
 cmake ../
-
 cmake ./ -build
 ```
 
