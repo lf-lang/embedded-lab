@@ -51,30 +51,32 @@ sudo service udev restart && sudo udevadm trigger
 ```
 
 ## Flashing
-TODO: use picotool
-- Install Toolchain
-The pico uses the GNU arm toolchain. 
-Install [here](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
-
-`` 
-sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
-``
-
 After setup, run the following in the root 
 
 ``
-lfc src/<file>.lf
-cd src-gen/<file>/build
-make .
-``
+lfc src/<app>.lf
 
-The custom build script will open a new vscode instance and run cmake to 
-generate the build files for the project. The build directory will also be populated with a uf2 file
-and an elf file. 
+code ./src-gen/<app>/
+``
+If the vscode instance was setup properly during setup, all necessary plugins will be installed
+and cmake will automatically build. If this process doesnt start immediately, run
+
+```
+mkdir build
+
+cd build
+
+cmake ../
+
+cmake ./ -build
+```
+
+The build directory will be populated with a uf2 file and an elf file. 
+The uf2 file is primarily used for flashing the pico directly.
 - Enter into bootsel mode
     - On 3pi 2040, hold the b button and press the reset button
 - Connect the hardware to the host device
-- Drag the uf2 or elf file to the newly mounted storage
+- Drag the uf2 to the newly mounted storage
 
 TODO: Add instructions on how to analyze and automatically flash binaries using the pico-tool
 
