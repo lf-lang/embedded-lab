@@ -10,19 +10,7 @@ lfc src/Blink.lf
 
 This will create a `src-gen/Blink` directory that contains the C source code that can be compiled and run on the RPi-Pico.
 
-## Compiling the Generated Code
-
-The toolchain uses `cmake`, a commonly used build tool. To compile the generated code, do this:
-
-```
-cd src-gen/Blink
-mkdir build
-cd build
-cmake ..
-make
-```
-
-This creates a number of files, the most important of which is `Blink.uf2`, which can be uploaded to the RPi-Pico.
+The above `lfc` command will also compile the generated code, creating a number of files, the most important of which is `Blink.uf2`, which can be uploaded to the RPi-Pico. 
 
 ## Uploading to the RPi-Pico
 
