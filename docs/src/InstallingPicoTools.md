@@ -38,7 +38,7 @@ $ brew tap ArmMbed/homebrew-formulae
 To make sure your installation has worked, compile the example programs provided with the pico-sdk.  Assuming you have cloned `lf-pico`, then from the `lf-pico` root directory, do this:
 
 ```
-cd lib/pico-examples
+cd pico/pico-examples
 mkdir build
 cd build
 cmake ..
@@ -47,7 +47,7 @@ make
 After a while, the build directory will have subdirectories for many examples.  To load the Blink example onto the robot (which simply blinks an LED):
 
 * Plug the robot into the USB port of your computer.
-* Put the robot in boot loader mode by holding the B button while pressing the reset button. You should see an external disk appear with a name like `RPI-RP2`.
+* Put the robot in BOOTSEL mode by holding the B button while pressing the reset button. You should see an external disk appear with a name like `RPI-RP2`.
 * Open the `RPI-RP2` folder.
 * Drag the `blink.uf2` (in `lib/pico-examples/build/blink`) into the `RPI-RP2` folder.
 
