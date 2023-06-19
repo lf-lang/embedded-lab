@@ -51,8 +51,12 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Mac junk files
+.DS_Store
+
 # lf
 src-gen/
+/include/
 .vscode/
 include/
 

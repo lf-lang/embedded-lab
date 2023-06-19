@@ -32,8 +32,8 @@ reactor Motors {
         pwm_config cfg;
         uint32_t slice;
         
-        uint32_t f_clk_sys = clock_get_hz(clk_sys); 
-        uint16_t wrap_cnt = 0xffff;
+        //uint32_t f_clk_sys = clock_get_hz(clk_sys); 
+        uint16_t wrap_cnt = 0x0FFF; // 4095
         uint8_t div = 1;
         
         // setup motor direction pin
@@ -49,6 +49,8 @@ reactor Motors {
         // config pwm slice (7)
         slice = pwm_gpio_to_slice_num(RIGHT_MOTOR_SPEED); 
         // TODO: optimize these
+        // pwm_freq = f_clk_sys / wrap_cnt
+        // 125000000 / 4095 ~ 30000
         cfg = pwm_get_default_config();
         pwm_config_set_clkdiv_int_frac(&cfg, div, 0);
         pwm_config_set_wrap(&cfg, wrap_cnt);
@@ -60,7 +62,7 @@ reactor Motors {
         bool dir;
         uint16_t speed;
         // TODO: use macros
-        left_pwr->value = fminf(fmaxf(left_pwr->value, -1.0), 1.0);
+        left_pwr->value = MIN(MAX(left_pwr->value, -1.0), 1.0);
         // switch motor direction when positive
         dir = (left_pwr->value > 0);
         speed = fabsf(left_pwr->value) * self->wrap_cnt;
@@ -72,7 +74,7 @@ reactor Motors {
         bool dir;
         uint16_t speed;
         // TODO: use macros
-        right_pwr->value = fminf(fmaxf(right_pwr->value, -1.0), 1.0);
+        right_pwr->value = MIN(MAX(right_pwr->value, -1.0), 1.0);
         // switch motor direction when negative
         dir = (right_pwr->value > 0);
         speed = fabsf(right_pwr->value) * self->wrap_cnt;
