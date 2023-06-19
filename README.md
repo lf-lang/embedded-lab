@@ -4,6 +4,13 @@ You can build LF programs and flash them directly onto the RPi-Pico or using a s
 
 ## Instructions
 
+The repository includes a [mdbook](https://github.com/rust-lang/mdBook) in /docs that serves as documentation for the repo. 
+The book is currently hosted [here](https://www.lf-lang.org/lf-pico/). 
+The book can also be built and served locally after installing mdbook and running.
+```
+mdbook serve docs/
+```
+
 * [Install lf-pico](docs/InstallLFPico.md)
 * [Using lf-pico](docs/UsingLFPico.md)
 
