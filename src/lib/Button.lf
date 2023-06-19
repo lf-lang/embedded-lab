@@ -26,7 +26,7 @@ reactor Button {
         btn_action = fall_edge;
     =} 
     reaction(fall_edge) -> press {=
-        // set output 
-        lf_set(press, true); 
+        // set output
+        lf_set(press, true);
     =}
 }

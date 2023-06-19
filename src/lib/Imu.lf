@@ -11,25 +11,68 @@ preamble {=
     static imu_inst_t imu_inst;
 =}
 
+
+reactor GyroEuler {
+    timer t1(0, 10 msec);
+    input rst:bool;
+    output gyro:axes_data_t;
+    // x,y,z
+    state prev_deg:axes_data_t(0.0, 0.0, 0.0);
+
+    reaction(rst) {=
+        // reset
+        self->prev_deg.x = 0.0;
+        self->prev_deg.y = 0.0;
+        self->prev_deg.z = 0.0;
+    =}
+
+    // integrate gyro 
+    reaction(t1) -> gyro {=
+        axes_data_t gyro_data;
+        imu_read_gyro(&imu_inst, &gyro_data);
+        self->prev_deg.x += 0.01 * gyro_data.x; 
+        self->prev_deg.y += 0.01 * gyro_data.y; 
+        self->prev_deg.z += 0.01 * gyro_data.z;
+        // set to integrated value 
+        lf_set(gyro, self->prev_deg);
+    =} 
+}
+
 reactor Imu {
-    timer t1(0, 100 msec); 
+    timer t1(0, 100 msec);
+    
+    // integrate gyro when asserted
+    input rst_gyro:bool;
+
     output x_accel:float;
     output y_accel:float;
     output z_accel:float;
+
+    output x_gyro:float;
+    output y_gyro:float;
+    output z_gyro:float;
+
+    // x,y,z
+    gyro0 = new GyroEuler();
+    rst_gyro -> gyro0.rst;
 
     reaction(startup) {=
         imu_init(&imu_inst);
         imu_reset(&imu_inst);
         imu_set_default(&imu_inst);
-    =}    
-    reaction(t1) -> x_accel, y_accel, z_accel {=
+    =}
+    
+    reaction(t1) gyro0.gyro -> x_accel, y_accel, z_accel,
+                                x_gyro, y_gyro, z_gyro {=
         axes_data_t acc_data;
-        axes_data_t gyro_data;
         imu_read_acc(&imu_inst, &acc_data);
-        imu_read_gyro(&imu_inst, &gyro_data);
 
         lf_set(x_accel, acc_data.x);
         lf_set(y_accel, acc_data.y);
         lf_set(z_accel, acc_data.z);
+        lf_set(x_gyro, gyro0.gyro->value.x);
+        lf_set(y_gyro, gyro0.gyro->value.y);
+        lf_set(z_gyro, gyro0.gyro->value.z);
     =}
+
 }
