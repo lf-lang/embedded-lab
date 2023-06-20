@@ -2,7 +2,7 @@ target C {
     platform: "Pico",
     files: ["../lib/"],
     threading: false,
-    no-compile: true,
+    //no-compile: true,
     cmake-include: ["../platform/pico_config.txt", 
                     "../platform/robot_lib.txt"],
 }
