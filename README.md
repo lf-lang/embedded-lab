@@ -11,8 +11,8 @@ The book can also be built and served locally after installing mdbook and runnin
 mdbook serve docs/
 ```
 
-* [Install lf-pico](docs/InstallLFPico.md)
-* [Using lf-pico](docs/UsingLFPico.md)
+* [Install lf-pico](docs/src/InstallLFPico.md)
+* [Using lf-pico](docs/src/UsingLFPico.md)
 
 ## Other Resources:
 
