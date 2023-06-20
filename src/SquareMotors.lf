@@ -2,6 +2,7 @@ target C {
     platform: "Pico",
     files: ["../lib/"],
     threading: false,
+    no-compile: true,
     cmake-include: ["../platform/pico_config.txt", 
                     "../platform/robot_lib.txt"],
 }
@@ -32,7 +33,6 @@ main reactor {
             lf_set(d0.line0, "STOP");
             lf_set(m0.left_pwr, 0.0);
             lf_set(m0.right_pwr, 0.0);
-            lf_set(imu0.integrate, false);
             lf_schedule(next, SEC(5));
         =}
 
@@ -42,20 +42,19 @@ main reactor {
     }
 
     mode DRIVE {
-        timer t2(0, 100 msec);
         reset state prev_tick:int(0);
 
-        reaction(reset) -> d0.line0, m0.right_pwr, m0.left_pwr {=
+        reaction(reset) e0.right_cnt -> d0.line0, m0.right_pwr, m0.left_pwr {=
             lf_set(d0.line0, "DRIVE");
             lf_set(m0.right_pwr, 0.25);
             lf_set(m0.left_pwr, 0.25);
+            self->prev_tick = e0.right_cnt->value;
         =}
         
         reaction(e0.right_cnt) -> reset(TURN) {=
             int dif;
-            dif = e0.right_cnt - self->prev_tick;
-            self->prev_tick = e0.right_cnt;
-            if (dif >= 360) {
+            dif = e0.right_cnt->value - self->prev_tick;
+            if (dif <= -720) {
                 lf_set_mode(TURN);
             } 
         =}
@@ -66,8 +65,8 @@ main reactor {
                            imu0.rst_gyro {=
             lf_set(d0.line0, "TURN");
             lf_set(imu0.rst_gyro, true);
-            lf_set(m0.left_pwr, -0.25);
-            lf_set(m0.right_pwr, 0.25);
+            lf_set(m0.left_pwr, -0.1);
+            lf_set(m0.right_pwr, 0.1);
         =}
         
         reaction(imu0.z_gyro) -> reset(DRIVE) {=
@@ -81,7 +80,7 @@ main reactor {
     reaction(e0.right_cnt) -> d0.line1 {=
         static char buf[17];
         snprintf(buf, 17, "rcnt: %d", e0.right_cnt->value);
-        lf_set(d0.line2, buf); 
+        lf_set(d0.line1, buf); 
     =}
 
     reaction(imu0.z_gyro) -> d0.line2 {=

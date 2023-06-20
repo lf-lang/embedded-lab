@@ -20,6 +20,10 @@ const float sen_gyro = 70; // mdps/LSB
 uint imu_init(imu_inst_t* imu_inst) {
     uint8_t w_cmd;
     uint8_t r_buf;
+
+    if (imu_inst->status) {
+        return 0;
+    }
     
     // i2c peripheral instance 0
     // initialize instance and record baudrate
