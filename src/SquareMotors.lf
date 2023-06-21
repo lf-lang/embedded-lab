@@ -33,7 +33,7 @@ main reactor {
             lf_set(d0.line0, "STOP");
             lf_set(m0.left_pwr, 0.0);
             lf_set(m0.right_pwr, 0.0);
-            lf_schedule(next, SEC(5));
+            lf_schedule(next, SEC(2));
         =}
 
         reaction(next) -> reset(DRIVE) {=
@@ -46,8 +46,8 @@ main reactor {
 
         reaction(reset) e0.right_cnt -> d0.line0, m0.right_pwr, m0.left_pwr {=
             lf_set(d0.line0, "DRIVE");
-            lf_set(m0.right_pwr, 0.25);
-            lf_set(m0.left_pwr, 0.25);
+            lf_set(m0.right_pwr, 0.1);
+            lf_set(m0.left_pwr, 0.1);
             self->prev_tick = e0.right_cnt->value;
         =}
         
@@ -69,9 +69,9 @@ main reactor {
             lf_set(m0.right_pwr, 0.1);
         =}
         
-        reaction(imu0.z_gyro) -> reset(DRIVE) {=
+        reaction(imu0.z_gyro) -> reset(STOP) {=
             if (imu0.z_gyro->value >= 90) {
-                lf_set_mode(DRIVE);
+                lf_set_mode(STOP);
             }
         =}
     }

@@ -517,8 +517,8 @@ phase_3() {
     setup_picotool
     validate_picotool
 
-    setup_openocd
-    validate_openocd
+    #setup_openocd
+    #validate_openocd
 
     setup_picoprobe
     validate_picoprobe

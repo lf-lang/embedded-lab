@@ -18,7 +18,7 @@ pico_generate_pio_header(robot
   ${CMAKE_CURRENT_LIST_DIR}/quadrature_encoder.pio
 )
 
-target_include_directories(robot PUBLIC include)
+target_include_directories(robot PUBLIC src)
 target_link_libraries(robot
   pico_stdlib
   hardware_adc

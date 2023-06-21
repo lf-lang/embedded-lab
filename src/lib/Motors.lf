@@ -23,6 +23,7 @@ preamble {=
 // determines the pwm frequency
 // should be high enough for the motor low pass
 // tradeoff with pwm granularity
+// polou lincencse
 reactor Motors {
     input left_pwr:float;
     input right_pwr:float;

@@ -7,7 +7,7 @@ These instructions are adapted from the [Pololu instructions](../lib/pololu-3pi-
 Set the `PICO_SDK_PATH` environment variable:
 
 ```
-export PICO_SDK_PATH=.../lf-pico/lib/pico-sdk
+export PICO_SDK_PATH=../lf-pico/lib/pico-sdk
 ```
 
 where `...` is replaced by the path to the folder where you cloned the `lf-pico` repository.  For convenience, put the above command in your `~/.bash_profile` file so that the environment variable is available to any bash terminal.  Depending on what operating system and terminal you use, you may need to find some other way to set this environment variable.
@@ -30,7 +30,8 @@ $ brew tap ArmMbed/homebrew-formulae
 ```
 
 **NOTE:** If you are running on an Apple M1-based Mac you will need to install Rosetta 2 as the Arm compiler is still only compiled for x86 processors and does not have an Arm native version.
-```$ /usr/sbin/softwareupdate --install-rosetta --agree-to-license
+```
+$ /usr/sbin/softwareupdate --install-rosetta --agree-to-license
 ```
 
 ## Compile Plain C Examples

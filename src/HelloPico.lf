@@ -1,7 +1,8 @@
 target C {
     platform: "Pico",
     threading: false,
-    cmake-include: ["../platform/pico_config.txt"],
+    no-compile: true,
+    cmake-include: ["../platform/pico_config.txt"] 
 }
 
 preamble {=
