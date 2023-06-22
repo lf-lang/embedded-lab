@@ -7,7 +7,6 @@ add_library(robot
   src/ir_sensors.c
   src/rgb_leds.c
   src/sh1106.c
-  src/yellow_led.c
   src/imu.c
 )
 pico_generate_pio_header(robot

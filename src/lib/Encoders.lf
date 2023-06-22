@@ -6,7 +6,7 @@ target C {
 preamble {=
     #include <math.h> 
     #include <hardware/pio.h>
-    #include <pololu_3pi_2040_robot.h>
+    #include <quadrature_encoder.pio.h>
 
     // pin defines
     #define RIGHT_ENCODER_AB 8

@@ -5,7 +5,7 @@ target C {
 
 preamble {=
     #include <pico/stdlib.h>
-    #include <pololu_3pi_2040_robot.h>
+    #include <display.h>
     // add multiple instance guards
 =}
 

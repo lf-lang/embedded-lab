@@ -6,7 +6,8 @@ target C {
 preamble {=
     #include <pico/stdlib.h>
     #include <hardware/gpio.h>
-    #include <pololu_3pi_2040_robot.h>
+    // TODO use the button api
+    #include <button.h>
     // pointer to physical action
     void* btn_action;
     void gpio_callback(uint gpio, uint32_t events) {
