@@ -4,6 +4,9 @@ pkgs.mkShell {
     picotool
     cmake
     gcc-arm-embedded
+    openocd
+    #lingo
+    #lingua-franca
   ];
   
   inputsFrom = with pkgs; [ 
