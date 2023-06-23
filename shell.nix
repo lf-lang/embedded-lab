@@ -1,19 +1,21 @@
-{ pkgs ? import <nixpkgs> }:
+{ pkgs ? import <nixpkgs> {} }:
 pkgs.mkShell {
   packages = with pkgs; [
     picotool
     cmake
     gcc-arm-embedded
     openocd
+    git
     #lingo
     #lingua-franca
   ];
-  
-  inputsFrom = with pkgs; [ 
-    pico-sdk
-  ];
+
   shellHook = ''
-    export PICO_SDK_PATH=${pkgs.pico-sdk}/lib/pico-sdk
+    git submodule update --init
+    cd ./lib/pico-sdk
+    git submodule update --init
+    export PICO_SDK_PATH="$PWD"
+    cd ../../
   '';
 
 }
