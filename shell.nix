@@ -23,7 +23,5 @@ pkgs.mkShell {
     cd ./lib/pico-sdk
     git submodule update --init
     export PICO_SDK_PATH="$PWD"
-    cd ../../
-  '';
-
+    cd ../../ ''
 }
