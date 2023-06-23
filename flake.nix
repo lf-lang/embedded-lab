@@ -10,7 +10,7 @@
     flake-utils.lib.simpleFlake {
       inherit self nixpkgs;
       name = "lf-pico";
-      #overlay = ./overlay.nix;
+      overlay = ./overlay.nix;
       shell = ./shell.nix;
     };
 }

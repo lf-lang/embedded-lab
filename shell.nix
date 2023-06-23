@@ -10,7 +10,7 @@ pkgs.mkShell {
     pico-sdk
   ];
   shellHook = ''
-    export PICO_SDK_PATH=${pkgs.pico-sdk}
-  ''
+    export PICO_SDK_PATH=${pkgs.pico-sdk}/lib/pico-sdk
+  '';
 
 }
