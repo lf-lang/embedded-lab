@@ -1,4 +1,8 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {} } :
+let
+  lf = pkgs.callPackage ./nix/lf.nix {};
+  lingo = pkgs.callPackage ./nix/lingo.nix {};
+in 
 pkgs.mkShell {
   packages = with pkgs; [
     picotool
@@ -6,11 +10,14 @@ pkgs.mkShell {
     gcc-arm-embedded
     openocd
     git
-    #lingo
-    #lingua-franca
+  ];
+  buildInputs = [
+    lf
+    lingo
   ];
 
   shellHook = ''
+    echo "[shell] hook"
     git submodule update --init
     cd ./lib/pico-sdk
     git submodule update --init

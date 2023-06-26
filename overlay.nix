@@ -1,8 +1,3 @@
-final: prev:
-{
-
-    #lingo
-    #lingua-franca
-    #build picoprobe
-
+final: prev: {
+    # TODO override pico-sdk
 }
