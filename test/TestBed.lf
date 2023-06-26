@@ -1,0 +1,14 @@
+target TypeScript {
+    no-compile: true,
+}
+main reactor {
+    // simulation timestep 
+    reaction(startup) {=
+        console.log("Hello, World.");
+    =}
+    // run simulator line by line if possible
+    // collect output
+    // try to make it cycle accurate
+    // gdb should be involved?
+    // make a vscode debug launch script or instructions on shell gbd
+}

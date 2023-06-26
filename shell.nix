@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} } :
 let
-  lf = pkgs.callPackage ./nix/lf.nix {};
-  lingo = pkgs.callPackage ./nix/lingo.nix {};
+  # lf = pkgs.callPackage ./nix/lf.nix {};
+  # lingo = pkgs.callPackage ./nix/lingo.nix {};
 in 
 pkgs.mkShell {
   packages = with pkgs; [
@@ -12,8 +12,8 @@ pkgs.mkShell {
     git
   ];
   buildInputs = [
-    lf
-    lingo
+    # lf
+    # lingo
   ];
 
   shellHook = ''
