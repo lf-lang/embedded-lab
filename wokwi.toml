@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'src-gen/HelloPico/build/HelloPico.hex'
+elf = 'bin/HelloPico.elf'

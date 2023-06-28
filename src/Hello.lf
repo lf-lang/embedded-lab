@@ -18,7 +18,6 @@ reactor TimerHello {
   output out: string
 
   reaction(t_set) -> out {= lf_set(out, "Hello, World!"); =}
-
   reaction(t_clear) -> out {= lf_set(out, ""); =}
 }
 

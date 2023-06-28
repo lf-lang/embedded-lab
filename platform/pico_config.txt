@@ -1,7 +1,3 @@
-# OPTION 1 : USB stdio
-#pico_enable_stdio_usb(${LF_MAIN_TARGET} 1)
-#pico_enable_stdio_uart(${LF_MAIN_TARGET} 0)
-# OPTION 2 : UART stdio
 pico_enable_stdio_usb(${LF_MAIN_TARGET} 0)
 pico_enable_stdio_uart(${LF_MAIN_TARGET} 1)
 pico_add_extra_outputs(${LF_MAIN_TARGET}) 

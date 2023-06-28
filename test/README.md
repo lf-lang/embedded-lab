@@ -23,3 +23,6 @@ in the robot fashion.
 - output checker
 a ts reactor program with dependency on rp2040js
 generic spi reader probe, i2c reader probe, gpio?
+#### PIO Emulator
+https://github.com/soundpaint/rp2040pio specific pio operations
+

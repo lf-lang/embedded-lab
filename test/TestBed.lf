@@ -1,11 +1,72 @@
-target TypeScript {
-    no-compile: true,
-}
-main reactor {
-    // simulation timestep 
-    reaction(startup) {=
-        console.log("Hello, World.");
+target TypeScript;
+
+reactor Environment {
+    // output only
+    output pins: bool;
+    // advance time using the mock-clock
+    // logical time is the exact system time for each execution
+    // we advance time and step chip
+} 
+
+
+reactor Emulator {
+    preamble {= 
+        import { ConsoleLogger, GPIOPinState, 
+                 LogLevel, RP2040 }  from "rp2040js";
+        import { bootromB1 } from "./bootrom";
+        import { loadHex } from "./intelhex";
     =}
+    input step: bool;
+    input pinIn: bool; // array of pin states
+
+    output uart: int;
+    output gpio: int;
+    
+    physical action pins:Uint8Array; 
+    state mcu:RP2040({= new RP2040(new MockClock()) =});
+
+    reaction(startup) -> pins {=
+        // setup the system
+        const hex = fs.readFileSync("HelloPico.hex", "utf-8"); 
+        // register handlers
+        mcu.loadBootrom(bootromB1);
+        loadHex(hex, mcu.flash, 0x10000000);
+        mcu.uart[0].onByte = (value) => {
+            actions.pins.schedule(TimeValue.zero(), 
+                new Uint8Array([value])); 
+        };
+        mcu.core.PC = 0x10000000;
+    =}
+    reaction (step) {=
+        // execute one instruction
+        mcu.step();
+    =}
+    reaction(pins) -> uart, gpio {=
+        if (pins !== null) {
+            uart = pins;
+        }
+    =}
+
+}
+
+reactor Checker {
+    // collect peripheral states and outputs
+    input uart: int;
+}
+
+
+federated reactor TestBed {
+    // simulation timestep
+    reaction(startup) {=
+
+    =}
+    
+    env = new Environment();
+    emu = new Emulator();
+    check = new Checker();
+    emu.uart -> check.uart;
+
+
     // run simulator line by line if possible
     // collect output
     // try to make it cycle accurate
