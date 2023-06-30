@@ -11,7 +11,6 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
-  npm install -g typescript
   '';
 
 }

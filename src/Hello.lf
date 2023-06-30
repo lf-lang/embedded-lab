@@ -23,7 +23,7 @@ reactor TimerHello {
 
 reactor StateHello {
   timer t_blit(0, 1 sec)
-  state blank: bool = false
+  state blank: bool(false)
   output out: string
 
   reaction(t_blit) -> out {=

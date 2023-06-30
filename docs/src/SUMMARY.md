@@ -9,3 +9,4 @@
     - [Pico Setup](./InstallingPicoTools.md)
     - [Windows](./WindowsInstallation.md)
 - [Basic Usage](./UsingLFPico.md)
+- [Chapter 1](./Chapter01.md)

@@ -1,20 +1,31 @@
 target TypeScript;
 
-reactor Environment {
+
+reactor Environment(eventFile:string("HelloPico.txt")) {
+    timer clk(0, 8 nsec); // 125 MHz
     // output only
-    output pins: bool;
+    output step: bool;
+    reaction(clk) -> step {=
+        lf_schedule(step, 0);
+    =}
     // advance time using the mock-clock
     // logical time is the exact system time for each execution
     // we advance time and step chip
+    // read custom test directives that generate events
+    // based on logical time. collect std out
+    // TODO: log peripheral outputs and gpio states
+    // compare against some sort of formal temporal logic
 } 
 
 
-reactor Emulator {
+reactor Emulator(hexFile:string("HelloPico.hex")) {
     preamble {= 
         import { ConsoleLogger, GPIOPinState, 
                  LogLevel, RP2040 }  from "rp2040js";
         import { bootromB1 } from "./bootrom";
         import { loadHex } from "./intelhex";
+        import { RPClock } from "./tick-clock.ts";
+        import * as fs from "fs";
     =}
     input step: bool;
     input pinIn: bool; // array of pin states
@@ -22,50 +33,36 @@ reactor Emulator {
     output uart: int;
     output gpio: int;
     
-    physical action pins:Uint8Array; 
-    state mcu:RP2040({= new RP2040(new MockClock()) =});
+    state mcu:RP2040({= new RP2040(new RPClock()) =});
 
-    reaction(startup) -> pins {=
+    reaction(startup) {=
         // setup the system
         const hex = fs.readFileSync("HelloPico.hex", "utf-8"); 
         // register handlers
         mcu.loadBootrom(bootromB1);
         loadHex(hex, mcu.flash, 0x10000000);
-        mcu.uart[0].onByte = (value) => {
-            actions.pins.schedule(TimeValue.zero(), 
-                new Uint8Array([value])); 
-        };
         mcu.core.PC = 0x10000000;
+        mcu.uart[0].onByte = (value) => {
+            process.stdout.write(new Uint8Array([value]));
+        };
     =}
     reaction (step) {=
         // execute one instruction
         mcu.step();
+        // advance timers
+        mcu.clock.tick();
     =}
-    reaction(pins) -> uart, gpio {=
-        if (pins !== null) {
-            uart = pins;
-        }
-    =}
-
-}
-
-reactor Checker {
-    // collect peripheral states and outputs
-    input uart: int;
 }
 
 
-federated reactor TestBed {
+reactor TestBed {
     // simulation timestep
     reaction(startup) {=
 
-    =}
-    
+    =} 
     env = new Environment();
     emu = new Emulator();
-    check = new Checker();
-    emu.uart -> check.uart;
-
+    env.step -> emu.step;
 
     // run simulator line by line if possible
     // collect output

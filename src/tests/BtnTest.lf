@@ -6,8 +6,8 @@ target C {
                     "../platform/robot_lib.txt"],
 }
 
-import Display from "lib/Display.lf"
-import Button from "lib/Button.lf"
+import Display from "../lib/Display.lf"
+import Button from "../lib/Button.lf"
 
 preamble {=
     // sprintf

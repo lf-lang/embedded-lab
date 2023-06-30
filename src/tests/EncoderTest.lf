@@ -6,9 +6,9 @@ target C {
                     "../platform/robot_lib.txt"],
 }
 
-import Display from "lib/Display.lf"
-import Motors from "lib/Motors.lf"
-import Encoders from "lib/Encoders.lf"
+import Display from "../lib/Display.lf"
+import Motors from "../lib/Motors.lf"
+import Encoders from "../lib/Encoders.lf"
 
 preamble {=
     // sprintf

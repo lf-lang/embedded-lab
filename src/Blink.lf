@@ -1,11 +1,10 @@
 target C {
     platform: "Pico",
-    files: ["../lib/"],
     threading: false,
-    cmake-include: ["../platform/pico_config.txt", 
-                    "../platform/robot_lib.txt"],
+    cmake-include: ["../platform/pico_config.txt"]
 }
 
+import Led from "./lib/Led.lf";
 
 preamble {=
     #include <pico/stdlib.h>
@@ -14,14 +13,8 @@ preamble {=
 
 main reactor {
     timer t1(0, 100 msec);
-    state led:bool;
-    reaction(startup) {=
-        gpio_init(25);
-        gpio_set_dir(25, GPIO_OUT);
-    =}
-    
-    reaction(t1) {=
-        self->led = !self->led; 
-        gpio_put(25, self->led);
+    led = new Led();
+    reaction(t1) -> led.tog {=
+        lf_set(led.tog, true);
     =}
 }
