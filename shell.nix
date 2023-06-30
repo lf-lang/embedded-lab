@@ -10,6 +10,7 @@ pkgs.mkShell {
     gcc-arm-embedded
     openocd
     git
+    nodejs 
   ];
   buildInputs = [
     # lf
