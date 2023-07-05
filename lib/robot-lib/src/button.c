@@ -5,6 +5,19 @@
 #include <hardware/structs/ioqspi.h>
 #include <hardware/sync.h>
 
+
+void* btn_action = NULL;
+void set_btn_action(void* action) {
+    btn_action = action;
+}
+
+void lf_gpio_callback(uint gpio, uint32_t events) {
+  uint32_t mask = 0x4; // high to low edge 
+  if (events & mask) {
+    lf_schedule(btn_action, 0);
+  }
+}
+
 // Temporarily changes pin 25 to be an input in order to read button A.
 bool button_a_is_pressed()
 {

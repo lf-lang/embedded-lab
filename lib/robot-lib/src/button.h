@@ -1,10 +1,19 @@
 // Copyright (C) Pololu Corporation.  See LICENSE.txt for details.
 
+#pragma once
+
 /// @file button.h
 /// Functions for accessing the pushbuttons on the control board.
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <hardware/gpio.h>
+
+
+extern void* btn_action;
+
+void set_btn_action(void* action);
+void lf_gpio_callback(uint gpio, uint32_t events);
 
 /// Returns 1 if button A is pressed, or 0 otherwise.
 bool button_a_is_pressed(void);

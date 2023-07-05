@@ -32,3 +32,15 @@ reactor Encoders {
         lf_set(left_cnt, lcnt);
     =}
 }
+
+reactor Distance {
+    output right_dist:float; // in meters
+    output left_dist:float; // in meters
+    e0 = new Encoders();
+    reaction(e0.right_cnt) -> right_dist {=
+        lf_set(right_dist, (right_cnt / 360) * WHEEL_DIAMETER * PI);
+    =}
+    reaction(e0.left_cnt) -> left_dist {=
+        lf_set(left_dist, (left_cnt / 360) * WHEEL_DIAMETER * PI);
+    =}
+}

@@ -1,14 +1,15 @@
 target C {
     platform: "Pico",
-    files: ["../lib/"],
+    files: ["../../lib/"],
     threading: false,
     //no-compile: true,
-    cmake-include: ["../platform/pico_config.txt", 
-                    "../platform/robot_lib.txt"],
+    cmake-include: ["../../platform/pico_config.txt", 
+                    "../../platform/robot_lib.txt"],
 }
 
 import Display from "../lib/Display.lf"
-import Imu from "../lib/Imu.lf"
+import Accelerometer from "../lib/Imu.lf"
+import GyroTrap from "../lib/Imu.lf"
 
 preamble {=
     // sprintf
@@ -16,31 +17,31 @@ preamble {=
 =}
 
 main reactor {
-    state blank:bool(false);
-    timer t1(0, 5 sec);
     d0 = new Display();
-    imu0 = new Imu();
-    reaction(startup, t1) -> imu0.rst_gyro {=
-        lf_set(imu0.rst_gyro, true);
-    =}
-    reaction(imu0.x_accel, imu0.y_accel, imu0.z_accel,
-             imu0.x_gyro, imu0.y_gyro, imu0.z_gyro) -> 
-             d0.line0, d0.line1, d0.line2, d0.line3 {=
+    a = new Accelerometer();
+    g = new GyroTrap();
+    
+    reaction(a.x, a.y, a.z) -> d0.line0, d0.line1 {=
         /// TODO: define max string size for line
         /// based on font you can have 4 or 8 lines 
         static char buf0[17];
         static char buf1[17];
-        static char buf2[17];
-        static char buf3[17];
 
-        snprintf(buf0, 17, "x:%.2f y:%.2f", imu0.x_accel->value, imu0.y_accel->value);
-        snprintf(buf1, 17, "z:%.2f", imu0.z_accel->value);
-        snprintf(buf2, 17, "x:%.2f y:%.2f", imu0.x_gyro->value, imu0.y_gyro->value);
-        snprintf(buf3, 17, "z:%.2f", imu0.z_gyro->value);
+        snprintf(buf0, 17, "x:%.2f y:%.2f", a.x->value, a.y->value);
+        snprintf(buf1, 17, "z:%.2f", a.z->value);
         
         lf_set(d0.line0, buf0);
         lf_set(d0.line1, buf1);
-        lf_set(d0.line2, buf2);
-        lf_set(d0.line3, buf3);
+    =}
+    
+    reaction(g.x, g.y, g.z) -> d0.line2, d0.line3 {=
+        static char buf0[17];
+        static char buf1[17];
+
+        snprintf(buf0, 17, "x:%.2f y:%.2f", g.x->value, g.y->value);
+        snprintf(buf1, 17, "z:%.2f", g.z->value);
+        
+        lf_set(d0.line2, buf0);
+        lf_set(d0.line3, buf1);
     =}
 }

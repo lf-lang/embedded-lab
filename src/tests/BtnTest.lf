@@ -1,9 +1,9 @@
 target C {
     platform: "Pico",
-    files: ["../lib/"],
+    files: ["../../lib/"],
     threading: false,
-    cmake-include: ["../platform/pico_config.txt", 
-                    "../platform/robot_lib.txt"],
+    cmake-include: ["../../platform/pico_config.txt", 
+                    "../../platform/robot_lib.txt"],
 }
 
 import Display from "../lib/Display.lf"

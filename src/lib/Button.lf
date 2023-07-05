@@ -8,14 +8,6 @@ preamble {=
     #include <hardware/gpio.h>
     // TODO use the button api
     #include <button.h>
-    // pointer to physical action
-    void* btn_action;
-    void gpio_callback(uint gpio, uint32_t events) {
-        uint32_t mask = 0x4; // high to low edge 
-        if (events & mask) {
-            lf_schedule(btn_action, 0);
-        }
-    }
 =}
 
 reactor Button {
@@ -23,8 +15,8 @@ reactor Button {
     physical action fall_edge(0, 100 msec, "drop"); 
     output press:bool;  
     reaction(startup) -> fall_edge {=
-        gpio_set_irq_enabled_with_callback(25, GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
-        btn_action = fall_edge;
+        gpio_set_irq_enabled_with_callback(25, GPIO_IRQ_EDGE_FALL, true, &lf_gpio_callback);
+        set_btn_action(fall_edge);
     =} 
     reaction(fall_edge) -> press {=
         // set output
