@@ -10,8 +10,6 @@
 #include <hardware/gpio.h>
 
 
-extern void* btn_action;
-
 void set_btn_action(void* action);
 void lf_gpio_callback(uint gpio, uint32_t events);
 

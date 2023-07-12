@@ -4,11 +4,13 @@
 #include <pico/stdlib.h>
 #include <hardware/structs/ioqspi.h>
 #include <hardware/sync.h>
+#include <api.h> // reactor-c api
 
-
-void* btn_action = NULL;
+static void* btn_action = NULL;
 void set_btn_action(void* action) {
-    btn_action = action;
+    if (btn_action != action) {
+        btn_action = action;
+    }
 }
 
 void lf_gpio_callback(uint gpio, uint32_t events) {
