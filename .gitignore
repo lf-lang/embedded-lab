@@ -59,6 +59,7 @@ src-gen/
 /include/
 .vscode/
 include/
+.project
 
 # pico setup script location
 pico/

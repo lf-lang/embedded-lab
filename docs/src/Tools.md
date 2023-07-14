@@ -1,10 +1,15 @@
-# Chapter 1
-## Tools and Environments
-This chapter will overview the different tool required for software development on embedded
-systems. Microcontrollers often have limited resources and interaction methods due to being headless devices. The tasks will introduce a common development workflows for these
-platforms.
+# Tools and Environments
+The purpose of this lab exercise is to familiarize you with the various tools and environments used for embedded software programming. A simple Lingua Franca program, `blink.lf`, is provided for you to experiment with.
+This lab exercise assumes you have followed the [Installation instructions](./Installation.md)
 
-This section will explore the RP2040 microcontroller, a low cost dual-core arm based chip with various useful and unique hardware peripherals. The chip is embedded in the popular Raspberry Pi Pico and is tailored for education.
+Embedded systems often have limited resources and interaction methods and hence require a different approach for programming.
+Their microprocessors often have no operating system, and are therefore called "bare metal" or "bare iron" machines.
+They often have no keyboard or display connected to them, which can make interaction challenging.
+And they often have limited networking capability.
+In this lab exercise, you will learn to interact with a particular microcontroller, a Raspberry Pi Pico RP2040
+(RPi-Pico), on the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86). 
+
+This section will explore the RPi-Pico microcontroller, a low cost dual-core Arm-based chip with various useful and unique hardware peripherals. The chip is embedded in the popular RPi-Pico and is tailored for education.
 
 ## Prelab
 ### Resources
