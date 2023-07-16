@@ -14,7 +14,7 @@ The above `lfc` command will also compile the generated code, creating a number 
 
 ## Uploading to the RPi-Pico
 
-Plug your RPi-Pico into your USB port and start it in bootloader mode. On the Polulu robot, this is accomplished by holding thbe `B` button while pushing the `Reset` button. Two small green LEDs should be on, and a drive named something like `RPI-RP2` should appear mounted on your computer.
+Plug your RPi-Pico into your USB port and start it in bootloader mode. On the Pololu robot, this is accomplished by holding thbe `B` button while pushing the `Reset` button. Two small green LEDs should be on, and a drive named something like `RPI-RP2` should appear mounted on your computer.
 
 Drag the `Blink.uf2` file from `src-gen/Blink/build` into the `RPI-RP2` disk.
 The Blink program should immediately start running.
@@ -35,8 +35,6 @@ You may see a popup like this:
 You should choose the GCC for arm-none-eabi option.
 If the vscode instance was setup properly, all necessary plugins will be installed
 and cmake will automatically build. 
-
-**FIXME**: This did not work for me. VS Code tried to use /usr/local/bin/arm-none-eabi-gcc-6.2.1, which did not exist for me. /usr/local/bin/arm-none-eabi-gcc does exist.
 
 **TODO**: Add instructions on how to analyze and automatically flash binaries using the pico-tool
 

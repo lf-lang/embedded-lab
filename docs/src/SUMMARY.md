@@ -3,10 +3,21 @@
 [Introduction](./Introduction.md)
 
 # Setup
-- [Installation](./InstallLFPico.md)
-    - [Lingua Franca](./InstallLF.md)
-    - [VSCode Setup](./InstallVSCode.md)
-    - [Pico Setup](./InstallingPicoTools.md)
-    - [Windows](./WindowsInstallation.md)
+- [Installation](./Installation.md)
+	- [lf-pico](./InstallLFPico.md)
+	- [Lingua Franca](./InstallLF.md)
+	- [VSCode](./InstallVSCode.md)
+	- [Pico Tools](./InstallingPicoTools.md)
+	- [Windows Installation](./WindowsInstallation.md)
 - [Basic Usage](./UsingLFPico.md)
-- [Chapter 1](./Chapter01.md)
+
+# Lab Exercises
+- [Tools and Environments](./Tools.md)
+- [Embedded Programming with LF](./LF.md)
+- [Interfacing with Sensors](./Sensors.md)
+- [Peripherals](./Peripherals.md)
+- [Interrupts](./Interrupts.md)
+- [Timers](./Timers.md)
+- [Robot](./Robot.md)
+- [Hill Climb](./Hill.md)
+- [Wireless](./Wireless.md)
