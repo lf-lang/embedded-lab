@@ -1,10 +1,9 @@
 target C {
-    platform: "Pico",
+    platform: "RP2040",
     files: ["../lib/"],
     threading: false,
     //no-compile: true,
-    cmake-include: ["../platform/pico_config.txt", 
-                    "../platform/robot_lib.txt"],
+    cmake-include: ["../platform/robot_lib.txt"]
 }
 
 import Display from "lib/Display.lf"

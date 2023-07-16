@@ -1,5 +1,5 @@
 target C {
-    platform: "Pico",
+    platform: "RP2040",
     threading: false,
     #no-compile: true,
     cmake-include: ["../platform/pico_config.txt"] 

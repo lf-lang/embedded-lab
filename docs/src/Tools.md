@@ -38,15 +38,6 @@ Textbook
 2. TODO
 3. TODO
 
-## Repo
-This book uses the [lf-pico](https://github.com/lf-lang/lf-pico) repository as a framework that contains setup scripts and examples for the applications described. Make sure the copy of lf-pico is up to date with the current documentation. Clone or navigate to the repository, pull the latest and compare the commit sha.
-```
-git clone https://github.com/lf-lang/lf-pico.git
-git pull
-git log -1
-```
-latest commit sha: 9fc422f05d934fdc45b7ebace22cfdaa12b3c3f9
-
 ## Setup
 One challenge of working with embedded systems is installing tooling. To create a reproducible unix shell environment that installs all required dependency applications, we use the nix package manager. Install [nix](https://nixos.org/download.html) first for your preferred platform. There is support for windows (wsl), macos and linux. 
 
