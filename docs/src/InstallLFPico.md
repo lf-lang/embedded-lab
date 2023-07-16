@@ -16,23 +16,21 @@ or
 git clone https://github.com/lf-lang/lf-pico.git
 ```
 
-Then:
+## Setup
+To create a reproducible unix shell environment that installs all required dependency applications, we use the nix package manager. Install [nix](https://nixos.org/download.html) first for your preferred platform. There is support for windows (wsl), macos and linux. 
 
-```
-cd lf-pico
-git submodule update --init --recursive
-```
-
-## Setup Script
-
-Assuming you are in the `lf-pico` root directory, run:
-
-```
-platform/pico_setup.sh
+After installation, run the following in the shell to enable the experimental nix flakes feature.
+``` bash
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
-After running the setup script, a directory `pico` will contain the RPi-Pico dependencies and will build a few simple examples 
-for getting started. The script comes from this [source](https://github.com/michaelstoops/pico-setup/tree/master).
+To launch the lf-pico shell environment, run the following in the root of the lf-pico repository. 
+```bash
+nix develop
+```
+
+This should automatically download and install specific revisions of the gcc-arm toolchain, openocd and picotool. These packages will be required compiling, flashing and debugging C code for the RP2040.
 
 (You can alternatively manually [install the Raspberry Pi Pico Tools](InstallingPicoTools.md).)
 

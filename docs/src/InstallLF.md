@@ -41,7 +41,7 @@ git checkout pico
 Add the `lingua-franca/bin` directory to your  `PATH` environment variable:
 
 ```
-export PATH=.../lingua-franca/bin:${PATH}
+export PATH=../lingua-franca/bin:${PATH}
 ```
 
 where `...` is replaced by the path to the folder where you cloned the `lingua-franca` repository.  For convenience, put the above command in your `~/.bash_profile` file so that the environment variable is available to any bash terminal.
