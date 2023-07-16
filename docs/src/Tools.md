@@ -16,11 +16,13 @@ This section will explore the RPi-Pico microcontroller, a low cost dual-core Arm
 Here are some documents from which this chapter was derived from that detail the various components of the setup.
 
 Build System
+
 - Bash Scripting
-- Nix
+- [Nix](https://nixos.org)
 - Command Line
 
 RP2040
+
 - Datasheet
 - Getting Started Pico
 - Pico SDK
@@ -42,12 +44,14 @@ Textbook
 One challenge of working with embedded systems is installing tooling. To create a reproducible unix shell environment that installs all required dependency applications, we use the nix package manager. Install [nix](https://nixos.org/download.html) first for your preferred platform. There is support for windows (wsl), macos and linux. 
 
 After installation, run the following in the shell to enable the experimental nix flakes feature.
+
 ``` bash
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
-To launch the lf-pico shell environment, run the following in the root of the lf-pico repository. 
+To launch the lf-pico shell environment, run the following in the root of the lf-pico repository:
+
 ```bash
 nix develop
 ```
