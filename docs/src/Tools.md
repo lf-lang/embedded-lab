@@ -13,19 +13,15 @@ This section will explore the RPi-Pico microcontroller, a low cost dual-core Arm
 
 ## Prelab
 ### Resources
-Here are some documents from which this chapter was derived from that detail the various components of the setup.
 
-Build System
-
-- Bash Scripting
-- [Nix](https://nixos.org)
-- Command Line
-
-RP2040
-
-- Datasheet
-- Getting Started Pico
-- Pico SDK
+- [Nix](https://nixos.org) (for installation)
+- [Getting started with Raspberry Pi Pico](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) (pdf)
+- [Raspberry Pi Pico SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/)
+- [Raspberry Pi Pico SDK source code](https://github.com/raspberrypi/pico-sdk)
+- [Raspberry Pi Pico SDK examples](https://github.com/raspberrypi/pico-examples)
+- [pico-extras](https://github.com/raspberrypi/pico-extras)
+- [RP2040 datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) (pdf)
+- [picotool](https://github.com/raspberrypi/picotool)
 
 Lingua Franca
 - Introduction
