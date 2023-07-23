@@ -1,8 +1,9 @@
 target C {
-    platform: "RP2040",
+    platform: {
+        name: "RP2040",
+        board: "pico:usb"
+    },
     threading: false,
-    #no-compile: true,
-    cmake-include: ["../platform/pico_config.txt"] 
 }
 
 preamble {=
