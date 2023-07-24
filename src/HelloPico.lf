@@ -1,7 +1,6 @@
 target C {
     platform: {
         name: "RP2040",
-        board: "pico:usb"
     },
     threading: false,
 }

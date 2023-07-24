@@ -2,7 +2,6 @@ set(ROBOT_LIB_DIR lib/robot-lib)
 add_subdirectory(${ROBOT_LIB_DIR} robot)
 
 # access to reactor-c schedule api
-# TODO: only link and expose lib
 target_link_libraries(robot PRIVATE core)
 target_include_directories(robot PRIVATE include/)
 target_include_directories(robot PRIVATE include/core)
