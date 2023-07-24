@@ -1,6 +1,11 @@
 target C {
     platform: "RP2040",
     threading: false,
+    files: ["../lib/"],                  // Needed to find display.h
+    cmake-include: [
+        "../../platform/robot_lib.txt",  // Needed to find display.h
+        "../../platform/pico_config.txt" // Needed to find pico/stdlib.h
+    ]
 }
 
 preamble {=

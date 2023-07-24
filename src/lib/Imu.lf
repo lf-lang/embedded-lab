@@ -1,6 +1,13 @@
+/**
+ * @brief Library reactors for the IMU on the the <a href="https://www.pololu.com/docs/0J86">Pololu 3pi+ 2040 robot</a>.
+ * @author Abhi Gundrala
+ * @author Edward A. Lee
+ */
 target C {
     platform: "RP2040", 
     threading: false,
+    files: ["../../lib/"],                            // Needed to find imu.h
+    cmake-include: ["../../platform/robot_lib.txt"],  // Needed to find imu.h
 }
 
 preamble {=
@@ -60,8 +67,16 @@ reactor GyroTrap(period:time(100 msec)) {
     =} 
 }
 
+/**
+ * When triggered by a true-valued input, sample the accelerometer
+ * on the <a href="https://www.pololu.com/docs/0J86">Pololu 3pi+ 2040 robot</a>.
+ * The accelerometer is provided by an
+ * <a href="https://www.pololu.com/file/0J1899/lsm6dso.pdf">ST LMS6DSO inertial measurement unit</a>.
+ * The outputs give acceleration in <i>g</i>'s with a range of -2 to +2 <i>g</i>
+ * and a sensitivity of approximately 0.061 <i>mg</i>'s.
+ */
 reactor Accelerometer {
-    timer t1(0, 100 msec);
+    input trigger:bool;
     
     output x:float;
     output y:float;
@@ -71,7 +86,7 @@ reactor Accelerometer {
         imu_init(&imu_inst);
     =}
     
-    reaction(t1) -> x, y, z {= 
+    reaction(trigger) -> x, y, z {= 
         axes_data_t acc_data;
         imu_read_acc(&imu_inst, &acc_data);
 
