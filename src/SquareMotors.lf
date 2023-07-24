@@ -1,5 +1,8 @@
 target C {
-    platform: "RP2040",
+    platform: {
+        name: "RP2040",
+        board: "pololu_3pi_2040_robot:usb"
+    },
     files: ["../lib/"],
     threading: false,
     //no-compile: true,
@@ -30,6 +33,7 @@ main reactor {
                                     m0.right_pwr,
                                     next {=
             lf_set(d0.line0, "STOP");
+            printf("STOP");
             lf_set(m0.left_pwr, 0.0);
             lf_set(m0.right_pwr, 0.0);
             lf_schedule(next, SEC(2));
@@ -45,6 +49,7 @@ main reactor {
 
         reaction(reset) e0.right_cnt -> d0.line0, m0.right_pwr, m0.left_pwr {=
             lf_set(d0.line0, "DRIVE");
+            printf("DRIVE");
             lf_set(m0.right_pwr, 0.1);
             lf_set(m0.left_pwr, 0.1);
             self->prev_tick = e0.right_cnt->value;
@@ -63,6 +68,7 @@ main reactor {
         reaction(reset) -> d0.line0, m0.right_pwr, m0.left_pwr, 
                            imu0.rst_gyro {=
             lf_set(d0.line0, "TURN");
+            printf("TURN");
             lf_set(imu0.rst_gyro, true);
             lf_set(m0.left_pwr, -0.1);
             lf_set(m0.right_pwr, 0.1);
