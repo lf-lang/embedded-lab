@@ -16,7 +16,13 @@ The above `lfc` command will also compile the generated code, creating a number 
 
 Plug your RPi-Pico into your USB port and start it in bootloader mode. On the Pololu robot, this is accomplished by holding thbe `B` button while pushing the `Reset` button. Two small green LEDs should be on, and a drive named something like `RPI-RP2` should appear mounted on your computer.
 
-Drag the `Blink.uf2` file from `src-gen/Blink/build` into the `RPI-RP2` disk.
+To flash and execute the compiled program:
+
+```
+picotool load -x bin/Blink.elf
+```
+
+Alternatively, drag the `Blink.uf2` file from `src-gen/Blink/build` into the `RPI-RP2` disk.
 The Blink program should immediately start running.
 It blinks the yellow LED on the Pololu robot five times per second.
 
@@ -39,6 +45,23 @@ and cmake will automatically build.
 **TODO**: Add instructions on how to analyze and automatically flash binaries using the pico-tool
 
 ## Debugging
+
+Run a program that has usb enabled.
+Search for a device that mentions `usb`:
+
+```
+$ ls /dev/*usb*
+/dev/cu.usbmodem14201	/dev/tty.usbmodem14201
+```
+
+Then start `screen` with that device and the baud rate:
+
+```
+screen /dev/cu.usbmodem14201 115200
+```
+
+To exit screen, type Control-A k (for kill).
+
 
 **FIXME**: This is incomplete.
 
