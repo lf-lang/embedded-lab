@@ -1,0 +1,42 @@
+/**
+ * Print three dimensions of accelerometer measurements.
+ * This program is fashioned after buckler/software/apps/analog_accelerometer/,
+ * except that it imports a reusable Accelerometer reactor.
+ * @author Edward A. Lee
+ */
+ target C {
+    platform: {
+        name: "RP2040",
+        board: "pico:usb"
+    },
+    threading: false,
+};
+
+import Accelerometer from "lib/Imu.lf"
+import Display from "lib/Display.lf"
+
+main reactor {
+    a = new Accelerometer()
+    d = new Display()
+    timer t(0, 250 msec)
+    reaction(t) -> a.trigger {=
+        lf_set(a.trigger, true);
+    =}
+
+    reaction(a.x, a.y, a.z) -> d.line0, d.line1, d.line2 {=
+        /// TODO: define max string size for line
+        /// based on font you can have 4 or 8 lines 
+        static char buf0[17];
+        static char buf1[17];
+        static char buf2[17];
+
+        snprintf(buf0, 17, "x:%.2f", a.x->value);
+        snprintf(buf1, 17, "y:%.2f", a.y->value);
+        snprintf(buf2, 17, "z:%.2f", a.z->value);
+        
+        lf_set(d.line0, buf0);
+        lf_set(d.line1, buf1);
+        lf_set(d.line2, buf2);
+    =}
+
+}
