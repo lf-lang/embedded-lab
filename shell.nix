@@ -21,8 +21,8 @@ pkgs.mkShell {
   shellHook = ''
     echo "[shell] hook"
     git submodule update --init
-    cd ./lib/pico-sdk
+    cd ./pico-sdk
     git submodule update --init
     export PICO_SDK_PATH="$PWD"
-    cd ../../ '';
+    cd ../ '';
 }
