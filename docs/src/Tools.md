@@ -14,22 +14,28 @@ This section will explore the RPi-Pico microcontroller, a low cost dual-core Arm
 ## Prelab
 ### Resources
 
-- [Nix](https://nixos.org) (for installation)
-- [Getting started with Raspberry Pi Pico](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) (pdf)
-- [Raspberry Pi Pico SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/)
-- [Raspberry Pi Pico SDK source code](https://github.com/raspberrypi/pico-sdk)
-- [Raspberry Pi Pico SDK examples](https://github.com/raspberrypi/pico-examples)
-- [pico-extras](https://github.com/raspberrypi/pico-extras)
-- [RP2040 datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) (pdf)
-- [picotool](https://github.com/raspberrypi/picotool)
+- Pololu 3pi+ 2040 robot
+    - [User's Guide](https://www.pololu.com/docs/0J86)
+    - [Robot Libraries and Example Code for C](https://github.com/pololu/pololu-3pi-2040-robot/tree/master/c)
 
-Lingua Franca
-- Introduction
-- 
+- Raspberry Pi Pico 2040
+    - [Getting Started](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) (pdf)
+    - [SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/)
+    - [SDK source code](https://github.com/raspberrypi/pico-sdk)
+    - [SDK examples](https://github.com/raspberrypi/pico-examples)
+    - [Pico Extras](https://github.com/raspberrypi/pico-extras)
+    - [Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) (pdf)
+- Host computer tools
+    - [picotool](https://github.com/raspberrypi/picotool)
+    - **FIXME** minicom
 
-Textbook
-- Memory Architecture
-- Embedded Processors
+- Lingua Franca
+    - **FIXME**
+
+- Textbook
+    - Memory Architecture
+    - Embedded Processors
+    - Sensors
 
 ### Exercises
 1. TODO

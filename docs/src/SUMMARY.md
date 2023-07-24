@@ -1,6 +1,7 @@
 # Summary
 
-[Introduction](./Introduction.md)
+- [Introduction](./Introduction.md)
+- [Acronyms](./Acronyms.md)
 
 # Setup
 - [Installation](./Installation.md)
