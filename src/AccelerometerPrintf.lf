@@ -1,7 +1,26 @@
 /**
- * Print three dimensions of accelerometer measurements.
- * This program is fashioned after buckler/software/apps/analog_accelerometer/,
- * except that it imports a reusable Accelerometer reactor.
+ * Print three dimensions of accelerometer measurements on stdout.
+ * To run this program on the <a href="https://www.pololu.com/docs/0J86">Pololu 3pi+ 2040 robot</a>
+ * and see the printed outputs, first put the robot in BOOTSEL mode (hold button B while
+ * resetting). Then the sequence of commands is something like this:
+ *
+ * ```
+ *     $ cd ~/lf-pico
+ *     $ lfc src/AccelerometerPrintf.lf
+ *     ...
+ *     $ picotool load -x bin/AccelerometerPrintf.elf
+ *     $ ls /dev/*usb*
+ *     /dev/cu.usbmodem14201	/dev/tty.usbmodem14201
+ *     $ screen /dev/cu.usbmodem14201 115200
+ *     ...
+ *     Control-A k
+ * ```
+ *
+ * This compiles the program, loads it into flash memory on the robot, finds the USB
+ * serial bus (which on this machine happens to be named `/dev/cu.usbmodem14201`),
+ * and connects the `screen` terminal emulator to the robot through the USB serial port
+ * with baud rate 115,200 bits per second.
+ * 
  * @author Edward A. Lee
  */
  target C {

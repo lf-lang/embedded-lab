@@ -1,5 +1,5 @@
 /**
- * @brief Library reactors for the IMU on the the <a href="https://www.pololu.com/docs/0J86">Pololu 3pi+ 2040 robot</a>.
+ * @brief Library reactors for the IMU on the <a href="https://www.pololu.com/docs/0J86">Pololu 3pi+ 2040 robot</a>.
  * @author Abhi Gundrala
  * @author Edward A. Lee
  */

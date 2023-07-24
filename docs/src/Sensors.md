@@ -40,3 +40,32 @@ Part of the purpose of this exercise is to learn to work from incomplete documen
     2. As explained in Chapter 7, Sensors and Actuators, of [Lee and Seshia](https://leeseshia.org), a sensor output may be modeled by an affine function _f_(_x_) = _ax_ + _b_, where _a_ is the sensitivity and _b_ is the bias.  For this IMU, ideally, if _x_ is the 16 bit integer received over the I<sup>2</sup>C bus, _a_ = 0.000061, and _b_ = 0, then _f_(_x_) is the acceleration in _g_'s.  But both _a_ and _b_ may vary with temperature. How much variation  in _a_ should you expect (in percent per degree centigrade)?  How much bias can you expect (in _mg_)?  How much should you expect the bias to change with temperature (in _mg_ per degree centigrade)?
 
         **Hint:** Table 2 could be helpful. Bias is referred to as "zero-g level" in this table.
+        
+## Sampling an Accelerometer
+
+To help you get started, a sample Lingua Franca program `AccelerometerDisplay.lf` is provided. To try out the program, plug your robot into the USB port of your host computer and put it in BOOTSEL mode by holding the B button while pressing the reset button.  In the root directory of your clone of the lf-pico repo, compile and load the program onto the robot:
+
+```
+$ lfc src/AccelerometerDisplay.lf
+$ picotool load -x bin/AccelerometerDisplay.elf
+```
+
+You should see the display light up looking something like this:
+
+<img alt="AccelerometerDisplay Photo" src="img/AccelerometerDisplayPhoto.jpeg" width=65%/>
+
+1. Interpreting the numbers
+    1. Explain why, when the robot is sitting on a flat surface, the sensed accelerations in the _x_ and _y_ directions are near zero and in the _z_ direction near one.
+    2. Why is the _z_ direction not near negative one?
+    
+    Experiment with rotating the robot and observing how the three measured accelerations change.
+    
+    **CHECKOFF:** Demonstrate the app working on all three axes.
+
+2. Examine the LF program
+    1. Open the file `src/AccelerometerDisplay.lf` in VS Code. Enable the diagram so that you see this:
+
+        <img src="img/AccelerometerDisplay.png" alt"AccelerometerDisplay diagram"/>
+
+3. Convert the display to show tilt in degrees rather than _g_ force acceleration.
+    1. Read [Using an Accelerometer for Inclination Sensing](https://www.analog.com/en/app-notes/an-1057.html), by Christopher J. Fisher.
