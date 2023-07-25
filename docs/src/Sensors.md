@@ -43,6 +43,8 @@ Part of the purpose of this exercise is to learn to work from incomplete documen
         
 ## Sampling an Accelerometer
 
+The goal of this lab is to calculate and display the inclination of the Pololu robot. The inclination is the amount of tilt of the surface on which the robot sits. As explained in chapter 2 of [Lee and Seshia](https://leeseshia.org), **pitch** is the angle deviation from horizontal of a straight line coming out of the front of the robot. **Roll** is the angle deviation from horizontal of a straight line going directly through the wheels.  The third angle in that chapter, **yaw**, is not a measure of inclination. We will seek instead a **tilt**, the angle deviation from vertical of a straight line emerging from the top of the robot. The tilt angle can be calculated from the pitch and roll angles, which in turn can be calculated from the _x_, _y_, and _z_ acceleration measures. See [Using an Accelerometer for Inclination Sensing](https://www.analog.com/en/app-notes/an-1057.html), by Christopher J. Fisher.
+
 To help you get started, a sample Lingua Franca program `AccelerometerDisplay.lf` is provided. To try out the program, plug your robot into the USB port of your host computer and put it in BOOTSEL mode by holding the B button while pressing the reset button.  In the root directory of your clone of the lf-pico repo, compile and load the program onto the robot:
 
 ```
@@ -56,7 +58,7 @@ You should see the display light up looking something like this:
 
 1. Interpreting the numbers
     1. Explain why, when the robot is sitting on a flat surface, the sensed accelerations in the _x_ and _y_ directions are near zero and in the _z_ direction near one.
-    2. Why is the _z_ direction not near negative one?
+    2. Why is the _z_ direction not near negative one? Doesn't grativation pull you down, not up?
     
     Experiment with rotating the robot and observing how the three measured accelerations change.
     
@@ -68,4 +70,4 @@ You should see the display light up looking something like this:
         <img src="img/AccelerometerDisplay.png" alt"AccelerometerDisplay diagram"/>
 
 3. Convert the display to show tilt in degrees rather than _g_ force acceleration.
-    1. Read [Using an Accelerometer for Inclination Sensing](https://www.analog.com/en/app-notes/an-1057.html), by Christopher J. Fisher.
+    1. x
