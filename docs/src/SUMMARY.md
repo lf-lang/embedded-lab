@@ -4,10 +4,12 @@
 - [Acronyms](./Acronyms.md)
 
 # Setup
+
 - [Installation](./Installation.md)
 - [Basic Usage](./UsingLFPico.md)
 
 # Lab Exercises
+
 - [Tools and Environments](./Tools.md)
 - [Embedded Programming with LF](./LF.md)
 - [Interfacing with Sensors](./Sensors.md)
@@ -17,3 +19,11 @@
 - [Robot](./Robot.md)
 - [Hill Climb](./Hill.md)
 - [Wireless](./Wireless.md)
+
+# Appendices
+
+## Detailed Installation Instructions
+- [lf-pico](./InstallLFPico.md)
+- [Lingua Franca](./InstallLF.md)
+- [VSCode](./InstallVSCode.md)
+- [Pico Tools](./InstallingPicoTools.md)
