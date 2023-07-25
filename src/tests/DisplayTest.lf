@@ -1,5 +1,6 @@
 /**
  * Test the Display library reactor.
+ * @author Abhi Gundrala
  * @author Edward A. Lee
  */
 target C {
@@ -15,6 +16,7 @@ main reactor {
 
   timer t(0, 1 s)
   state c: int = 0
+  physical action clear
 
   reaction(t) -> d1.line1, d2.line3 {=
     static char buf1[17], buf2[17];
@@ -22,5 +24,14 @@ main reactor {
     snprintf(buf2, 17, "second: %d", self->c++);
     lf_set(d1.line1, buf1);
     lf_set(d2.line3, buf2);
+  =}
+
+  reaction(startup) -> d1.line0, clear {=
+    lf_set(d1.line0, "Starting");
+    lf_schedule(clear, SEC(5));
+  =}
+
+  reaction(clear) -> d2.line0 {=
+    lf_set(d2.line0, "");
   =}
 }
