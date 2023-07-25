@@ -43,7 +43,18 @@ Part of the purpose of this exercise is to learn to work from incomplete documen
         
 ## Sampling an Accelerometer
 
-The goal of this lab is to calculate and display the inclination of the Pololu robot. The inclination is the amount of tilt of the surface on which the robot sits. As explained in chapter 2 of [Lee and Seshia](https://leeseshia.org), **pitch** is the angle deviation from horizontal of a straight line coming out of the front of the robot. **Roll** is the angle deviation from horizontal of a straight line going directly through the wheels.  The third angle in that chapter, **yaw**, is not a measure of inclination. We will seek instead a **tilt**, the angle deviation from vertical of a straight line emerging from the top of the robot. The tilt angle can be calculated from the pitch and roll angles, which in turn can be calculated from the _x_, _y_, and _z_ acceleration measures. See [Using an Accelerometer for Inclination Sensing](https://www.analog.com/en/app-notes/an-1057.html), by Christopher J. Fisher.
+The goal of this lab is to calculate and display the inclination of the Pololu robot. The inclination is the amount of tilt of the surface on which the robot sits. Chapter 2 of [Lee and Seshia](https://leeseshia.org) describes the orientation of a vehicle in terms of pitch, roll, and yaw, illustrated as follows:
+
+<img alt="Pitch, Roll, and Yaw" src="img/PitchRollYaw.png" width=70%/>
+
+Our goal will to just measure pitch and roll because we will assume that the robot always sits right-side-up on a reasonably level surface. Our goal will be to measure relatively small deviations from level.
+
+**Pitch** is the angle deviation from horizontal of a straight line coming out of the front of the robot. **Roll** is the angle deviation from horizontal of a straight line going directly through the wheels.  These are illustrated in the following figures:
+
+<img alt="Pitch" src="img/3pi-2040-pitch.png" width=48%/>
+<img alt="Roll" src="img/3pi-2040-roll.png" width=48%/>
+
+It is a simple geometry problem to figure out how to calculate these two angles from accelerometer measurements. But if you are rusty on your geometry, you could consult page 7 of [Using an Accelerometer for Inclination Sensing](https://www.analog.com/en/app-notes/an-1057.html), by Christopher J. Fisher.
 
 To help you get started, a sample Lingua Franca program `AccelerometerDisplay.lf` is provided. To try out the program, plug your robot into the USB port of your host computer and put it in BOOTSEL mode by holding the B button while pressing the reset button.  In the root directory of your clone of the lf-pico repo, compile and load the program onto the robot:
 
@@ -54,20 +65,27 @@ $ picotool load -x bin/AccelerometerDisplay.elf
 
 You should see the display light up looking something like this:
 
-<img alt="AccelerometerDisplay Photo" src="img/AccelerometerDisplayPhoto.jpeg" width=65%/>
+<img alt="AccelerometerDisplay Photo" src="img/AccelerometerDisplayPhoto.jpg" width=50%/>
 
 1. Interpreting the numbers
     1. Explain why, when the robot is sitting on a flat surface, the sensed accelerations in the _x_ and _y_ directions are near zero and in the _z_ direction near one.
-    2. Why is the _z_ direction not near negative one? Doesn't grativation pull you down, not up?
+    2. Why is the _z_ direction not near negative one? Doesn't gravitation pull you down, not up?
     
     Experiment with rotating the robot and observing how the three measured accelerations change.
     
     **CHECKOFF:** Demonstrate the app working on all three axes.
 
 2. Examine the LF program
-    1. Open the file `src/AccelerometerDisplay.lf` in VS Code. Enable the diagram so that you see this:
+    1. Open the file `src/AccelerometerDisplay.lf` in VS Code. Enable the diagram, navigate and read the code, and explain what each of the reactions labeled _A_, _B_, _C_, and _D_ does:
 
         <img src="img/AccelerometerDisplay.png" alt"AccelerometerDisplay diagram"/>
 
-3. Convert the display to show tilt in degrees rather than _g_ force acceleration.
-    1. x
+    2. Notice the `target` specification at the top of each of the .lf files.  What do you think is the significance of the directive:
+    
+        ```threading: false```
+        
+    **CHECKOFF:** Explain what the four reactions do and the importance of threading being turned off.
+
+3. Copy the `AccelerometerDisplay.lf` file into another file, say, `TiltSolution.lf`, and modify it to show pitch and roll in degrees rather than _g_ force accelerations.
+
+    **CHECKOFF:** Show your pitch and roll displays and check that they are reasonable.
