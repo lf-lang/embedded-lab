@@ -1,0 +1,26 @@
+/**
+ * Test the Display library reactor.
+ * @author Edward A. Lee
+ */
+target C {
+  platform: "RP2040",
+  threading: false,
+}
+
+import Display from "../lib/Display.lf"
+
+main reactor {
+  d1 = new Display()  // Test with two instances.
+  d2 = new Display()
+
+  timer t(0, 1 s)
+  state c: int = 0
+
+  reaction(t) -> d1.line1, d2.line3 {=
+    static char buf1[17], buf2[17];
+    snprintf(buf1, 17, "first:  %d", self->c);
+    snprintf(buf2, 17, "second: %d", self->c++);
+    lf_set(d1.line1, buf1);
+    lf_set(d2.line3, buf2);
+  =}
+}
