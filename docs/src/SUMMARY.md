@@ -23,7 +23,7 @@
 # Appendices
 
 ## Detailed Installation Instructions
-- [lf-pico](./InstallLFPico.md)
-- [Lingua Franca](./InstallLF.md)
-- [VSCode](./InstallVSCode.md)
-- [Pico Tools](./InstallingPicoTools.md)
+- [Installing lf-pico](./InstallLFPico.md)
+- [Installing Lingua Franca](./InstallLF.md)
+- [Installing VSCode](./InstallVSCode.md)
+- [Installing Pico Tools](./InstallingPicoTools.md)
