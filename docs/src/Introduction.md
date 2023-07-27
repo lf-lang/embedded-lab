@@ -5,16 +5,10 @@ They use the [Lingua Franca coordination language](https://lf-lang.org) to provi
 All code is run on an inexpensive Raspberry Pi Pico ❤️.
 The labs are designed to be companion exercises for a course based on [Lee and Seshia, _Introduction to Embedded Systems: A Cyber-Physical Systems Approach](https://leeseshia.org), MIT Press, 2017.
 
-## Prerequisites
-These exercises assume that students are reasonably familiar with or able to quickly learn:
+## Resources
 
-- programming in C
-	- [C introduction](https://www.w3schools.com/c/c_intro.php)
-- Unix-like command-line tools
-	- [bash cheat sheet](https://github.com/RehanSaeed/Bash-Cheat-Sheet)
-	- [GitHub git cheat sheet](https://training.github.com/downloads/github-git-cheat-sheet/)
-	- [Unix reference card](https://www.cs.jhu.edu/%7Ejoanne/unixRC.pdf)
-	- [Command line reference](https://ss64.com)
+- [Online tutorials and reference documents](./Resources.md)
+- [Acronyms](./Acronyms.md)
 
 ## Acknowlegments
 These labs are derived from several generations of lab exercises for the Berkeley EECS 149/249A course, Introduction to embedded systems. Contributors to the lab design include:

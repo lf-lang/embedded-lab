@@ -1,6 +1,7 @@
 # Summary
 
 - [Introduction](./Introduction.md)
+- [Resources](./Resources.md)
 - [Acronyms](./Acronyms.md)
 
 # Setup
