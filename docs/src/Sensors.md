@@ -86,6 +86,6 @@ You should see the display light up looking something like this:
         
     **CHECKOFF:** Explain what the four reactions do and the importance of threading being turned off.
 
-3. Copy the `AccelerometerDisplay.lf` file into another file, say, `TiltSolution.lf`, and modify it to show pitch and roll in degrees rather than _g_ force accelerations.
+3. Create a reactor called `Tilt` that takes as inputs the _x_, _y_, and _z_ readings from the accelerometer and outputs the pitch and roll in degrees. Put this reactor in the `src/lib` directory and then use it in a variant of the `AccelerometerDisplay.lf` named, say, `TiltSolution.lf`, to show pitch and roll in degrees rather than _g_ force accelerations in the LCD display. **Save your `Tilt` reactor for use in future labs.**
 
     **CHECKOFF:** Show your pitch and roll displays and check that they are reasonable.
