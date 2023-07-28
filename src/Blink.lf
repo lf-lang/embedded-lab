@@ -1,7 +1,6 @@
 target C {
     platform: "RP2040",
-    threading: false,
-    cmake-include: ["../platform/pico_config.txt"]
+    threading: false
 }
 
 import Led from "./lib/Led.lf";
