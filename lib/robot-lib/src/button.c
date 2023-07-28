@@ -13,6 +13,7 @@ void set_btn_action(void* action) {
     }
 }
 
+// gpio callback on high to low edge
 void lf_gpio_callback(uint gpio, uint32_t events) {
   uint32_t mask = 0x4; // high to low edge 
   if (events & mask) {
@@ -79,3 +80,4 @@ int button_check(button * self)
   }
   return 0;
 }
+
