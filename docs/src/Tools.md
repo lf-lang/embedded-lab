@@ -59,7 +59,7 @@ The VS Code extension for Lingua Franca has a particularly useful feature where 
 2. TODO
 3. TODO
 
-## 1.2 Exercise: A First C Program
+## 1.2 A First C Program
 
 First, check your installation has been done correctly. One of the side effects of the installation is to define an environment variable called `PICO_SDK_PATH` that points to the root location of the RPi-Pico SDK. Check it:
 
@@ -155,23 +155,81 @@ Find and examine the C program `blink.c`. How is it controlling the timing of th
 Explain how the timing of the blinking of the LED is controlled.
 
 
-## 1.3 Exercise: A First Lingua Franca Program
+## 1.3 A First Lingua Franca Program
 
+Start code in the root `lf-pico` directory:
 
-
-### Blink
-A common "Hello, World" application for embedded platforms is the blink application which periodically flashes an LED connected on a GPIO pin of the controller. Many of the low level instructions required to interact with the GPIO peripheral are abstracted using the [pico-sdk](https://github.com/raspberrypi/pico-sdk/tree/master) C/C++ library. Using the gcc-arm toolchain, the library provides cmake support for generating binaries for the rp2040.  More details [here](./Pico-SDK-Primer).
-
-We will also introduce the Lingua Franca (LF) coordination framework as a high level scheduling framework. The framework emphasizes modeling computation as a network of concurrent reactor interactions. Reactors are similar to [actors](https://en.wikipedia.org/wiki/Actor_model) but also order simultaneous input reactions and timestamp messages. This allows for highly reproducible and testable code. More details [here](./Lingua-Franca-Primer)
-
-To start, build the `src/Blink.lf` example using the following command. This will invoke the LF compiler which generates C sources from the LF file and builds elf, uf2 and hex binaries for the rp2040.
-``` shell
-lfc src/Blink.lf
+```
+    cd lf_pico
+    code .
 ```
 
+Open and examine the `Blink.lf` program in the `src` directory.  You may want to open the diagram and drag its subwindow to the bottom so that you something like this:
 
+<img src="img/BlinkInCode.png" alt="Blink in code"/>
 
-## Debugging
+To compile this program, select View->Terminal from the menu, and type in the terminal (or an external terminal window if you prefer),
+
+```
+    lfc src/Blink.lf
+```
+
+Connect your robot in `BOOTSEL` mode and load and execute the program:
+
+```
+    picotool load -x bin/Blink.eld
+```
+
+You should see same blinking LED as before.
+
+Now, examine the LF program. How is the timing of the LED controlled here?  You may want to consult the [Lingua Franca documentation for timers](https://www.lf-lang.org/docs/handbook/time-and-timers?target=c#timers).
+Modify the Blink.lf program to use two timers, one that turns on the LED and one that turns it off, eliminating the state variable `led_on`.
+
+**Checkoff:** Show your modified LF program. Explain how this use of timers is different from the sleep function used in the C code `blink.c`.
+
+## 1.4 Printing Output
+
+As is typical of embedded platforms, the Pololu robot does not normally have a terminal connected to it.  The LEDs and small LCD display can be used to get information about the running program, but often, particularly while debugging, it is convenient to be able to simply insert `printf` statements into your programs to see what is going on.
+
+Your first task here is to modify your previous LED blinker to print "ON" and "OFF" each time it turns on or off the LED.  If you run the program as above, however, where do these printed statements go?
+
+The C function `printf` sends textual data to a conceptual device called **stdout** (for "standard output").
+By default, the robot is configured to direct all stdout text to a serial port on its USB interface.
+The trick, therefore, is to get your host computer to connect to that serial port and display data that arrives from the robot.
+
+To do that, we a terminal emulator called **screen**.  But first, we have to identify the serial port device that was created when the program started up.
+A simple way to do that is to look in the `/dev/` directory on your computer for a device that includes "usb" in its name:
+
+```
+    ls /dev/*usb*
+```
+
+On my machine, this lists two:
+
+```
+    /dev/cu.usbmodem14201	/dev/tty.usbmodem14201
+```
+
+To use screen, we specify the first of these devices and a baud rate, as follows:
+
+```
+    screen /dev/cu.usbmodem14201 115200
+```
+
+You should now see the printed outputs.
+You can return terminal to normal mode by **detaching** screen by typing Control-A d.
+You can reattach with
+
+```
+    screen -r
+```
+
+To permanently end screen, type Control-A k (for kill).    
+
+## 1.5 Modular Reusable Reactors
+
+## 1.6 Using a Debugger
+
 Debugging is done using a secondary RPI pico board flashed with the picoprobe firmware.
 This [thesis](https://openocd.org/files/thesis.pdf) dedicated to the development of the open-ocd software contains a good overview of the problems with debugging embedded platforms.
 For this reason, openocd runs on the host device and uses different hardware debug protocols to interface with gdb, the gnu debugger. The debugging frontend can be changed,
