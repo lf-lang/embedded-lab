@@ -1,6 +1,7 @@
 # Summary
 
 - [Introduction](./Introduction.md)
+- [Resources](./Resources.md)
 - [Acronyms](./Acronyms.md)
 
 # Setup
@@ -10,7 +11,7 @@
 
 # Lab Exercises
 
-- [Tools and Environments](./Tools.md)
+1. [Tools and Environments](./Tools.md)
 - [Embedded Programming with LF](./LF.md)
 - [Interfacing with Sensors](./Sensors.md)
 - [Peripherals](./Peripherals.md)

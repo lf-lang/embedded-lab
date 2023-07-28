@@ -10,3 +10,12 @@ Install the [cmake tools extension](https://marketplace.visualstudio.com/items?i
         "PICO_SDK_PATH":"../../lib/pico-sdk"
     },
 ```
+
+**FIXME: Extensions**:
+
+```
+$ code --install-extension marus25.cortex-debug
+$ code --install-extension ms-vscode.cmake-tools
+$ code --install-extension ms-vscode.cpptools
+```
+Also need LF extension.
