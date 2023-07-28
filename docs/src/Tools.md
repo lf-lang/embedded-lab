@@ -1,4 +1,4 @@
-# Tools and Environments
+# 1. Tools and Environments
 The purpose of this lab exercise is to familiarize you with the hardware and software used for embedded software programming. This lab exercise assumes you have followed the [Installation instructions](./Installation.md).  The [Resources](./Resources.md) and [Acronyms](./Acronyms.md) pages will also prove particularly useful.
 
 Embedded systems often have limited resources and interaction methods and hence require a different approach for programming.
@@ -14,7 +14,7 @@ Each core implements the [ARM Cortex-M0+](https://en.wikipedia.org/wiki/ARM_Cort
 The same RP2040 microprocessor is also available on the low-cost [Raspberry Pi Pico board](https://en.wikipedia.org/wiki/Raspberry_Pi#Raspberry_Pi_Pico), but this board does not have the sensors and actuators of the Pololu robot, so you will need the robot to be able to complete all the exercises.
 See the [Raspberry Pi Wikipedia page](https://en.wikipedia.org/wiki/Raspberry_Pi) for more background on this family of microcontrollers.
 
-## Hardware
+### Hardware
 
 The [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86) looks like this from the top and bottom:
 
@@ -28,7 +28,7 @@ The robot is designed to be extended with additional hardware.  The available el
 
 The pins GP24, GP27, GP28, and GP29 are free I/O pins that are not used for anything on the 3pi+ 2040. Each of these pins is accessible on the mid expansion header, and can be used as a general purpose input, digital output, or PWM output. Three of the pins (GP27, GP28, and GP29) can be used as analog inputs.
 
-## Software
+### Software
 
 The robot can be programmed in Python (using [MicroPython](https://micropython.org)) or in C. In these lab exercises, we will be programming in C to gain more direct experience with the boundary between software and hardware. The robot runs no operating system, so when you load a C program onto it, that is the only software running.
 
@@ -41,9 +41,7 @@ As is typical in embedded software development, the software you will write will
 5. [Lingua Franca](https://lf-lang.org) is a coordination language for designing and composing software components.  In these lab exercises, we will use its [C target](https://www.lf-lang.org/docs/handbook/target-language-details?target=c) and a small library of pre-defined components called **reactors** that offer convenient access to certain robot features and examples on which you can base your own code.
 6. [CMake](https://en.wikipedia.org/wiki/CMake) is a build tool that manages dependencies. Nearly any program you build will depend on other programs and libraries and maintaining these dependencies can be very tedious. CMake supports encoding the dependencies in a way that makes it more likely that your code will compile even when put on a different computer or with a different filesystem organization.
 
-## Development Tools
-
-### Visual Studio Code
+### Development Tools
 
 For developing C and Lingua Franca programs, we recommend using [Visual Studio Code](https://en.wikipedia.org/wiki/Visual_Studio_Code) (**VS Code**), an integrated development environment (**IDE**) from Microsoft.
 Three VS Code extensions will prove particularly useful, the [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools), the
@@ -54,14 +52,14 @@ The VS Code extension for Lingua Franca has a particularly useful feature where 
 
 <img src="img/VSCodeExtension.png" alt="VS Code extension for Lingua Franca"/>
 
-## Prelab
+## 1.1 Prelab
 
 ### Exercises
 1. TODO
 2. TODO
 3. TODO
 
-## A First C Program
+## 1.2 Exercise: A First C Program
 
 First, check your installation has been done correctly. One of the side effects of the installation is to define an environment variable called `PICO_SDK_PATH` that points to the root location of the RPi-Pico SDK. Check it:
 
@@ -149,11 +147,17 @@ When you see "Build finished with exit code 0," then you can load the code onto 
 
 Make sure the robot is in `BOOTSEL` mode before doing this.
 
+### Examining the C Program
+
+Find and examine the C program `blink.c`. How is it controlling the timing of the blinking of the LED?
+
+**Checkoff:** Verify that the VS Code and command-line mechanisms are working.
+Explain how the timing of the blinking of the LED is controlled.
 
 
-## A First Lingua Franca Program
+## 1.3 Exercise: A First Lingua Franca Program
 
-## Blink
+### Blink
 A common "Hello, World" application for embedded platforms is the blink application which periodically flashes an LED connected on a GPIO pin of the controller. Many of the low level instructions required to interact with the GPIO peripheral are abstracted using the [pico-sdk](https://github.com/raspberrypi/pico-sdk/tree/master) C/C++ library. Using the gcc-arm toolchain, the library provides cmake support for generating binaries for the rp2040.  More details [here](./Pico-SDK-Primer).
 
 We will also introduce the Lingua Franca (LF) coordination framework as a high level scheduling framework. The framework emphasizes modeling computation as a network of concurrent reactor interactions. Reactors are similar to [actors](https://en.wikipedia.org/wiki/Actor_model) but also order simultaneous input reactions and timestamp messages. This allows for highly reproducible and testable code. More details [here](./Lingua-Franca-Primer)
