@@ -157,6 +157,8 @@ Explain how the timing of the blinking of the LED is controlled.
 
 ## 1.3 Exercise: A First Lingua Franca Program
 
+
+
 ### Blink
 A common "Hello, World" application for embedded platforms is the blink application which periodically flashes an LED connected on a GPIO pin of the controller. Many of the low level instructions required to interact with the GPIO peripheral are abstracted using the [pico-sdk](https://github.com/raspberrypi/pico-sdk/tree/master) C/C++ library. Using the gcc-arm toolchain, the library provides cmake support for generating binaries for the rp2040.  More details [here](./Pico-SDK-Primer).
 
