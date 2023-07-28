@@ -12,7 +12,7 @@ main reactor {
   preamble {=
     const uint LED_PIN = PICO_DEFAULT_LED_PIN;
   =}
-  timer t(0, 100 msec);
+  timer t(0, 250 ms);
   state led_on:bool = false;
 
   reaction(startup) {=
