@@ -28,3 +28,4 @@
 - [Installing Lingua Franca](./InstallLF.md)
 - [Installing VSCode](./InstallVSCode.md)
 - [Installing Pico Tools](./InstallingPicoTools.md)
+- [Using a Debugger](./Debugger.md)

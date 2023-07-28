@@ -224,20 +224,63 @@ You can reattach with
     screen -r
 ```
 
-To permanently end screen, type Control-A k (for kill).    
+To permanently end screen, type Control-A k (for kill).
+
+**Checkoff:** Show ON-OFF output.    
 
 ## 1.5 Modular Reusable Reactors
 
-## 1.6 Using a Debugger
+The LED code in `Blink.lf` is in a main reactor, which cannot be imported into any other Lingua Franca application.
+Your next task is to create reusable reactor called \code{LED} that has a single input named \code{set} with type `bool`.
+When the reactor receives an input event with value `true`, it should turn on the LED.
+When it receives an input with value `false`, it should turn off the LED.
 
-Debugging is done using a secondary RPI pico board flashed with the picoprobe firmware.
-This [thesis](https://openocd.org/files/thesis.pdf) dedicated to the development of the open-ocd software contains a good overview of the problems with debugging embedded platforms.
-For this reason, openocd runs on the host device and uses different hardware debug protocols to interface with gdb, the gnu debugger. The debugging frontend can be changed,
-and for use with vscode, a simple run configuration must be provided.
+To do this, create a file in your `src/lib` directory called `LED.lf` with the following structure:
 
-Flash the picoprobe firmware from [here](https://github.com/raspberrypi/picoprobe/releases/download/picoprobe-cmsis-v1.02/picoprobe.uf2) using picotool on the RPI Pico device that will be used
-as the debugger. The wiring diagram here shows what pins to connect in order to debug the 3pi robot.
-TODO: diagram
+```
+target C {
+  platform: "RP2040",
+  threading: false
+}
+preamble {=
+  #include <hardware/gpio.h>
+=}
+reactor LED {
+  input set:bool;
+    
+  reaction(startup) {=
+    // Fill in your code here
+  =}
 
-Run openocd to start the debugging server and load a specific elf file. This will create a gbd server that can be connected to. 
+  reaction(set) {=
+    // Fill in your code here
+  =}
+}
+```
+
+Then create a new LF file that imports this reactor and drives its input in such a way as to blink the LED.  The following LF documentation could prove useful:
+
+- [Inputs and Outputs](https://www.lf-lang.org/docs/handbook/inputs-and-outputs?target=c)
+- [Composing Reactors](https://www.lf-lang.org/docs/handbook/composing-reactors?target=c)
+- [Reactions and Methods](https://www.lf-lang.org/docs/handbook/reactions-and-methods?target=c)
+
+You have probably noticed some patterns here. E.g., each LF file begins with this:
+
+```
+target C {
+  platform: "RP2040",
+  threading: false
+}
+```
+
+This specifies that the target language is C, so the `lfc` compiler generates C programs. The platform specification indicates that the C runtime system for the Raspberry Pi 2040 should be used.  The `threading` directive indicates that the target is bare metal machine with no operating system and no thread library.
+
+To initialize and toggle the LED, we are using library functions like `gpio_put` which are declared in a header file `gpio.h` that is part of the standard Pico SDK.
+See the [Pico SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/), and specifically the [hardware_gpio section](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#hardware_gpio).
+These functions manipulate memory-mapped registers that control the GPIO pins of the processor.
+On the robot, one of those pins, identified in the header files by the `PICO_DEFAULT_LED_PIN` macro, controls the LED you see blinking.
+Subsequent labs will explore more deeply the use memory-mapped registers for I/O.
+
+**Checkoff:** Show the diagram for your program.
+
 
