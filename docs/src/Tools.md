@@ -276,7 +276,17 @@ target C {
 This specifies that the target language is C, so the `lfc` compiler generates C programs. The platform specification indicates that the C runtime system for the Raspberry Pi 2040 should be used.  The `threading` directive indicates that the target is bare metal machine with no operating system and no thread library.
 
 To initialize and toggle the LED, we are using library functions like `gpio_put` which are declared in a header file `gpio.h` that is part of the standard Pico SDK.
-See the [Pico SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/), and specifically the [hardware_gpio section](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#hardware_gpio).
+Inclusion of this header file is a consequence of this directive:
+
+```
+preamble {=
+  #include <hardware/gpio.h>
+=}
+```
+
+What happens if you omit this?
+
+For documentation about this header file, see the [Pico SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/), and specifically the [hardware_gpio section](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#hardware_gpio).
 These functions manipulate memory-mapped registers that control the GPIO pins of the processor.
 On the robot, one of those pins, identified in the header files by the `PICO_DEFAULT_LED_PIN` macro, controls the LED you see blinking.
 Subsequent labs will explore more deeply the use memory-mapped registers for I/O.

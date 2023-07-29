@@ -47,5 +47,4 @@ main reactor {
         lf_set(d.line1, buf1);
         lf_set(d.line2, buf2);
     =}
-
 }
