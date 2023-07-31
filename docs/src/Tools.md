@@ -54,10 +54,14 @@ The VS Code extension for Lingua Franca has a particularly useful feature where 
 
 ## 1.1 Prelab
 
-### Exercises
-1. TODO
-2. TODO
-3. TODO
+These exercises are intended to make sure you are up-to-speed on using the Unix command line.  See [Resources](./Resources.md) for some pointers.
+
+1. What flag for `ls` displays all files, even hidden ones?
+2. How do you move to the parent directory of the current one?
+3. What is the difference between the `mv` and `cp` commands?
+4. What does the `-h` flag of `ls` do? **Hint:** use `man` to find out.
+5. In a git repository, what command displays whether there are any local changes and what they are?
+6. In a git repository, what does `git pull` do?
 
 ## 1.2 A First C Program
 
