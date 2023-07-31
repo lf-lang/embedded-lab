@@ -11,7 +11,6 @@
 # Lab Exercises
 
 1. [Tools and Environments](./Tools.md)
-- [Embedded Programming with LF](./LF.md)
 - [Interfacing with Sensors](./Sensors.md)
 - [Peripherals](./Peripherals.md)
 - [Interrupts](./Interrupts.md)
