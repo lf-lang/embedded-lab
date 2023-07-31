@@ -1,6 +1,6 @@
 # Installing Raspberry Pi Pico Tools
 
-These instructions are adapted from the [Pololu instructions](../lib/pololu-3pi-2040-robot/c/README.md). See also the [GNU ARM installation instructions](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
+If you use Nix as explained in the [installation instructions](./Installation.md), then you should not need to manually install the Raspberry Pi Pico SDK.  But just in case, we provide here instructions adapted from the [Pololu instructions](../lib/pololu-3pi-2040-robot/c/README.md). See also the [GNU ARM installation instructions](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
 
 ## Set the PICO\_SDK\_PATH Environment Variable
 
@@ -11,6 +11,9 @@ export PICO_SDK_PATH=../lf-pico/lib/pico-sdk
 ```
 
 where `...` is replaced by the path to the folder where you cloned the `lf-pico` repository.  For convenience, put the above command in your `~/.bash_profile` file so that the environment variable is available to any bash terminal.  Depending on what operating system and terminal you use, you may need to find some other way to set this environment variable.
+
+Note that the `PICO_SDK_PATH` variable is automatically set by `nix develop` in the shell that  it launches (see the [installation instructions](./Installation.md)).
+Moreover, if you use the template repo, then `PICO_SDK_PATH` will be subsequently automatically set whenever you compile any LF file in your repo even if you are not using the shell launched by `nix develop`.
 
 ## Install CMake and ARM cross compiler
 
