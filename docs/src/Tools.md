@@ -298,3 +298,14 @@ Subsequent labs will explore more deeply the use memory-mapped registers for I/O
 **Checkoff:** Show the diagram for your program.
 
 
+## Postlab Questions
+
+1. What format specifier(s) for `printf` allows the printing of floats (there may be several)?
+  
+2. When might `printf` statements be the best tool for debugging? 
+
+3. What other tools might be useful for debugging embedded software (note that using an interactive debugger like `gdb` with the robot or pico board [requires extra hardware](./Debugger.md))? 
+
+4. What does the volatile keyword mean in C? \points{3}    
+
+5. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
