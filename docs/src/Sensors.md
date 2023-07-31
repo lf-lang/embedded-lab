@@ -89,3 +89,14 @@ You should see the display light up looking something like this:
 3. Create a reactor called `Tilt` that takes as inputs the _x_, _y_, and _z_ readings from the accelerometer and outputs the pitch and roll in degrees. Put this reactor in the `src/lib` directory and then use it in a variant of the `AccelerometerDisplay.lf` named, say, `TiltSolution.lf`, to show pitch and roll in degrees rather than _g_ force accelerations in the LCD display. **Save your `Tilt` reactor for use in future labs.**
 
     **CHECKOFF:** Show your pitch and roll displays and check that they are reasonable.
+
+
+## Postlab Questions
+
+1. Suppose a sensor gives you a 16-bit signed integer representing some measured quantity in some well-defined units, that the range of the sensor in those units is -4.0 to 4.0, and that the sensitivity in those units is 0.000122 (1/2<sup>13</sup>). What is representation in hex and in binary of a sensor reading of 1.0 in those units?
+
+2. Suppose that your goal with the accelerometer is to measure the tilt in degrees of the surface on which your robot is moving.  How would you measure the bias and then compensate for this bias?
+
+3. Suppose that your goal is to orient the robot to point straight up the hill. How would you use the pitch and roll measurements to accomplish this?
+
+4. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?

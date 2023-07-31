@@ -1,4 +1,4 @@
-# 1. Tools and Environments
+# 3. Tools and Environments
 The purpose of this lab exercise is to familiarize you with the hardware and software used for embedded software programming. This lab exercise assumes you have followed the [Installation instructions](./Installation.md).  The [Resources](./Resources.md) and [Acronyms](./Acronyms.md) pages will also prove particularly useful.
 
 Embedded systems often have limited resources and interaction methods and hence require a different approach for programming.
@@ -52,7 +52,7 @@ The VS Code extension for Lingua Franca has a particularly useful feature where 
 
 <img src="img/VSCodeExtension.png" alt="VS Code extension for Lingua Franca"/>
 
-## 1.1 Prelab
+## 3.1 Prelab
 
 These exercises are intended to make sure you are up-to-speed on using the Unix command line.  See [Resources](./Resources.md) for some pointers.
 
@@ -63,7 +63,7 @@ These exercises are intended to make sure you are up-to-speed on using the Unix 
 5. In a git repository, what command displays whether there are any local changes and what they are?
 6. In a git repository, what does `git pull` do?
 
-## 1.2 A First C Program
+## 3.2 A First C Program
 
 First, check your installation has been done correctly. One of the side effects of the installation is to define an environment variable called `PICO_SDK_PATH` that points to the root location of the RPi-Pico SDK. Check it:
 
@@ -159,7 +159,7 @@ Find and examine the C program `blink.c`. How is it controlling the timing of th
 Explain how the timing of the blinking of the LED is controlled.
 
 
-## 1.3 A First Lingua Franca Program
+## 3.3 A First Lingua Franca Program
 
 Start code in the root `lf-pico` directory:
 
@@ -191,7 +191,7 @@ Modify the Blink.lf program to use two timers, one that turns on the LED and one
 
 **Checkoff:** Show your modified LF program. Explain how this use of timers is different from the sleep function used in the C code `blink.c`.
 
-## 1.4 Printing Output
+## 3.4 Printing Output
 
 As is typical of embedded platforms, the Pololu robot does not normally have a terminal connected to it.  The LEDs and small LCD display can be used to get information about the running program, but often, particularly while debugging, it is convenient to be able to simply insert `printf` statements into your programs to see what is going on.
 
@@ -232,7 +232,7 @@ To permanently end screen, type Control-A k (for kill).
 
 **Checkoff:** Show ON-OFF output.    
 
-## 1.5 Modular Reusable Reactors
+## 3.5 Modular Reusable Reactors
 
 The LED code in `Blink.lf` is in a main reactor, which cannot be imported into any other Lingua Franca application.
 Your next task is to create reusable reactor called \code{LED} that has a single input named \code{set} with type `bool`.
@@ -298,7 +298,7 @@ Subsequent labs will explore more deeply the use memory-mapped registers for I/O
 **Checkoff:** Show the diagram for your program.
 
 
-## Postlab Questions
+## 3.6 Postlab Questions
 
 1. What format specifier(s) for `printf` allows the printing of floats (there may be several)?
   

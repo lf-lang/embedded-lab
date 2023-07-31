@@ -1,9 +1,5 @@
-# Summary
 
 - [Introduction](./Introduction.md)
-
-# Setup
-
 - [Installation](./Installation.md)
 
 # Lab Exercises
