@@ -1,4 +1,4 @@
-# Interfacing with Sensors
+# 4. Interfacing with Sensors
 
 The purpose of this exercise is to learn to read sensor values on a microcontroller and to interpret those values. You will read accelerometer data from a device on the Pololu robot, convert the readings to meaningful units, and use the results to estimate the tilt of the surface on which the robot sits. As a side effect, you will gain experience reading a technical datasheet.
 
@@ -8,7 +8,7 @@ On the robot, the IMU is connected to the RPi via the [I<sup>2</sup>C](https://e
 
 Part of the purpose of this exercise is to learn to work from incomplete documentation, an inevitable reality in any engineering project. It takes a certain amount of detective work to identify properties of the hardware you are working with that may be important in your application.
 
-## Prelab
+## 4.1 Prelab
 
 ### References
 
@@ -41,7 +41,7 @@ Part of the purpose of this exercise is to learn to work from incomplete documen
 
         **Hint:** Table 2 could be helpful. Bias is referred to as "zero-g level" in this table.
         
-## Sampling an Accelerometer
+## 4.2 Sampling an Accelerometer
 
 The goal of this lab is to calculate and display the inclination of the Pololu robot. The inclination is the amount of tilt of the surface on which the robot sits. Chapter 2 of [Lee and Seshia](https://leeseshia.org) describes the orientation of a vehicle in terms of pitch, roll, and yaw, illustrated as follows:
 
@@ -86,12 +86,14 @@ You should see the display light up looking something like this:
         
     **CHECKOFF:** Explain what the four reactions do and the importance of threading being turned off.
 
-3. Create a reactor called `Tilt` that takes as inputs the _x_, _y_, and _z_ readings from the accelerometer and outputs the pitch and roll in degrees. Put this reactor in the `src/lib` directory and then use it in a variant of the `AccelerometerDisplay.lf` named, say, `TiltSolution.lf`, to show pitch and roll in degrees rather than _g_ force accelerations in the LCD display. **Save your `Tilt` reactor for use in future labs.**
+## 4.3 Measuring Tilt
 
-    **CHECKOFF:** Show your pitch and roll displays and check that they are reasonable.
+Create a reactor called `Tilt` that takes as inputs the _x_, _y_, and _z_ readings from the accelerometer and outputs the pitch and roll in degrees. Put this reactor in the `src/lib` directory and then use it in a variant of the `AccelerometerDisplay.lf` named, say, `TiltSolution.lf`, to show pitch and roll in degrees rather than _g_ force accelerations in the LCD display. **Save your `Tilt` reactor for use in future labs.**
+
+**CHECKOFF:** Show your pitch and roll displays and check that they are reasonable.
 
 
-## Postlab Questions
+## 4.4 Postlab Questions
 
 1. Suppose a sensor gives you a 16-bit signed integer representing some measured quantity in some well-defined units, that the range of the sensor in those units is -4.0 to 4.0, and that the sensitivity in those units is 0.000122 (1/2<sup>13</sup>). What is representation in hex and in binary of a sensor reading of 1.0 in those units?
 
