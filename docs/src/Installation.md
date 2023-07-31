@@ -6,7 +6,7 @@ Start by creating a new private repository on GitHub based on the [lf-3pi-templa
 
 To create the repository, log in to [GitHub](https://github.com) (create an account if you do not have one), and navigate to the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository.  Select "Use this template" and "Create a new repository", as shown here:
 
-<img src="img/3PiTemplate.png" alt="Template repo"/>
+<img src="img/3piTemplate.png" alt="Template repo"/>
 
 Give your repo an name and click on "Create repository":
 
