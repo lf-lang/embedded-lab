@@ -19,12 +19,12 @@
 ## RP2040 and RPi-Pico Programming
 
 - [Getting Started](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) (pdf)
-- [SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/)
+- [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf)
+- [Pico SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/)
 - [SDK source code](https://github.com/raspberrypi/pico-sdk)
 - [SDK examples](https://github.com/raspberrypi/pico-examples)
 - [Pico Extras](https://github.com/raspberrypi/pico-extras)
 - [Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) (pdf)
-
 - [ARM Cortex-M0+ datasheet](https://developer.arm.com/documentation/102835/latest/)
 
 ## General Raspberry Pi Documentation
@@ -33,18 +33,9 @@
 
 ## Host computer tools
 
-- [picotool](https://github.com/raspberrypi/picotool)
+- [Nix](https://nixos.org) (for installation)
+- [Lingua Franca](https://lf-lang.org)
+- [picotool](https://github.com/raspberrypi/picotool) (for downloading to the platform)
 - **FIXME** screen
 
-- Lingua Franca
-    - **FIXME**
 
-- Textbook
-    - Memory Architecture
-    - Embedded Processors
-    - Sensors
-
-
-    - [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf)
-
-    - [RP2040 Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf)
