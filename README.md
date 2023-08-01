@@ -11,7 +11,7 @@ For documentation on the mdBook framework that we use to render the docs, see [m
 
 ### Build and run locally
 The book can also be built and served locally after installing mdbook and running.
-Simply run:
+Simply run the follow command in the root of this repository:
 ```
 mdbook serve docs/
 ```
