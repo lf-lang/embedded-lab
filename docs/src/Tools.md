@@ -181,7 +181,7 @@ To compile this program, select View->Terminal from the menu, and type in the te
 Connect your robot in `BOOTSEL` mode and load and execute the program:
 
 ```
-    picotool load -x bin/Blink.eld
+    picotool load -x bin/Blink.elf
 ```
 
 You should see same blinking LED as before.
