@@ -65,11 +65,11 @@ These exercises are intended to make sure you are up-to-speed on using the Unix 
 
 ## 3.2 A First C Program
 
-First, check your installation has been done correctly. One of the side effects of the installation is to define an environment variable called `PICO_SDK_PATH` that points to the root location of the RPi-Pico SDK. Check it:
+First, check your installation has been done correctly. One of the side effects of the installation is to define an environment variable called `PICO_SDK_PATH` that points to the root location of the RPi-Pico SDK. Check it (make sure to replace <path_to_your_repo> with the actual path to your repo):
 
 ```
 $ echo $PICO_SDK_PATH
-/Users/eal/git/lf-pico/pico/pico-sdk
+/Users/<path_to_your_repo>/my-3pi/pico-sdk
 ```
 
 You may wish to look at the README file in that directory.
