@@ -40,6 +40,16 @@ To install the dependencies, run the following in the root of your repository:
 nix develop
 ```
 
+> **_NOTE:_**  Notes for **ARM/Apple Silicon Mac** users - as of August 1, 2023, the stable version of nix does *not* support ARM/Apple Silicon Macs. You may see an error message like this when running the `nix develop` command:
+> ```
+> is not available on the requested hostPlatform
+> ```
+> Here is a workaround for this. You need to set up an environmental variable and run the nix command with an additional argument, `--impure`, like this:
+> ```
+> export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+> nix develop --impure
+> ```
+
 This should automatically download and install specific revisions of the gcc-arm toolchain, openocd, and picotool. These packages will be required compiling, flashing and debugging C code for the RP2040.
 (You can alternatively manually [install the Raspberry Pi Pico Tools](InstallingPicoTools.md).)
 
