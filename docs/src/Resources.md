@@ -24,8 +24,13 @@
 - [SDK source code](https://github.com/raspberrypi/pico-sdk)
 - [SDK examples](https://github.com/raspberrypi/pico-examples)
 - [Pico Extras](https://github.com/raspberrypi/pico-extras)
-- [Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) (pdf)
+- [RP2040 Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) (pdf)
+
+## Processor Reference
+
 - [ARM Cortex-M0+ datasheet](https://developer.arm.com/documentation/102835/latest/)
+- [ARM Cortex-M0+ Technical Reference Manual](https://developer.arm.com/documentation/ddi0484/latest/)
+- [Armv6-M Architecture Reference Manual](https://developer.arm.com/documentation/ddi0419/latest/)
 
 ## General Raspberry Pi Documentation
 

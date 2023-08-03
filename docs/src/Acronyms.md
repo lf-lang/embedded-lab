@@ -15,6 +15,7 @@
 <tr><td> <a href="https://en.wikipedia.org/wiki/Raspberry_Pi">RPi</a> </td><td> Raspberry Pi</td></tr>
 <tr><td> <a href="https://en.wikipedia.org/wiki/Software_development_kit">SDK</a></td><td>Software Development Kit</td></tr>
 <tr><td> <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface">SPI</a> </td><td> Serial Peripheral Interface </td></tr>
+<tr><td> <a href="https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter">UART</a> </td><td> Universal Asynchronous Receiver-Transmitter </td></tr>
 <tr><td> <a href="https://en.wikipedia.org/wiki/USB">USB</a> </td><td> Universal Serial Bus</td></tr>
 <tr><td> <a href="https://en.wikipedia.org/wiki/Visual_Studio_Code">VS Code</a> </td><td> Visual Studio Code</td></tr>
 </table>
