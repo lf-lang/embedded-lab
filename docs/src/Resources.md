@@ -15,6 +15,7 @@
 
 - [User's Guide](https://www.pololu.com/docs/0J86)
 - [Robot Libraries and Example Code for C](https://github.com/pololu/pololu-3pi-2040-robot/tree/master/c)
+- [3pi 2040 Control Board Schematic](https://www.pololu.com/file/0J1940/3pi-2040-control-board-schematic.pdf)
 
 ## RP2040 and RPi-Pico Programming
 
