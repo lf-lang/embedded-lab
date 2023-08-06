@@ -8,6 +8,7 @@
 <tr><td> <a href="https://en.wikipedia.org/wiki/I²C">I<sup>2</sup>C</a> </td><td> Inter-Integrated Circuit, pronounced as “eye-squared-C” </td></tr>
 <tr><td> <a href="./Sensors.md">IMU</a> </td><td> Inertial Measurement Unit </td></tr>
 <tr><td> I/O </td><td> Input / Output </td></tr>
+<tr><td> ISR </td><td> Interrupt Service Routine </td></tr>
 <tr><td> <a href="https://lf-lang.org">LF</a> </td><td> Lingua Franca </td></tr>
 <tr><td> <a href="./Sensors.md">LPF</a> </td><td> Low Pass Filter </td></tr>
 <tr><td> LSB </td><td> Least Significant Bit </td></tr>

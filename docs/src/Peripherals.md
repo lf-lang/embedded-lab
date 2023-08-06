@@ -94,7 +94,7 @@ APB is used for lower-speed peripherals, AHB for higher speed peripherals, and I
     }
     ```
     
-    A bit of detective work (or writing a program that prints the values) reveals the following values:
+    A bit of detective work (Section 2.3.1.7, List of Registers, of the [RP2040 Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) or writing a program that prints the values) reveals the following values:
     
     ```
     PICO_DEFAULT_LED_PIN: 25
@@ -120,3 +120,21 @@ But using an SDK also hides what is really happening in the hardware.  In this e
 You could similarly replace the reaction to the `startup` event, but that turns out to be fairly tedious and doesn't lend much additional insight, so we do not recommend doing that.
 
 Note that this exercise reveals why we are using the C programming language and a bare-metal target processor.  Higher-level languages like Python and operating systems like Linux do not allow such direct manipulation of hardware.
+
+## 5.3.  Polling Input
+
+A GPIO pin can serve as an input or an output. As shown in the schematic above, GPIO pin 25 is connected to Button A on the robot as well as to the LED.  Your task is to create a Lingua Franca program that reads the state of this pin every 250ms to determine whether the button is being pushed or not.  Since you cannot use the GPIO pin simultaneously as an input and output, we suggest importing the library reactor `lib/Display.lf` and using the LCD display on the robot to display the state of the button rather than trying to drive the LED.
+
+The style of input where you periodically query the state of peripheral hardware is called "polling". What are some advantages and disadvantages of polling?
+In the next lab, we will investigate a more reactive technique that uses interrupts.
+
+## 5.4.  Postlab
+
+1. Address 0xd000001c is defined in Section 2.3.1.7, List of Registers, of the [RP2040 Datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) as `GPIO_OUT_XOR` or "GPIO output value XOR."  Writing a mask to this address will, in one cycle, reverse the polarity of the GPIO pin; if it is set, it will be cleared, and if it is cleared, it will be set. Why do you think the hardware designers chose to provide this functionality?  If this functionality were not available, how would you reverse the polarity of a pin?  Is there a risk that your alternative solution would not cause anything to change on the pin?
+
+2. You need to change the state of two GPIO pins, and you want them to change at the same time - closer together in time than the clock period of the processor. To accomplish this, you try to write both of their corresponding bits in the GPIO OUT register in the same write function.
+Do you think this will cause both pins to switch at the same time? Why or why not?
+
+3. The `mask` functionality explored in this lab may seem a bit unusual. Suppose that instead of providing a mask, when you want to change the state of a GPIO pin you had to write a single 32 bit number to a memory-mapped register, where the value you write specifies the state of **all** the GPIO pins.  What would be the potential pitfalls of such a mechanism?
+
+4. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
