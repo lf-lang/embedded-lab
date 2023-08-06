@@ -39,7 +39,9 @@ factors may impact the latency of handling this interrupt?
     }
     ```
 
-2. In the Lingua Franca C target, to create a timestamped event in response to an external event such as an interrupt, you call the the `lf_schedule` function, passing it a pointer to a a [physical action](https://www.lf-lang.org/docs/handbook/actions?target=c).  Modify your previous program so that a reaction is invoked each time you press the button.  In your reaction, print the time elapsed since the last button push in milliseconds.
+2. In the Lingua Franca C target, to create a timestamped event in response to an external event such as an interrupt, you call the the `lf_schedule` function, passing it a pointer to a a [physical action](https://www.lf-lang.org/docs/handbook/actions?target=c).  Modify your previous program so that a reaction is invoked each time you press the button.  In your reaction, print the logical time elapsed since the last button push in milliseconds.
+
+    **Hint:** In the C target of LF, [logical time](https://www.lf-lang.org/docs/handbook/time-and-timers?target=c) is accessed within a reaction using the function `lf_time_logical` or `lf_time_logical_elapsed()`.
 
     **Hint:** To accomplish this, you will need to make a pointer to your physical action available within your callback function.  A simple pattern to accomplish this is to use a static global variable of type `void*`, as follows:
     
@@ -59,5 +61,25 @@ factors may impact the latency of handling this interrupt?
     ```
     
     The reaction to `startup` includes the effect `-> a`, which results in a C variable `a` being available within the reaction body. That variable is a pointer to the physical action and can be used as the first argument to the `lf_schedule` function.
+    
+**Checkoff:** Show your printf output in reaction to button pushes.
 
 ## 6.3. Debouncing
+
+You will likely notice that every once in a while, a single push of the A button results in more than one printed output, usually with a rather small time interval between them. The reason for this is that mechanical switches tend to bounce. When you press the button, a metal contact hits another contact, then briefly bounces off and hits again. This results in a voltage signal that transitions more than once for each button press.
+Correcting for this is called "**debouncing**".
+A simple technique is to ignore events that are too closely spaced.
+
+Modify your previous program so that the physical action is scheduled only if the physical time elapsed between detected events is greater than 200ms.
+
+**Hint:** In your callback function, which is invoked outside the scope of any reaction, logical time has no reliable meaning.  Access [physical time](https://www.lf-lang.org/docs/handbook/time-and-timers?target=c) instead, using either `lf_time_physical()` or `lf_time_physical_elapsed()`.
+
+**Checkoff:** Show your printf output in reaction to button pushes.
+
+## 6.4. Modal Programs
+
+Lingua Franca provides syntax for specifying [**modal reactors**](https://www.lf-lang.org/docs/handbook/modal-models?target=c), where a finite state machine (FSM) governs the mode of operation of a reactor.
+
+Create a Lingua Franca program that displays a sequence of increasing counting numbers on the LCD display until you push button A, and then starts counting down instead of up.  Make your program switch between counting up and counting down on each button push.  Make your program count down at half the rate that it counts up.
+
+**Checkoff:** Show your LCD display responding to button pushes and your LF diagram.
