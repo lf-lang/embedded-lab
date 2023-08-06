@@ -23,6 +23,24 @@ What is one condition that must be met for this to occur?
 3. A processor is executing and receives a low-priority external interrupt. What
 factors may impact the latency of handling this interrupt?
 
+4. One issue with nested interrupts is that an ISR may have to be carefully designed to be **reentrant**.  A function is reentrant if it can be safely called again while it is in the middle of an execution. You are given the following function:
+
+    ```
+    void send_to_radio(char* data) {
+        static char data_to_send[10];
+        memcpy(data_to_send, data, 10)
+        
+        // Assume that this function is reentrant
+        radio_send(data_to_send);
+    }
+```
+
+    1. Is the function `send_to_radio` reentrant? Why or why not? **Hint:** Make
+sure to understand static variables in C.
+
+    2. What is one simple way to make the function reentrant?
+
+
 ## 6.2. Interrupt Service Routine
 
 1. The [`gpio_set_irq_enabled_with_callback`](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#ga6165f07f4b619dd08ea6dc97d069e78a) function of the Pico SDK provides a convenient "one-stop shop" for specifying a callback function to invoke upon a voltage event on a GPIO pin. Create a simple program that prints the arguments to the callback function each time you press button A on the robot.
