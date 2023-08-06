@@ -8,3 +8,7 @@ There are many possible projects using the [Pololu 3pi+ 2040 robot](https://www.
 
 3. **Bare metal multithreading.**  The RP2040 has two cores, only one of which is used by Lingua Franca when the threading target parameter is set to false.  It should be possible to enable multi threading and limit the number of threads to two, one running on each core.  This project will redesign the LF platform support to accomplish this.  This will require learning how the two cores interact through memory and peripherals as well as how LF uses multi threading.  The project should include designing experiments to measure the efficiency of the approach and the benefits compared to the unthreaded implementation that uses only a single core.
 
+4. **Bluetooth connected robot.**  The Pololu robot has no network connectivity, but it has two UARTs, one of which could be dedicated to providing a serial connection over bluetooth. The goal of this project is to identify a serial bluetooth device that can be connected to the one of the UARTs and then to develop demonstrations of robot control over bluetooth.
+
+5. **AI robot.**  According to its [wikipedia page](https://en.wikipedia.org/wiki/RP2040), the RP2040 is sufficiently powerful to run [TensorFlow Lite](https://en.wikipedia.org/wiki/TensorFlow#TensorFlow_Lite). The goal of this project is to test this claim and develop some meaningful application running on the robot and using machine learning.
+
