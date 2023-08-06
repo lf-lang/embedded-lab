@@ -8,10 +8,8 @@
 - [Interfacing with Sensors](./Sensors.md)
 - [Peripherals](./Peripherals.md)
 - [Interrupts](./Interrupts.md)
-- [Timers](./Timers.md)
 - [Robot](./Robot.md)
 - [Hill Climb](./Hill.md)
-- [Wireless](./Wireless.md)
 
 # Appendices
 
