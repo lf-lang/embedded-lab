@@ -101,3 +101,19 @@ Lingua Franca provides syntax for specifying [**modal reactors**](https://www.lf
 Create a Lingua Franca program that displays a sequence of increasing counting numbers on the LCD display until you push button A, and then starts counting down instead of up.  Make your program switch between counting up and counting down on each button push.  Make your program count down at half the rate that it counts up.
 
 **Checkoff:** Show your LCD display responding to button pushes and your LF diagram.
+
+## 6.5. Postlab
+
+1. A physical action in Lingua Franca, when scheduled, creates an event with a timestamp drawn from the processor's physical clock.  This event, once created, has a logical time equal to this timestamp, and any reactions to this event execute at that logical time. Give at least one significant difference here between physical time and logical time in Lingua Franca.
+
+2. Suppose you are attempting to debug your interrupt handler code, but it is crashing and causing a processor hard fault before exiting the handler. To debug this, you decide to print debug information using `printf` and monitor it on the host computer using `screen`.  But you find that printf does not seem to be working.
+
+    1. What is one reason why `printf` may not work when called from within an ISR?  **Hint:**  The implementation of `printf` is itself using a peripheral device, specifically a device called a UART, and very likely is using interrupts to interact with the device.
+
+    2. How could you modify either your code or the SDK library code to make `printf` work as expected?
+
+    3. What are some possible consequences to your modification that could actually make it more difficult to debug the handler code?
+
+    4. If you decide you do not want to use `printf`, what is one other method by which you could debug your handler? Could this new method have consequences that make it more difficult to debug the handler code?
+
+3. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?

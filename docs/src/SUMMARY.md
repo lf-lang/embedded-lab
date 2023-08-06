@@ -1,4 +1,4 @@
-# Getting Started
+
 - [Introduction](./Introduction.md)
 - [Installation](./Installation.md)
 
@@ -17,6 +17,7 @@
 
 - [Resources](./Resources.md)
 - [Acronyms](./Acronyms.md)
+- [Project Ideas](./Project.md)
 - [Notes for Windows Users](./WindowsInstallation.md)
 - [Installing VSCode](./InstallVSCode.md)
 - [Installing Pico Tools](./InstallingPicoTools.md)
