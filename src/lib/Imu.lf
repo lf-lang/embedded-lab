@@ -64,6 +64,8 @@ reactor Accelerometer {
 reactor GyroTrap(period:time(100 msec)) {
   timer t1(period, period);
   
+  input reset_angle:bool
+
   output x:float;
   output y:float;
   output z:float;
@@ -82,7 +84,7 @@ reactor GyroTrap(period:time(100 msec)) {
     }
   =}
 
-  reaction(reset) {=
+  reaction(reset, reset_angle) {=
     // reset
     self->prev_deg_x = 0.0;
     self->prev_deg_y = 0.0;
