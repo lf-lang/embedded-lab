@@ -12,7 +12,7 @@ target C {
 import Display from "lib/Display.lf"
 import Motors from "lib/Motors.lf"
 import Encoders from "lib/Encoders.lf"
-import Imu from "lib/Imu.lf"
+import GyroTrap from "lib/Imu.lf"
 
 preamble {=
     // sprintf
@@ -23,7 +23,7 @@ main reactor {
     d0 = new Display();
     m0 = new Motors();
     e0 = new Encoders();
-    imu0 = new Imu();
+    imu0 = new GyroTrap();
 
     logical action next;
 
@@ -66,16 +66,16 @@ main reactor {
     
     mode TURN {
         reaction(reset) -> d0.line0, m0.right_pwr, m0.left_pwr, 
-                           imu0.rst_gyro {=
+                           imu0.reset_angle {=
             lf_set(d0.line0, "TURN");
             printf("TURN");
-            lf_set(imu0.rst_gyro, true);
+            lf_set(imu0.reset_angle, true);
             lf_set(m0.left_pwr, -0.1);
             lf_set(m0.right_pwr, 0.1);
         =}
         
-        reaction(imu0.z_gyro) -> reset(STOP) {=
-            if (imu0.z_gyro->value >= 90) {
+        reaction(imu0.z) -> reset(STOP) {=
+            if (imu0.z->value >= 90) {
                 lf_set_mode(STOP);
             }
         =}
@@ -88,9 +88,9 @@ main reactor {
         lf_set(d0.line1, buf); 
     =}
 
-    reaction(imu0.z_gyro) -> d0.line2 {=
+    reaction(imu0.z) -> d0.line2 {=
         static char buf[17];
-        snprintf(buf, 17, "z_gyro: %.2f", imu0.z_gyro->value);
+        snprintf(buf, 17, "z_gyro: %.2f", imu0.z->value);
         lf_set(d0.line2, buf); 
     =}
 
