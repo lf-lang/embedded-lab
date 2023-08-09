@@ -8,7 +8,7 @@ To create the repository, log in to [GitHub](https://github.com) (create an acco
 
 <img src="img/3piTemplate.png" alt="Template repo"/>
 
-Give your repo an name and click on "Create repository":
+Give your repo a name and click on "Create repository":
 
 <img src="img/my-3pi.png" alt="new repo"/>
 
@@ -40,7 +40,11 @@ To install the dependencies, run the following in the root of your repository:
 nix develop
 ```
 
-> **_NOTE:_**  Notes for **ARM/Apple Silicon Mac** users - as of August 1, 2023, the stable version of nix does *not* support ARM/Apple Silicon Macs. You may see an error message like this when running the `nix develop` command:
+If you hit any error while running `nix develop`, see trouble shooting instructions below.
+
+> **_TROUBLESHOOTING 1:_** If you get an access error with the submodule `pico-sdk` while running `nix develop` because you're not using SSH (Secure Shell Connection) with GitHub, you can fix it by changing the submodule URL from *ssh* to *https* by editing `.gitmodules` (a hiddle file). You can simply replace `git@github.com:raspberrypi/pico-sdk.git` with `https://github.com/raspberrypi/pico-sdk.git`. After editing `.gitmodules`, you will need to run `git submodule sync` to  reflect the change to your `.git/config file`. Then, you can run `nix develop` again.
+
+> **_TROUBLESHOOTING 2:_**  Notes for **ARM/Apple Silicon Mac** users - as of August 1, 2023, the stable version of nix does *not* support ARM/Apple Silicon Macs. You may see an error message like this when running the `nix develop` command:
 > ```
 > is not available on the requested hostPlatform
 > ```
