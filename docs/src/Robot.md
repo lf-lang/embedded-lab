@@ -25,7 +25,7 @@ how can you construct an estimate of the angle *a*<sub><i>i</i></sub> at time *t
 
     **Hint:** The [Pololu 3pi+ 2040 Robot User's Guide](https://www.pololu.com/docs/0J86) might be helpful.
     
-    **Note:** The GPIO pins cannot drive a motor directly because they cannot source enough power without damaging the chip.  FIXME
+    **Note:** The GPIO pins cannot drive a motor directly because they cannot source enough power without damaging the chip.  The Pololu robot includes a [Texas Instruments DRV8838 motor driver](https://www.ti.com/lit/ds/symlink/drv8838.pdf) which takes as input the PWM signal and provides power to the motors.
 
 
 4. Using the notation from the textbook for state machines, sketch a state machine
@@ -73,13 +73,27 @@ Then create a variant of `src/EncoderDisplay.lf` that displays distance traveled
 
 **Checkoff:** Show that your distance measurement is reasonably accurate.
 
-## 7.4 Feedback Control
+## 7.4 Navigation with a Gyroscope
 
-## 7.5 Navigation with a Gyroscope
+As you (hopefully) determined in problem (2) of the prelab, the gyroscope output can be integrated to get a measure of the current angle of the robot relative to some starting point.
+You are provided with a reactor `GyroAngle` in `src/lib/IMU.lf` that uses the trapezoidal method to calculate the angle.  Use this reactor to create modal Lingua Franca program that drives for approximately half a meter, turns 90 degrees, drives another half meter, and then repeats, so that the robot moves roughly in a square.  What factors contribute to the imperfection of the square?
 
-The provided reactor `GyroAngle` in `src/lib/IMU.lf` uses the trapezoidal method.
+**Checkoff:** Show your robot moving in a square and show the diagram of the modal Lingua Franca program.
 
-## 7.6 Obstacle Avoidance
+## 7.5 Obstacle Avoidance
 
-## 7.7 Postlab
+Examine the [src/BumpDisplay.lf](https://github.com/lf-lang/lf-3pi-template/blob/main/src/BumpDisplay.lf) example program provided by your template repository.
+How does it work?
+What does the Bump reactor class do?
+
+Your task now is to use the [Bump](https://github.com/lf-lang/lf-3pi-template/blob/main/src/lib/Bump.lf) reactor class to modify your previous solution so that when the robot bumps into an obstacle as it navigates around the square, it backs off in such a way as to avoid the obstacle.
+
+**Checkoff:** Show your robot evading obstacles.  Show your modal model.
+
+## 7.6 Postlab
+
+1. If the bump sensors fail to detect an obstacle that has stopped your robot, the robot will stop making progress because it will fail to cover the requisite distance to switch to the next mode.  How might you change your program to ensure that the robot continues to make progress?
+
+2. Instead of setting the power level of the motors, a better strategy might be to set a desired robot speed.  How might you use the encoders to measure the speed?  How might you use the speed measurement to control the speed?  **Hint:** Section 2.4, Feedback Control, of [Lee and Seshia](https://leeseshia.org) might be useful.
+
 
