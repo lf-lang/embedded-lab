@@ -1,7 +1,0 @@
-target C  {
-   platform: Pico, 
-}
-
-main reactor {
-
-}
