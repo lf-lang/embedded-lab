@@ -1,5 +1,36 @@
 # Installation
 
+## Prerequisites
+
+### Packages
+Your system must have the following (very common) software packages installed:
+ - `git` -- [a distributed version control system](https://git-scm.com/)
+ - `code` -- [the Visual Studio Code IDE](https://code.visualstudio.com/download)
+ - `nix` -- [a purely functional package manager](https://nix.dev/tutorials/install-nix)
+ - `curl` -- [a CLI tool and library for transfering data with URLs](https://curl.se/)
+
+We recommend using your favorite package manager to install them.
+
+#### Installation on Ubuntu
+```bash
+sudo apt install curl git nix
+sudo snap install code --classic
+```
+
+#### Installation on macOS
+```bash
+brew install --cask visual-studio-code
+brew install git curl
+curl -L https://nixos.org/nix/install | sh
+```
+
+### GitHub account and SSH key
+If you do not yet have a GitHub account, [create one](https://github.com/signup). In the ⚙️ <kbd>Settings</kbd> of your GitHub account, go to 🔑 <kbd>SSH and GPG keys</kbd> and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
+```bash
+ssh-keygen -t rsa -b 4096 -C "your_github@email.com"
+```
+Additional information about setting up public key authentication with GitHub can be found [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
 ## Template Repository
 
 Start by creating a new private repository on GitHub based on the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository, which provides a starting point for students to carry out the exercises in this lab and to develop further applications using the [Raspberry Pi Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) and the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86).
@@ -29,7 +60,7 @@ To create a reproducible unix shell environment that installs all required depen
 
 After installation, run the following in the shell to enable the experimental nix flakes feature, which helps to create more consistent builds:
 
-``` bash
+```bash
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
