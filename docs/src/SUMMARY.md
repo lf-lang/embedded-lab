@@ -1,6 +1,12 @@
 
-- [Introduction](./Introduction.md)
-- [Installation](./Installation.md)
+[Introduction](./README.md)
+
+# Preparation
+
+- [Prerequisites](./Prerequisites.md)
+- [Getting Started](./GettingStarted.md)
+
+---
 
 # Lab Exercises
 
@@ -10,6 +16,8 @@
 - [Interrupts](./Interrupts.md)
 - [Robot](./Robot.md)
 - [Hill Climb](./Hill.md)
+
+---
 
 # Appendices
 
