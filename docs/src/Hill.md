@@ -8,10 +8,12 @@ For this lab, you will need a suitable ramp like the one here:
 
 This is pretty fancy one, but the key elements that you need are easy to construct from reasonably stiff cardboard. The key properties it needs are:
 
-1. A sloped surface for the robot to climb with a roughly 20 degree slope.
+1. A sloped surface for the robot to climb with a roughly 15 degree slope.
 2. A flat surface on top for the robot to turn around.
 3. A light-colored surface.
 4. Dark colored edges that the robot can detect to not drive off the edge.
+
+The ramp shown above is about 4 feet long and 1.5 feet wide.
 
 ## 8.1 Prelab
 
