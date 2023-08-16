@@ -61,5 +61,5 @@ Please note that you might need to reboot your system after running `usermod` in
 ### `picotool` on Linux/WSL
 To allow access to the RPi3+ via USB without root superuser privileges, add a custom `udev` rule using the following command:
 ```console
-curl https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/99-picotool.rules | sudo tee -a /etc/udev/rules.d/99-picotool.rules >/dev/null
+curl -s https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/99-picotool.rules | sudo tee -a /etc/udev/rules.d/99-picotool.rules >/dev/null
 ```
