@@ -2,6 +2,14 @@
 
 Before getting started, please make sure you have satisfied all the [prerequisites](Prerequisites.html).
 
+## Set up GitHub account and SSH key
+If you do not yet have a GitHub account, [create one](https://github.com/signup). In the ⚙️ <kbd>Settings</kbd> of your GitHub account, go to 🔑 <kbd>SSH and GPG keys</kbd> and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
+```bash
+ssh-keygen -t rsa -b 4096 -C "your_github@email.com"
+```
+Additional information about setting up public key authentication with GitHub can be found [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
+
 ## Create and clone your repository
 Start by creating a new private repository on GitHub based on the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository, which provides a starting point for students to carry out the exercises in this lab and to develop further applications using the [Raspberry Pi Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) and the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86).
 
