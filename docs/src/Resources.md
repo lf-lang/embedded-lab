@@ -42,6 +42,6 @@
 - [Nix](https://nixos.org) (for installation)
 - [Lingua Franca](https://lf-lang.org)
 - [picotool](https://github.com/raspberrypi/picotool) (for downloading to the platform)
-- **FIXME** screen
+- [screen](https://dev.to/thiht/learn-to-use-screen-a-terminal-multiplexer-gl) terminal (for seeing standard out over USB)
 
 
