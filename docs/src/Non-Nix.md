@@ -1,6 +1,6 @@
 # Non-`nix` Setup
 
-If you use `nix` as explained in the [getting started instructions](./GettingStarted.html#configure-nix), then you should not need to manually install the Raspberry Pi Pico SDK, C library and math library compiled for bare metal Cortex ARM, or the GNU Arm Embedded Toolchain for cross-compilation. To install these manually and not rely on `nix` to provide these dependencies, follow these instructions adapted from the [Pololu instructions](../lib/pololu-3pi-2040-robot/c/README.md). See also the [GNU ARM installation instructions](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
+If you use `nix` as explained in the [getting started instructions](./GettingStarted.html#configure-nix), then you should not need to manually install the Raspberry Pi Pico SDK, C library and math library compiled for bare metal Cortex ARM, or the GNU Arm Embedded Toolchain for cross-compilation. To install these manually and not rely on `nix` to provide these dependencies, follow these instructions.
 
 ## Install Raspberry Pi Pico SDK
 
@@ -20,7 +20,12 @@ $ echo "export PICO_SDK_PATH=$PICO_SDK_PATH" >> ~/.bash_profile
 
 Depending on what operating system and terminal you use, you may need to find some other way to set this environment variable.
 
+## Install `picotool`
+To build and install `picotool` from source, refer to the [https://github.com/raspberrypi/picotool](raspberrypi/picotool) repository.
+
 ## Install CMake, Standard C Library, ARM cross compiler
+
+See also the [GNU ARM installation instructions](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads).
 
 ### On Ubuntu
 
