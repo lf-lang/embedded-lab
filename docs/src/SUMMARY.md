@@ -1,6 +1,8 @@
 
 [Introduction](./README.md)
 
+---
+
 # Preparation
 
 - [Prerequisites](./Prerequisites.md)
@@ -18,9 +20,12 @@
 # Appendices
 
 - [Resources](./Resources.md)
-- [Acronyms](./Acronyms.md)
+    - [Acronyms](./Acronyms.md)
+    - [Using a Debugger](./Debugger.md)
+    - [Non-`nix` Setup](./Non-Nix.md)
 - [Project Ideas](./Project.md)
-- [Notes for Windows Users](./WindowsInstallation.md)
-- [Installing VSCode](./InstallVSCode.md)
-- [Installing Pico Tools](./InstallingPicoTools.md)
-- [Using a Debugger](./Debugger.md)
+
+---
+
+[Notes for VM users](./UbuntuVM.md)
+[Notes for Windows Users](./Windows.md)

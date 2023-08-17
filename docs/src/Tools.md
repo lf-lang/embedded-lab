@@ -71,7 +71,7 @@ We do this two different ways, using the command line and using an IDE.
 > **_Important_**
 >
 > If you let Nix manage your build environment, you need to always make sure to run `nix develop` at the root of your repository before using the shell.
-> Besides installing things in the filesystem, it also sets environment variables like `$PICO_SDK_PATH`, which must be set in order to compile code that uses the RPi-Pico SDK.
+> Besides installing things in the filesystem, it also sets environment variables like `PICO_SDK_PATH`, which must be set in order to compile code that uses the RPi-Pico SDK.
 
 Ensure that your shell environment is set up correctly by checking that the `PICO_SDK_PATH` variable points to the root location of the RPi-Pico SDK.
 You may wish to look at the `README` file in that directory.
@@ -119,6 +119,11 @@ The `-x` option directs the robot to execute the code after loading it.
 This will result in an LED blinking on the robot.
 The loaded code will persist on the robot until the next time it is put in `BOOTSEL` mode and loaded with a new program.
 You can disconnect the robot and use the power button to start it running on battery power.
+
+> **_Note_**
+>
+> When you put the robot in `BOOTSEL` mode, you should see an external disk appear with a name like `RPI-RP2`.
+> You can also deploy the `blink` demo by dragging `blink.uf2` (in `~/pico-examples/build/blink`) into the `RPI-RP2` folder. The robot should immediately start running the program.
 
 > **_Troubleshooting_**
 > 
