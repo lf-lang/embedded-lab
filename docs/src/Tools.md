@@ -213,7 +213,7 @@ You should see same blinking LED as before.
 Now, examine the LF program. How is the timing of the LED controlled here?  You may want to consult the [Lingua Franca documentation for timers](https://www.lf-lang.org/docs/handbook/time-and-timers?target=c#timers).
 Modify the Blink.lf program to use two timers, one that turns on the LED and one that turns it off, eliminating the state variable `led_on`.
 
-**Checkoff:** Show your modified LF program. Explain how this use of timers is different from the sleep function used in the C code `blink.c`.
+**Checkoff:** Show your modified LF program. Explain how this use of timers is different from the `sleep` function used in the C code `blink.c`.
 
 ## 3.4 Printing Output
 

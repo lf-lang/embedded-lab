@@ -6,7 +6,7 @@ Before getting started, please make sure you have satisfied all the [prerequisit
 If you do not yet have a GitHub account, [create one](https://github.com/signup).
 
 ### Set up authentication with GitHub
-In order to push to your repo, you need to authenticate. You can either do this using a public/private key pair through SSH, or use token-based authentication via `gh`, the GitHub command-line interface. If you want to avoid the hassle of installing a private key on it, use this authentication method (recommended for VM users).
+In order to push to your repo, you need to authenticate. You can either do this using a public/private key pair through SSH, or use token-based authentication via `gh`, the GitHub command-line interface (installation instructions [here](https://github.com/cli/cli#installation)). If you want to avoid the hassle of installing a private key on it, use this authentication method (recommended; pre-installed on the VM).
 
 #### Using GitHub CLI
 To authenticate with GitHub through its CLI tool, run:
