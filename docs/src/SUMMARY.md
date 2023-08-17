@@ -29,3 +29,4 @@
 
 [Notes for VM users](./UbuntuVM.md)
 [Notes for Windows Users](./Windows.md)
+[Notes for Instructors](./Instructors.md)
