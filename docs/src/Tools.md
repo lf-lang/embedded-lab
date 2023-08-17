@@ -86,7 +86,7 @@ If the environment variable `PICO_SDK_PATH` is not set, simply run `nix develop`
 
 ### Using the Command Line
 
-First, clone the `raspberry-pi/pico-examples` repo in your home directory and make it your current working directory:
+First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pico-examples) repository (for example, in your home directory) and make it your current working directory:
 
 ```bash
 $ cd ~
@@ -107,7 +107,7 @@ This should result in a rather lengthy output.
 When it finally finishes, each of the subdirectories of the `build` directory will contain binary files that you can load onto the robot.
 
 Connect the robot to the USB port of your host computer.
-Before flashing the binary to your RP2040 based board, the board must be placed into ``BOOTSEL`` mode.  On the Pololu 3Pi+ robot, hold the `B` button and press `RESET`.
+Before flashing the binary to your RP2040 based board, the board must be placed into `BOOTSEL` mode.  On the Pololu 3Pi+ robot, hold the `B` button and press `RESET`.
 (On a Raspberry Pi Pico, hold the `RESET` button while connecting the board to the host.)
 You can then use the `picotool` to load and execute one of the sample programs:
 
@@ -128,7 +128,7 @@ You can disconnect the robot and use the power button to start it running on bat
 >    picotool was unable to connect. Maybe try 'sudo' or check your permissions.
 > ```
 > If you see this message, this means that your user does not have permission to access the RP2040 via USB.
-> You can add `udev`` rules to allow regular users to access the PR2040, as described (here)[http://localhost:3000/Prerequisites.html#using-picotool-on-linuxwsl].
+> You can add `udev` rules to allow regular users to access the PR2040, as described (here)[http://localhost:3000/Prerequisites.html#using-picotool-on-linuxwsl].
 
 ### Using VS Code
 
@@ -160,7 +160,7 @@ VS Code has run CMake, but it has not yet compiled the example programs.
 To compile them, click on the "Build" button in the blue bar at the bottom.
 If you already ran the build on the command line as above, then this time it should not take too long.
 
-When you see "Build finished with exit code 0," then you can load the code onto the robot using `picotool``.  To do this from within VS Code, select the <kbd>Terminal</kbd> tab in the <kbd>Output</kdb> subwindow and issue the load command as above:
+When you see "Build finished with exit code 0," then you can load the code onto the robot using `picotool`.  To do this from within VS Code, select the <kbd>Terminal</kbd> tab in the <kbd>Output</kdb> subwindow and issue the load command as above:
 
 ```bash
 $ picotool load -x build/blink/blink.elf
@@ -329,6 +329,6 @@ Subsequent labs will explore more deeply the use memory-mapped registers for I/O
 
 3. What other tools might be useful for debugging embedded software (note that using an interactive debugger like `gdb` with the robot or pico board [requires extra hardware](./Debugger.md))? 
 
-4. What does the volatile keyword mean in C? \points{3}    
+4. What does the `volatile` keyword mean in C?
 
 5. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
