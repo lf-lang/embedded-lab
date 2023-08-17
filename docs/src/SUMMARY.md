@@ -6,8 +6,6 @@
 - [Prerequisites](./Prerequisites.md)
 - [Getting Started](./GettingStarted.md)
 
----
-
 # Lab Exercises
 
 - [Tools and Environments](./Tools.md)
@@ -16,8 +14,6 @@
 - [Interrupts](./Interrupts.md)
 - [Robot](./Robot.md)
 - [Hill Climb](./Hill.md)
-
----
 
 # Appendices
 
