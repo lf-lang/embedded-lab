@@ -36,11 +36,45 @@ The Pololu robot has infrared reflectivity sensors that can detect such cliffs (
 Your task now is to program the robot to identify when its front end is above one of these bands and have it stop.
 If you have a higher risk tolerance, you could do without the dark bands and use the IR sensors to detect when the front of the robot is hanging over the edge of the ramp.
 
+**NOTE:** According to [Section 6.5, Line and bump sensors](https://www.pololu.com/docs/0J86/6.5) of the [Pololu 3pi+ 2040 robot User's Guide](https://www.pololu.com/docs/0J86), it is not practical to use the bump sensors in combination with the line sensors. Hence, in this lab, you will only use the line sensors.
+
 First, you will get familiar with the reflectivity sensors.
 Then you will use them.  Your tasks:
 
-1. Examine and run the provided program `src/LineDisplay.lf`. How does this work? Use it to calibrate your robot on the ramp so that it reliably detects when the front of the robot is over the dark bands on the edges (or, if you choose the riskier option, over the edge of the ramp).
+1. Examine and run the provided program `src/LineDisplay.lf`. How does this work? Use it to calibrate your robot on the ramp so that it reliably detects when the front of the robot is over the dark bands on the edges (or, if you choose the riskier option, over the edge of the ramp). Note that once your robot is calibrated, you should not have calibrate it again, so you can use the simpler `Line` reactor `src/lib/Line.lf` for subsequent exercises.
 
-2. Create a Lingua Franca program that drives the robot forward, but when the line sensors detect the dark band (or the cliff), performs an evasive maneuver like it did in reaction to the bump sensors in the previous lab.
+2. Create a Lingua Franca program that displays on the LCD display one of:
 
-**NOTE:** According to [Section 6.5, Line and bump sensors](https://www.pololu.com/docs/0J86/6.5) of the [Pololu 3pi+ 2040 robot User's Guide](https://www.pololu.com/docs/0J86), it is not practical to use the bump sensors in combination with the line sensors. Hence, in this lab, you will only use the line sensors.
+    - **No Edge**
+    - **Forward Edge**
+    - **Left Edge**
+    - **Right Edge**
+
+    depending on what the line sensors detect.
+    
+    **Hint:** A [center of mass](https://en.wikipedia.org/wiki/Center_of_mass) calculation may be useful.
+
+    **Checkoff:** Show that your program detects edges of the ramp. You can manually push the robot towards the edge to check.
+
+3. Create a Lingua Franca program that drives the robot forward, but when the line sensors detect edges, backs up, turns, and then moves forward again.  The direction in which the robot turns should be influenced by whether the edge is detected in front of the robot, to the left, or to the right.
+
+    **Checkoff:** Show your robot navigating on the ramp and avoiding the edges.
+
+## 8.3 Hill Climbing
+
+Your final task is to add accelerometer and gyroscope measurements to your navigation code so that while the robot is on the slope of the ramp, it turns and drives towards the top. When it reaches the plateau at the top, it should turn 180 degrees and then drive down to the bottom of the ramp.  All the while, it should avoid the edges of the ramp.
+
+**Hint:** To drive up or down the ramp, periodically adjust the wheel speeds to attempt to keep the roll measurement near zero.  That is, if the roll measurement is positive, adjust up the speed of one wheel and down the speed of the other.
+If the roll is negative, perform the opposite adjustment.
+If you make the adjustment proportional to the roll, then adjustments will get smaller as the robot more closely approximates heading straight up or down the ramp.
+You may want to review Section 2.4, Feedback Control, of [Lee and Seshia](https://leeseshia.org).
+You will want to keep the wheel speeds within reasonable bounds.
+
+
+**Checkoff:** Show your robot driving to the top, turning around, and going down the ramp.
+
+## Postlab
+
+1. Just as you used roll measurement and feedback to control the direction in which the robot travels, you could use the encoders to control the speed at which it travels.  Describe how you would do this.
+
+2. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
