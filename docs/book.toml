@@ -1,5 +1,5 @@
 [book]
-authors = ["Abhi Gundrala and Edward A. Lee"]
+authors = ["Abhi Gundrala", "Edward A. Lee", "Marten Lohstroh"]
 language = "en"
 multilingual = false
 src = "src"

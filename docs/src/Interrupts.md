@@ -25,7 +25,7 @@ factors may impact the latency of handling this interrupt?
 
 4. One issue with nested interrupts is that an ISR may have to be carefully designed to be **reentrant**.  A function is reentrant if it can be safely called again while it is in the middle of an execution. You are given the following function:
 
-    ```
+```
     void send_to_radio(char* data) {
         static char data_to_send[10];
         memcpy(data_to_send, data, 10)
@@ -35,11 +35,10 @@ factors may impact the latency of handling this interrupt?
     }
 ```
 
-    1. Is the function `send_to_radio` reentrant? Why or why not? **Hint:** Make
+1. Is the function `send_to_radio` reentrant? Why or why not? **Hint:** Make
 sure to understand static variables in C.
 
-    2. What is one simple way to make the function reentrant?
-
+2. What is one simple way to make the function reentrant?
 
 ## 6.2. Interrupt Service Routine
 

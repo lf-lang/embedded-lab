@@ -14,6 +14,7 @@ The main authors of this version of the labs are:
 
 - Abhi Gundrala
 - Edward A. Lee
+- Marten Lohstroh
 
 These labs are derived from several generations of lab exercises for the Berkeley EECS 149/249A course, Introduction to embedded systems. Contributors to the lab design include:
 
@@ -26,7 +27,6 @@ These labs are derived from several generations of lab exercises for the Berkele
 - Eric S. Kim
 - Edward A. Lee
 - Shaokai Lin
-- Marten Lohstroh
 - Sanjit Seshia
 - Trung Tran
 - Matthew Weber

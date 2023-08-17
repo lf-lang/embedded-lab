@@ -63,49 +63,56 @@ These exercises are intended to make sure you are up-to-speed on using the Unix 
 5. In a git repository, what command displays whether there are any local changes and what they are?
 6. In a git repository, what does `git pull` do?
 
-## 3.2 A First C Program
+## 3.2 Deploying Example Code
 
-First, check your installation has been done correctly. One of the side effects of the installation is to define an environment variable called `PICO_SDK_PATH` that points to the root location of the RPi-Pico SDK. Check it (make sure to replace <path_to_your_repo> with the actual path to your repo):
-
-```
-$ echo $PICO_SDK_PATH
-/Users/<path_to_your_repo>/my-3pi/pico-sdk
-```
-
-You may wish to look at the README file in that directory.
 We will now compile and load an example C program onto the robot.
 We do this two different ways, using the command line and using an IDE.
 
-### Using the Command Line
+> **_Important_**
+>
+> If you let Nix manage your build environment, you need to always make sure to run `nix develop` at the root of your repository before using the shell.
+> Besides installing things in the filesystem, it also sets environment variables like `PICO_SDK_PATH`, which must be set in order to compile code that uses the RPi-Pico SDK.
 
-First, find the pico-examples directory and make it your current working directory:
+Ensure that your shell environment is set up correctly by checking that the `PICO_SDK_PATH` variable points to the root location of the RPi-Pico SDK.
+You may wish to look at the `README` file in that directory.
+Check the environment variable by printing it:
 
-```bash
-   cd lf-pico/pico/pico-examples
+```
+$ echo $PICO_SDK_PATH
 ```
 
-(**NOTE:** `lf-pico` here and everywhere that follows is the location of your clone of the [lf-pico repository](https://github.com/lf-lang/lf-pico)).
+It should print a path that looks like `<path_to_your_repo>/pico-sdk`. 
+If the environment variable `PICO_SDK_PATH` is not set, simply run `nix develop`.
+
+### Using the Command Line
+
+First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pico-examples) repository (for example, in your home directory) and make it your current working directory:
+
+```bash
+$ cd ~
+$ git clone https://github.com/raspberrypi/pico-examples.git
+$ cd pico-examples
+```
 
 Make a blank `build` directory and use it to compile all the examples:
 
 ```bash
-    mkdir build
-    cd build
-    cmake ../
-    make
+$ mkdir build
+$ cd build
+$ cmake ../
+$ make
 ```
 
 This should result in a rather lengthy output.
 When it finally finishes, each of the subdirectories of the `build` directory will contain binary files that you can load onto the robot.
 
 Connect the robot to the USB port of your host computer.
-Before flashing the binary to your RP2040 based board, the board must be placed into ``BOOTSEL`` mode.  On the Pololu 3Pi+ robot, hold the `B` button and press `RESET`.
+Before flashing the binary to your RP2040 based board, the board must be placed into `BOOTSEL` mode.  On the Pololu 3Pi+ robot, hold the `B` button and press `RESET`.
 (On a Raspberry Pi Pico, hold the `RESET` button while connecting the board to the host.)
 You can then use the `picotool` to load and execute one of the sample programs:
 
-
-```
-    picotool load -x blink/blink.elf
+```bash
+$ picotool load -x blink/blink.elf
 ```
 
 The `-x` option directs the robot to execute the code after loading it.
@@ -113,23 +120,38 @@ This will result in an LED blinking on the robot.
 The loaded code will persist on the robot until the next time it is put in `BOOTSEL` mode and loaded with a new program.
 You can disconnect the robot and use the power button to start it running on battery power.
 
+> **_Note_**
+>
+> When you put the robot in `BOOTSEL` mode, you should see an external disk appear with a name like `RPI-RP2`.
+> You can also deploy the `blink` demo by dragging `blink.uf2` (in `~/pico-examples/build/blink`) into the `RPI-RP2` folder. The robot should immediately start running the program.
+
+> **_Troubleshooting_**
+> 
+> You may see the following error message reported by `picotool`:
+> ```
+> Device at bus 2, address 5 appears to be a RP2040 device in BOOTSEL mode, but
+>    picotool was unable to connect. Maybe try 'sudo' or check your permissions.
+> ```
+> If you see this message, this means that your user does not have permission to access the RP2040 via USB.
+> You can add `udev` rules to allow regular users to access the PR2040, as described (here)[Prerequisites.html#using-picotool-on-linuxwsl].
+
 ### Using VS Code
 
 Next we will repeat the exercise, but this time using VS Code rather than the command line to compile the code.
 Under the hood, VS Code uses the CMake Tools extension to achieve the same process.
 
-Start VS Code in your root lf-pico directory:
+Start VS Code in your root `pico-examples` directory:
 
-```
-   $ cd lf-pico/pico/pico-examples
-   $ code .
+```bash
+$ cd ~/pico-examples
+$ code .
 ```
 
 This will likely result in a popup appearing as follows:
 
 <img src="img/SelectAKit.png" alt="Select a kit"/>
 
-You should select the arm-none-eabi kit. If you do not see one, select "Scan for kits". It you do not see the popup above, click on "No kit selected" on bottom blue bar.  **NOTE:** You may need to make sure that CMake Tools is the Configuration Provider. Select View->Command Palette in the menu and begin typing "C/C++ Change Configuration Provider" until you see this:
+You should select the `arm-none-eabi` kit. If you do not see one, select "Scan for kits". It you do not see the popup above, click on "No kit selected" on bottom blue bar.  **NOTE:** You may need to make sure that CMake Tools is the Configuration Provider. Select <kbd>View > Command Palette</kbd> in the menu and begin typing <kbd>C/C++ Change Configuration Provider</kbd> until you see this:
 
 <img src="img/ConfigurationProvider.png" alt="Configuration Provider" width="60%"/>
 
@@ -141,12 +163,12 @@ If all goes well, VS Code will have compiled all the examples, and you see outpu
 
 VS Code has run CMake, but it has not yet compiled the example programs.
 To compile them, click on the "Build" button in the blue bar at the bottom.
-If you run the build on the command line as above, then this time it should not take too long.
+If you already ran the build on the command line as above, then this time it should not take too long.
 
-When you see "Build finished with exit code 0," then you can load the code onto the robot using picotool.  To do this from within VS Code, select the Terminal tab in the Output subwindow and issue the load command as above:
+When you see "Build finished with exit code 0," then you can load the code onto the robot using `picotool`.  To do this from within VS Code, select the <kbd>Terminal</kbd> tab in the <kbd>Output</kdb> subwindow and issue the load command as above:
 
-```
-    picotool load -x build/blink/blink.elf
+```bash
+$ picotool load -x build/blink/blink.elf
 ```
 
 Make sure the robot is in `BOOTSEL` mode before doing this.
@@ -161,27 +183,29 @@ Explain how the timing of the blinking of the LED is controlled.
 
 ## 3.3 A First Lingua Franca Program
 
-Start code in the root `lf-pico` directory:
+Start `code` in the root of your repository based on `lf-3pi-template` (see [Getting Started](GettingStarted.html#clone-your-repository)):
 
-```
-    cd lf_pico
-    code .
+```bash
+$ cd ~/my-rpi3
+$ code .
 ```
 
-Open and examine the `Blink.lf` program in the `src` directory.  You may want to open the diagram and drag its subwindow to the bottom so that you something like this:
+Open and examine the `Blink.lf` program in the `src` directory.  You may want to open the diagram and drag its window pane to the bottom so that you something like this:
 
 <img src="img/BlinkInCode.png" alt="Blink in code"/>
 
-To compile this program, select View->Terminal from the menu, and type in the terminal (or an external terminal window if you prefer),
+To compile this program, use <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> and select the option <kbd>Lingua Franca: Build</kbd> (start typing until auto-complete finds it). On a Mac, use the <kbd>Cmd</kbd> key instead of <kbd>Ctrl</kbd>.
 
-```
-    lfc src/Blink.lf
+Alternatively, you could use `lfc` to invoke the compiler from the command line. You can do this from a terminal outside VS Code, or by selecting <kbd>View > Terminal</kbd> from the menu, and typing:
+
+```bash
+$ lfc src/Blink.lf
 ```
 
 Connect your robot in `BOOTSEL` mode and load and execute the program:
 
-```
-    picotool load -x bin/Blink.elf
+```bash
+$ picotool load -x bin/Blink.elf
 ```
 
 You should see same blinking LED as before.
@@ -189,7 +213,7 @@ You should see same blinking LED as before.
 Now, examine the LF program. How is the timing of the LED controlled here?  You may want to consult the [Lingua Franca documentation for timers](https://www.lf-lang.org/docs/handbook/time-and-timers?target=c#timers).
 Modify the Blink.lf program to use two timers, one that turns on the LED and one that turns it off, eliminating the state variable `led_on`.
 
-**Checkoff:** Show your modified LF program. Explain how this use of timers is different from the sleep function used in the C code `blink.c`.
+**Checkoff:** Show your modified LF program. Explain how this use of timers is different from the `sleep` function used in the C code `blink.c`.
 
 ## 3.4 Printing Output
 
@@ -202,30 +226,42 @@ By default, the robot is configured to direct all stdout text to a serial port o
 The trick, therefore, is to get your host computer to connect to that serial port and display data that arrives from the robot.
 
 To do that, we a terminal emulator called **screen**.  But first, we have to identify the serial port device that was created when the program started up.
-A simple way to do that is to look in the `/dev/` directory on your computer for a device that includes "usb" in its name:
 
-```
-    ls /dev/*usb*
-```
+## Finding the device on macOS
+On macOS, the device is likely to appear in the `/dev` directory on your computer under a name that includes "usb" in its name, which you can look up as follows:
 
-On my machine, this lists two:
-
-```
-    /dev/cu.usbmodem14201	/dev/tty.usbmodem14201
+```bash
+$ ls /dev/*usb*
 ```
 
-To use screen, we specify the first of these devices and a baud rate, as follows:
+The output may look like this, listing both a "callin" device `/dev/tty.usb*` and a "callout" device `/dev/cu.usb*` (for more information, see [StackOverflow](https://stackoverflow.com/questions/8632586/whats-the-difference-between-dev-tty-and-dev-cu-on-macos)):
 
+```bash
+/dev/cu.usbmodem14201	/dev/tty.usbmodem14201
 ```
-    screen /dev/cu.usbmodem14201 115200
+
+## Finding the device on Linux
+
+On Linux, the device is likely to appear in the `/dev` directory under a name that starts with `ttyACM`, which you can look up as follows:
+
+```bash
+$ ls /dev/ttyACM*
+```
+
+## Using `screen`
+
+To use screen, we specify a device (e.g., `/dev/ttyACM0`) and a baud rate, as follows:
+
+```bash
+$ screen <device> 115200
 ```
 
 You should now see the printed outputs.
-You can return terminal to normal mode by **detaching** screen by typing Control-A d.
-You can reattach with
+You can return terminal to normal mode by **detaching** screen by typing <kbd>Ctrl</kbd> + <kbd>a</kbd> followed by <kbd>d</kbd>.
+You can reattach with:
 
-```
-    screen -r
+```bash
+$ screen -r
 ```
 
 To permanently end screen, type Control-A k (for kill).
@@ -235,7 +271,7 @@ To permanently end screen, type Control-A k (for kill).
 ## 3.5 Modular Reusable Reactors
 
 The LED code in `Blink.lf` is in a main reactor, which cannot be imported into any other Lingua Franca application.
-Your next task is to create reusable reactor called \code{LED} that has a single input named \code{set} with type `bool`.
+Your next task is to create reusable reactor called `LED` that has a single input named `set` with type `bool`.
 When the reactor receives an input event with value `true`, it should turn on the LED.
 When it receives an input with value `false`, it should turn off the LED.
 
@@ -306,6 +342,6 @@ Subsequent labs will explore more deeply the use memory-mapped registers for I/O
 
 3. What other tools might be useful for debugging embedded software (note that using an interactive debugger like `gdb` with the robot or pico board [requires extra hardware](./Debugger.md))? 
 
-4. What does the volatile keyword mean in C? \points{3}    
+4. What does the `volatile` keyword mean in C?
 
 5. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
