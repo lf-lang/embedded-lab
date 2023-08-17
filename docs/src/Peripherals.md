@@ -61,15 +61,6 @@ APB is used for lower-speed peripherals, AHB for higher speed peripherals, and I
         uint32_t *store = (uint32_t *) 0x4000600F;
         *store = 5;
         ```
-        
-\end{lstlisting}
-\begin{solution}
-    \begin{lstlisting}
-    uint32_t *store = (uint32_t *) 0x4000600F;
-    *store = 5;
-    \end{lstlisting}
-\end{solution}
-
 
 3.  The `src/Blink.lf` example provided to you calls a function `gpio_put` with two arguments, `PICO_DEFAULT_LED_PIN` (which has value 25 for the Pololu robot) and true or false to turn the LED on or off.  That function is defined in the SDK as follows:
 
