@@ -104,7 +104,7 @@ Before flashing the binary to your RP2040 based board, the board must be placed 
 You can then use the `picotool` to load and execute one of the sample programs:
 
 
-```
+```bash
     picotool load -x blink/blink.elf
 ```
 
@@ -113,6 +113,11 @@ This will result in an LED blinking on the robot.
 The loaded code will persist on the robot until the next time it is put in `BOOTSEL` mode and loaded with a new program.
 You can disconnect the robot and use the power button to start it running on battery power.
 
+```
+Device at bus 2, address 5 appears to be a RP2040 device in BOOTSEL mode, but
+    picotool was unable to connect. Maybe try 'sudo' or check your permissions.
+```
+
 ### Using VS Code
 
 Next we will repeat the exercise, but this time using VS Code rather than the command line to compile the code.
@@ -120,7 +125,7 @@ Under the hood, VS Code uses the CMake Tools extension to achieve the same proce
 
 Start VS Code in your root lf-pico directory:
 
-```
+```bash
    $ cd lf-pico/pico/pico-examples
    $ code .
 ```
@@ -145,7 +150,7 @@ If you run the build on the command line as above, then this time it should not 
 
 When you see "Build finished with exit code 0," then you can load the code onto the robot using picotool.  To do this from within VS Code, select the Terminal tab in the Output subwindow and issue the load command as above:
 
-```
+```bash
     picotool load -x build/blink/blink.elf
 ```
 
@@ -163,7 +168,7 @@ Explain how the timing of the blinking of the LED is controlled.
 
 Start code in the root `lf-pico` directory:
 
-```
+```bash
     cd lf_pico
     code .
 ```
@@ -174,13 +179,13 @@ Open and examine the `Blink.lf` program in the `src` directory.  You may want to
 
 To compile this program, select View->Terminal from the menu, and type in the terminal (or an external terminal window if you prefer),
 
-```
+```bash
     lfc src/Blink.lf
 ```
 
 Connect your robot in `BOOTSEL` mode and load and execute the program:
 
-```
+```bash
     picotool load -x bin/Blink.elf
 ```
 
@@ -204,27 +209,27 @@ The trick, therefore, is to get your host computer to connect to that serial por
 To do that, we a terminal emulator called **screen**.  But first, we have to identify the serial port device that was created when the program started up.
 A simple way to do that is to look in the `/dev/` directory on your computer for a device that includes "usb" in its name:
 
-```
+```bash
     ls /dev/*usb*
 ```
 
 On my machine, this lists two:
 
-```
+```bash
     /dev/cu.usbmodem14201	/dev/tty.usbmodem14201
 ```
 
 To use screen, we specify the first of these devices and a baud rate, as follows:
 
-```
+```bash
     screen /dev/cu.usbmodem14201 115200
 ```
 
 You should now see the printed outputs.
 You can return terminal to normal mode by **detaching** screen by typing Control-A d.
-You can reattach with
+You can reattach with:
 
-```
+```bash
     screen -r
 ```
 

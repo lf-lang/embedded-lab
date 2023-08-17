@@ -3,11 +3,23 @@
 Before getting started, please make sure you have satisfied all the [prerequisites](Prerequisites.html).
 
 ## Set up GitHub account and SSH key
-If you do not yet have a GitHub account, [create one](https://github.com/signup). In the ⚙️ <kbd>Settings</kbd> of your GitHub account, go to 🔑 <kbd>SSH and GPG keys</kbd> and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
+If you do not yet have a GitHub account, [create one](https://github.com/signup).
+
+### Set up authentication with GitHub
+In order to push to your repo, you need to authenticate. You can either do this using a public/private key pair through SSH, or use token-based authentication via `gh`, the GitHub commandline interface.
+
+#### Using SSH
+In the ⚙️ <kbd>Settings</kbd> of your GitHub account, go to 🔑 <kbd>SSH and GPG keys</kbd> and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
 ```bash
 ssh-keygen -t rsa -b 4096 -C "your_github@email.com"
 ```
 Additional information about setting up public key authentication with GitHub can be found [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
+> **_Tip for VM users_:** If you are looking for a convenient way to copy a public/private key pair onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
+
+#### Using GitHub CLI
+FIXME
+
 
 
 ## Create and clone your repository
