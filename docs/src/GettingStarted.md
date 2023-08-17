@@ -18,11 +18,12 @@ Additional information about setting up public key authentication with GitHub ca
 > **_Tip for VM users_:** If you are looking for a convenient way to copy a public/private key pair onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
 
 #### Using GitHub CLI
-FIXME
+To authenticate with GitHub through its CLI tool, run:
+```bash
+gh auth login
+```
 
-
-
-## Create and clone your repository
+## Create your repository
 Start by creating a new private repository on GitHub based on the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository, which provides a starting point for students to carry out the exercises in this lab and to develop further applications using the [Raspberry Pi Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) and the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86).
 
 Navigate to the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository.  Select "Use this template" and "Create a new repository", as shown here:
@@ -33,15 +34,18 @@ Give your repo a name and click on "Create repository":
 
 <img src="img/my-3pi.png" alt="new repo"/>
 
-You can then clone your repository onto your host machine.
-Copy the link:
-
-<img src="img/newrepo.png" alt="new repo"/>
-
-On the command line on your host machine, clone the repo:
+## Clone your repository
+On the command line on your host machine, clone the repo.
+For an SSH-based setup, run:
 
 ```bash
 git clone git@github.com/<username>/<reponame>.git
+```
+
+Or, for a setup that uses GitHub CLI, run:
+
+```bash
+gh repo clone <username>/<reponame>
 ```
 
 The template includes [raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk) as a submodule, which itself also has a lot of submodules. We recommend against using the `--recursive` flag because we do not need to recursively clone the submodules inside of `pico-sdk`. Instead, change directory into the root of your clone and run:
