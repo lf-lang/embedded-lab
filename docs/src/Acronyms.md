@@ -4,6 +4,7 @@
 <tr><td> <a href="./Sensors.md">ADC</a> </td><td> Analog to Digital Converter </td></tr>
 <tr><td> <a href="https://www.tutorialspoint.com/difference-between-ahb-and-apb">AHB</td><td> Advanced High-performance Bus</td></tr>
 <tr><td> <a href="https://www.tutorialspoint.com/difference-between-ahb-and-apb">APB</td><td> Advanced Peripheral Bus</td></tr>
+<tr><td> CLI </td><td> Command-Line Interface </td></tr>
 <tr><td> <a href="https://en.wikipedia.org/wiki/General-purpose_input/output">GPIO</a> </td><td> General-Purpose Input/Output </td></tr>
 <tr><td> <a href="https://en.wikipedia.org/wiki/I²C">I<sup>2</sup>C</a> </td><td> Inter-Integrated Circuit, pronounced as “eye-squared-C” </td></tr>
 <tr><td> <a href="./Sensors.md">IMU</a> </td><td> Inertial Measurement Unit </td></tr>
