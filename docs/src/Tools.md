@@ -133,7 +133,7 @@ You can disconnect the robot and use the power button to start it running on bat
 >    picotool was unable to connect. Maybe try 'sudo' or check your permissions.
 > ```
 > If you see this message, this means that your user does not have permission to access the RP2040 via USB.
-> You can add `udev` rules to allow regular users to access the PR2040, as described (here)[http://localhost:3000/Prerequisites.html#using-picotool-on-linuxwsl].
+> You can add `udev` rules to allow regular users to access the PR2040, as described (here)[Prerequisites.html#using-picotool-on-linuxwsl].
 
 ### Using VS Code
 
@@ -183,7 +183,7 @@ Explain how the timing of the blinking of the LED is controlled.
 
 ## 3.3 A First Lingua Franca Program
 
-Start `code` in the root of your repository based on `lf-3pi-template` (see [Getting Started](http://localhost:3000/GettingStarted.html#clone-your-repository)):
+Start `code` in the root of your repository based on `lf-3pi-template` (see [Getting Started](GettingStarted.html#clone-your-repository)):
 
 ```bash
 $ cd ~/my-rpi3
