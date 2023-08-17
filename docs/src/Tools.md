@@ -245,7 +245,7 @@ The output may look like this, listing both a "callin" device `/dev/tty.usb*` an
 On Linux, the device is likely to appear in the `/dev` directory under a name that starts with `ttyACM`, which you can look up as follows:
 
 ```bash
-$ ls /dev/*usb*
+$ ls /dev/ttyACM*
 ```
 
 ## Using `screen`
@@ -271,7 +271,7 @@ To permanently end screen, type Control-A k (for kill).
 ## 3.5 Modular Reusable Reactors
 
 The LED code in `Blink.lf` is in a main reactor, which cannot be imported into any other Lingua Franca application.
-Your next task is to create reusable reactor called \code{LED} that has a single input named \code{set} with type `bool`.
+Your next task is to create reusable reactor called `LED` that has a single input named `set` with type `bool`.
 When the reactor receives an input event with value `true`, it should turn on the LED.
 When it receives an input with value `false`, it should turn off the LED.
 
