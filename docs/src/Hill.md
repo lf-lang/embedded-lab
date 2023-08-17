@@ -21,7 +21,7 @@ The ramp shown above is about 4 feet long and 1.5 feet wide.
 
 2. Review [Section 6.5, Line and bump sensors](https://www.pololu.com/docs/0J86/6.5) of the [Pololu 3pi+ 2040 robot User's Guide](https://www.pololu.com/docs/0J86). How do the line sensors work?  Is it possible to use the line sensors in combination with the bump sensors?
 
-3. Recall from the [Sensors](./Sensors.md) lab that you used an accelerometer to measure pitch and roll of the robot. Assume you have a measurement _p_ of pitch and _r_ of roll. If the robot is sitting on a ramp and its _x_ axis is pointing straight down the hill, then what values should you see for _r_?  What should the sign of _p_ be (assuming the angle is given in the range -&pi;/2 to &pi;/2)?
+3. Recall from the [Sensors](./Sensors.md) lab that you used an accelerometer to measure pitch and roll of the robot. Assume you have a measurement _p_ of pitch and _r_ of roll. If the robot is sitting on a ramp and its _x_ axis is pointing straight down the hill, then what values should you see for _r_?  What should the sign of _p_ be (assuming the angle is given in the range -&pi; / 2 to &pi; / 2)?
 You will use feedback control and adjust the wheel speeds to make _r_ approach the desired value. 
 
 ## 8.2 Cliff Sensing
@@ -34,11 +34,13 @@ for example at the top of a stairway.
 These are often implemented with ultrasonic distance sensors pointing down.
 The Pololu robot has infrared reflectivity sensors that can detect such cliffs (open space below the robot does not reflect infrared light), but to be even safer, your ramp can be equipped with dark bands on the edges as shown in the figure above.
 Your task now is to program the robot to identify when its front end is above one of these bands and have it stop.
+If you have a higher risk tolerance, you could do without the dark bands and use the IR sensors to detect when the front of the robot is hanging over the edge of the ramp.
 
 First, you will get familiar with the reflectivity sensors.
-Then you will use them.
+Then you will use them.  Your tasks:
 
+1. Examine and run the provided program `src/LineDisplay.lf`. How does this work? Use it to calibrate your robot on the ramp so that it reliably detects when the front of the robot is over the dark bands on the edges (or, if you choose the riskier option, over the edge of the ramp).
 
-
+2. Create a Lingua Franca program that drives the robot forward, but when the line sensors detect the dark band (or the cliff), performs an evasive maneuver like it did in reaction to the bump sensors in the previous lab.
 
 **NOTE:** According to [Section 6.5, Line and bump sensors](https://www.pololu.com/docs/0J86/6.5) of the [Pololu 3pi+ 2040 robot User's Guide](https://www.pololu.com/docs/0J86), it is not practical to use the bump sensors in combination with the line sensors. Hence, in this lab, you will only use the line sensors.
