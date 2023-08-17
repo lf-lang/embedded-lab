@@ -81,7 +81,7 @@ $ nix develop
 This should automatically download and install specific revisions of the `gcc-arm` toolchain, `openocd`, and `picotool`. These packages will be required compiling, flashing and debugging C code for the RP2040.
 (You can alternatively manually [install the Raspberry Pi Pico Tools](InstallingPicoTools.md).)
 
-If you hit any error while running `nix develop`, see trouble shooting instructions below.
+If you hit any error while running `nix develop`, see troubleshooting instructions below.
 
 > **_Troubleshooting (Linux/WSL)_**
 >
