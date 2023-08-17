@@ -11,16 +11,18 @@ In order to push to your repo, you need to authenticate. You can either do this 
 #### Using SSH
 In the ⚙️ <kbd>Settings</kbd> of your GitHub account, go to 🔑 <kbd>SSH and GPG keys</kbd> and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
 ```bash
-ssh-keygen -t rsa -b 4096 -C "your_github@email.com"
+$ ssh-keygen -t rsa -b 4096 -C "your_github@email.com"
 ```
 Additional information about setting up public key authentication with GitHub can be found [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
 
-> **_Tip for VM users_:** If you are looking for a convenient way to copy a public/private key pair onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
+> **_Tip for VM users_**
+> 
+> If you are looking for a convenient way to copy a public/private key pair onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
 
 #### Using GitHub CLI
 To authenticate with GitHub through its CLI tool, run:
 ```bash
-gh auth login
+$ gh auth login
 ```
 
 ## Create your repository
@@ -39,19 +41,19 @@ On the command line on your host machine, clone the repo.
 For an SSH-based setup, run:
 
 ```bash
-git clone git@github.com/<username>/<reponame>.git
+$ git clone git@github.com/<username>/<reponame>.git
 ```
 
 Or, for a setup that uses GitHub CLI, run:
 
 ```bash
-gh repo clone <username>/<reponame>
+$ gh repo clone <username>/<reponame>
 ```
 
 The template includes [raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk) as a submodule, which itself also has a lot of submodules. We recommend against using the `--recursive` flag because we do not need to recursively clone the submodules inside of `pico-sdk`. Instead, change directory into the root of your clone and run:
 
 ```bash
-git submodule update --init
+$ git submodule update --init
 ```
 
 If  `pico-sdk` was checked out correctly, `git submodule` will show the hash _without_ a `-` preceding it,
@@ -64,14 +66,14 @@ To create a reproducible unix shell environment that installs all required depen
 After installation, run the following in the shell to enable the experimental nix flakes feature, which helps to create more consistent builds:
 
 ```bash
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+$ mkdir -p ~/.config/nix
+$ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
 To install the dependencies, run the following in the root of your repository:
 
 ```bash
-nix develop
+$ nix develop
 ```
 
 This should automatically download and install specific revisions of the `gcc-arm` toolchain, `openocd`, and `picotool`. These packages will be required compiling, flashing and debugging C code for the RP2040.
@@ -79,7 +81,9 @@ This should automatically download and install specific revisions of the `gcc-ar
 
 If you hit any error while running `nix develop`, see trouble shooting instructions below.
 
-> **_Troubleshooting (Linux/WSL)_:** You may see an error message like this when running the `nix develop` command:
+> **_Troubleshooting (Linux/WSL)_**
+>
+> You may see an error message like this when running the `nix develop` command:
 > ```bash
 > error:
 >       … while fetching the input 'git+file:///home/osboxes/lf-lang/my-3pi'
@@ -87,14 +91,16 @@ If you hit any error while running `nix develop`, see trouble shooting instructi
 >       cannot connect to socket at '/nix/var/nix/daemon-socket/socket': Permission denied
 >
 > ```
-> This means that your user is not a member of the `nix-users` group. To fix this, see (prerequisites)[Prerequisites.html#nix-on-linuxwsl].
+> This means that your user is not a member of the `nix-users` group. To fix this, see [prerequisites](Prerequisites.html#using-nix-on-linuxwsl).
 
-> **_Troubleshooting (ARM/Apple Silicon Mac)_:** As of August 1, 2023, the stable version of nix does *not* support ARM/Apple Silicon Macs. You may see an error message like this when running the `nix develop` command:
+> **_Troubleshooting (ARM/Apple Silicon Mac)_**
+>
+> As of August 1, 2023, the stable version of nix does *not* support ARM/Apple Silicon Macs. You may see an error message like this when running the `nix develop` command:
 > ```
 > is not available on the requested hostPlatform
 > ```
-> Here is a workaround for this. You need to set up an environmental variable and run the nix command with an additional argument, `--impure`, like this:
+> You can work around this issue by setting up an environmental variable and running the nix command with an additional argument, `--impure`, like this:
 > ```bash
-> export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
-> nix develop --impure
+> $ export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+> $ nix develop --impure
 > ```

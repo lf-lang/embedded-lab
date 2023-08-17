@@ -113,10 +113,15 @@ This will result in an LED blinking on the robot.
 The loaded code will persist on the robot until the next time it is put in `BOOTSEL` mode and loaded with a new program.
 You can disconnect the robot and use the power button to start it running on battery power.
 
-```
-Device at bus 2, address 5 appears to be a RP2040 device in BOOTSEL mode, but
-    picotool was unable to connect. Maybe try 'sudo' or check your permissions.
-```
+> **_Troubleshooting_**
+> 
+> You may see the following error message reported by `picotool`:
+> ```
+> Device at bus 2, address 5 appears to be a RP2040 device in BOOTSEL mode, but
+>    picotool was unable to connect. Maybe try 'sudo' or check your permissions.
+> ```
+> If you see this message, this means that your user does not have permission to access the RP2040 via USB.
+> You can add `udev`` rules to allow regular users to access the PR2040, as described (here)[http://localhost:3000/Prerequisites.html#using-picotool-on-linuxwsl].
 
 ### Using VS Code
 

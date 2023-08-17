@@ -17,15 +17,15 @@ We recommend using your favorite package manager to install them.
 
 ### Installation on Ubuntu
 ```bash
-sudo apt install curl git openjdk-17-jdk openjdk-17-jre nix 
-sudo snap install code --classic
+$ sudo apt install curl git openjdk-17-jdk openjdk-17-jre nix 
+$ sudo snap install code --classic
 ```
 
 ### Installation on macOS
 ```bash
-brew install --cask visual-studio-code
-brew install cmake git curl openjdk@17
-curl -L https://nixos.org/nix/install | sh
+$ brew install --cask visual-studio-code
+$ brew install cmake git curl openjdk@17
+$ curl -L https://nixos.org/nix/install | sh
 ```
 
 ## VS Code extensions
@@ -36,9 +36,9 @@ Please ensure that you have the following extensions installed:
 
 To install them from the commandline, run:
 ```bash
-code --install-extension marus25.cortex-debug
-code --install-extension ms-vscode.cmake-tools
-code --install-extension lf-lang.vscode-lingua-franca
+$ code --install-extension marus25.cortex-debug
+$ code --install-extension ms-vscode.cmake-tools
+$ code --install-extension lf-lang.vscode-lingua-franca
 ```
 
 ## Permissions
@@ -47,19 +47,19 @@ code --install-extension lf-lang.vscode-lingua-franca
 To use `nix` on Linux, make sure that your user is a member of the `nix-users` group. To check this, run:
 
 ```bash
-groups
+$ groups
 ```
 
 If `nix-users` is not listed, run:
 
 ```bash
-sudo usermod -aG nix-users $USER
+$ sudo usermod -aG nix-users $USER
 ```
 
 Please note that you might need to reboot your system after running `usermod` in order for the new group membership to be reflected.
 
 ### Using `picotool` on Linux/WSL
-To allow access to the RPi3+ via USB without root superuser privileges, add a custom `udev` rule using the following command:
-```console
-curl -s https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/99-picotool.rules | sudo tee -a /etc/udev/rules.d/99-picotool.rules >/dev/null
+To allow access to the RP2040 via USB without root superuser privileges, add a custom `udev` rules using the following command:
+```bash
+$ curl -s https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/99-picotool.rules | sudo tee -a /etc/udev/rules.d/99-picotool.rules >/dev/null
 ```
