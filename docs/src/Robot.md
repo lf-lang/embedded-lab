@@ -96,4 +96,4 @@ Your task now is to use the [Bump](https://github.com/lf-lang/lf-3pi-template/bl
 
 2. Instead of setting the power level of the motors, a better strategy might be to set a desired robot speed.  How might you use the encoders to measure the speed?  How might you use the speed measurement to control the speed?  **Hint:** Section 2.4, Feedback Control, of [Lee and Seshia](https://leeseshia.org) might be useful.
 
-
+3. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
