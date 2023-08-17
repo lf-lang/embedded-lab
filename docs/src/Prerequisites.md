@@ -29,6 +29,12 @@ $ brew install cmake git curl openjdk@17 screen
 $ curl -L https://nixos.org/nix/install | sh
 ```
 
+## Lingua Franca Toolchain
+To install the nightly (recommended) Lingua Franca CLI tools (i.e, the compiler `lfc`, the diagram generator `lfd`, and the code formatter `lff`), run:
+```
+curl -s https://install.lf-lang.org | bash -s nightly cli
+```
+
 ## VS Code extensions
 Please ensure that you have the following extensions installed:
  - `marus25.cortex-debug` — [ARM Cortex-M GDB Debugger support for VSCode](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug)
