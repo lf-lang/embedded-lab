@@ -6,7 +6,13 @@ Before getting started, please make sure you have satisfied all the [prerequisit
 If you do not yet have a GitHub account, [create one](https://github.com/signup).
 
 ### Set up authentication with GitHub
-In order to push to your repo, you need to authenticate. You can either do this using a public/private key pair through SSH, or use token-based authentication via `gh`, the GitHub commandline interface.
+In order to push to your repo, you need to authenticate. You can either do this using a public/private key pair through SSH, or use token-based authentication via `gh`, the GitHub command-line interface. We recommend the latter method for VM users.
+
+#### Using GitHub CLI
+To authenticate with GitHub through its CLI tool, run:
+```bash
+$ gh auth login
+```
 
 #### Using SSH
 In the ⚙️ <kbd>Settings</kbd> of your GitHub account, go to 🔑 <kbd>SSH and GPG keys</kbd> and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
@@ -17,13 +23,8 @@ Additional information about setting up public key authentication with GitHub ca
 
 > **_Tip for VM users_**
 > 
-> If you are looking for a convenient way to copy a public/private key pair onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
+> If you are looking for a convenient way to copy your private key onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
 
-#### Using GitHub CLI
-To authenticate with GitHub through its CLI tool, run:
-```bash
-$ gh auth login
-```
 
 ## Create your repository
 Start by creating a new private repository on GitHub based on the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository, which provides a starting point for students to carry out the exercises in this lab and to develop further applications using the [Raspberry Pi Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) and the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86).
@@ -58,6 +59,7 @@ $ git submodule update --init
 
 If  `pico-sdk` was checked out correctly, `git submodule` will show the hash _without_ a `-` preceding it,
 e.g.: `6a7db34ff63345a7badec79ebea3aaef1712f374 pico-sdk (1.5.1)`.
+
 
 ## Configure Nix
 
