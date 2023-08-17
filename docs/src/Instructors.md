@@ -42,3 +42,6 @@ For more information, refer to the [docs provided by Pololu](https://www.pololu.
 
 ## The Ramp used for the Hill Climb
 Build instructions for a ramp to use with the [Hill Climb](Hill.html) exercise will be posted here soon. The robots are very light-weight, however, so even a very flimsy ramp constructed using cardboard will probably do.
+
+## Solutions
+We can provide access to solutions of the lab exercises upon request. Please contact `eal` `at` `berkeley.edu` to place an inquiry.
