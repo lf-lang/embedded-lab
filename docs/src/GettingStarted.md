@@ -61,7 +61,7 @@ e.g.: `6a7db34ff63345a7badec79ebea3aaef1712f374 pico-sdk (1.5.1)`.
 
 ## Configure Nix
 
-To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager. Install [nix](https://nixos.org/download.html) first for your preferred platform. There is support for Windows (via WSL), MacOS, and Linux.  If possible, use a **multi-user** install, which will require sudo permissions.
+To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager, which has support for Linux, macOS, and Windows (via WSL). See [prerequisites](Prerequisites.html) for installation instructions. If you prefer to manage dependencies yourself and not rely on `nix`, follow the [instructions for a non-`nix` setup](Non-Nix.html).
 
 After installation, run the following in the shell to enable the experimental nix flakes feature, which helps to create more consistent builds:
 
