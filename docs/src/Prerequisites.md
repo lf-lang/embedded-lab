@@ -67,7 +67,7 @@ $ sudo usermod -aG nix-users $USER
 Please note that you might need to reboot your system after running `usermod` in order for the new group membership to be reflected.
 
 ### Using `picotool` on Linux/WSL
-To allow access to the RP2040 via USB without root superuser privileges, add a custom `udev` rules using the following command:
+To allow access to the RP2040 via USB without superuser privileges, add custom `udev` rules using the following command:
 ```bash
 $ curl -s https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/99-picotool.rules | sudo tee -a /etc/udev/rules.d/99-picotool.rules >/dev/null
 ```
