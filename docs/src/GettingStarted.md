@@ -23,7 +23,7 @@ Additional information about setting up public key authentication with GitHub ca
 
 > **_Tip for VM users_**
 > 
-> If you are looking for a convenient way to copy your private key onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
+> If you prefer not to use `gh` for authentication and are looking for a convenient way to copy your private key onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
 
 
 ## Create your repository
