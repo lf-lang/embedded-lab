@@ -190,11 +190,13 @@ $ cd ~/my-rpi3
 $ code .
 ```
 
-Open and examine the `Blink.lf` program in the `src` directory.  You may want to open the diagram and drag its subwindow to the bottom so that you something like this:
+Open and examine the `Blink.lf` program in the `src` directory.  You may want to open the diagram and drag its window pane to the bottom so that you something like this:
 
 <img src="img/BlinkInCode.png" alt="Blink in code"/>
 
-To compile this program, select <kbd>View > Terminal</kbd> from the menu, and type in the terminal (or an external terminal window if you prefer),
+To compile this program, use <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> and select the option <kbd>Lingua Franca: Build</kbd> (start typing until auto-complete finds it). On a Mac, use the <kbd>Cmd</kbd> key instead of <kbd>Ctrl</kbd>.
+
+Alternatively, you could use `lfc` to invoke the compiler from the command line. You can do this from a terminal outside VS Code, or by selecting <kbd>View > Terminal</kbd> from the menu, and typing:
 
 ```bash
 $ lfc src/Blink.lf
