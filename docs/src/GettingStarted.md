@@ -15,7 +15,7 @@ $ gh auth login
 ```
 
 #### Using SSH
-In the ⚙️ [<kbd>Settings</kbd>](https://github.com/settings/profile) of your [GitHub account](https://github.com), go to 🔑 [<kbd>SSH and GPG keys</kbd>](https://github.com/settings/keys) and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
+In the ⚙️ [Settings](https://github.com/settings/profile) of your [GitHub account](https://github.com), go to 🔑 [SSH and GPG keys](https://github.com/settings/keys) and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
 ```bash
 $ ssh-keygen -t rsa -b 4096 -C "your_github@email.com"
 ```
