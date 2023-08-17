@@ -30,7 +30,7 @@ sudo apt install cmake make gcc gcc-arm-none-eabi libnewlib-arm-none-eabi
 ```
 **Note:** It might be additionally needed to also install `libstdc++-arm-none-eabi-newlib`.
 
-### On MacOS
+### On macOS
 
 ```
 $ brew install cmake make gcc arm-none-eabi-gcc

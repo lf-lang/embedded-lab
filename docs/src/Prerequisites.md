@@ -1,8 +1,7 @@
 # Prerequisites
 
 Before [getting started](./GettingStarted.html), please check whether you have all the necessary software installed and configured properly.
-Alternatively, a preconfigured Ubuntu VM image is available [here](https://vm.lf-lang.org). 
-Instructions for allowing the VM to access the RPi3+ via USB are available [here](VirtualMachine.html).
+Alternatively, a pre-configured Ubuntu VM image is available [here](https://vm.lf-lang.org). Instructions for usage of the VM are provided [here](UbuntuVM.html).
 
 ## Packages
 Your system must have the following (very common) software packages installed:
