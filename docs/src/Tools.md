@@ -63,36 +63,44 @@ These exercises are intended to make sure you are up-to-speed on using the Unix 
 5. In a git repository, what command displays whether there are any local changes and what they are?
 6. In a git repository, what does `git pull` do?
 
-## 3.2 A First C Program
+## 3.2 Deploying Example Code
 
-First, check your installation has been done correctly. One of the side effects of the installation is to define an environment variable called `PICO_SDK_PATH` that points to the root location of the RPi-Pico SDK. Check it (make sure to replace <path_to_your_repo> with the actual path to your repo):
-
-```
-$ echo $PICO_SDK_PATH
-/Users/<path_to_your_repo>/my-3pi/pico-sdk
-```
-
-You may wish to look at the README file in that directory.
 We will now compile and load an example C program onto the robot.
 We do this two different ways, using the command line and using an IDE.
 
-### Using the Command Line
+> **_Important_**
+>
+> If you let Nix manage your build environment, you need to always make sure to run `nix develop` at the root of your repository before using the shell.
+> Besides installing things in the filesystem, it also sets environment variables like `$PICO_SDK_PATH`, which must be set in order to compile code that uses the RPi-Pico SDK.
 
-First, find the pico-examples directory and make it your current working directory:
+Ensure that your shell environment is set up correctly by checking that the `PICO_SDK_PATH` variable points to the root location of the RPi-Pico SDK.
+You may wish to look at the `README` file in that directory.
+Check the environment variable by printing it:
 
-```bash
-   cd lf-pico/pico/pico-examples
+```
+$ echo $PICO_SDK_PATH
 ```
 
-(**NOTE:** `lf-pico` here and everywhere that follows is the location of your clone of the [lf-pico repository](https://github.com/lf-lang/lf-pico)).
+It should print a path that looks like `<path_to_your_repo>/pico-sdk`. 
+If the environment variable `PICO_SDK_PATH` is not set, simply run `nix develop`.
+
+### Using the Command Line
+
+First, clone the `raspberry-pi/pico-examples` repo in your home directory and make it your current working directory:
+
+```bash
+$ cd ~
+$ git clone https://github.com/raspberrypi/pico-examples.git
+$ cd pico-examples
+```
 
 Make a blank `build` directory and use it to compile all the examples:
 
 ```bash
-    mkdir build
-    cd build
-    cmake ../
-    make
+$ mkdir build
+$ cd build
+$ cmake ../
+$ make
 ```
 
 This should result in a rather lengthy output.
@@ -103,9 +111,8 @@ Before flashing the binary to your RP2040 based board, the board must be placed 
 (On a Raspberry Pi Pico, hold the `RESET` button while connecting the board to the host.)
 You can then use the `picotool` to load and execute one of the sample programs:
 
-
 ```bash
-    picotool load -x blink/blink.elf
+$ picotool load -x blink/blink.elf
 ```
 
 The `-x` option directs the robot to execute the code after loading it.
@@ -128,18 +135,18 @@ You can disconnect the robot and use the power button to start it running on bat
 Next we will repeat the exercise, but this time using VS Code rather than the command line to compile the code.
 Under the hood, VS Code uses the CMake Tools extension to achieve the same process.
 
-Start VS Code in your root lf-pico directory:
+Start VS Code in your root `pico-examples` directory:
 
 ```bash
-   $ cd lf-pico/pico/pico-examples
-   $ code .
+$ cd ~/pico-examples
+$ code .
 ```
 
 This will likely result in a popup appearing as follows:
 
 <img src="img/SelectAKit.png" alt="Select a kit"/>
 
-You should select the arm-none-eabi kit. If you do not see one, select "Scan for kits". It you do not see the popup above, click on "No kit selected" on bottom blue bar.  **NOTE:** You may need to make sure that CMake Tools is the Configuration Provider. Select View->Command Palette in the menu and begin typing "C/C++ Change Configuration Provider" until you see this:
+You should select the `arm-none-eabi` kit. If you do not see one, select "Scan for kits". It you do not see the popup above, click on "No kit selected" on bottom blue bar.  **NOTE:** You may need to make sure that CMake Tools is the Configuration Provider. Select <kbd>View > Command Palette</kbd> in the menu and begin typing <kbd>C/C++ Change Configuration Provider</kbd> until you see this:
 
 <img src="img/ConfigurationProvider.png" alt="Configuration Provider" width="60%"/>
 
@@ -151,12 +158,12 @@ If all goes well, VS Code will have compiled all the examples, and you see outpu
 
 VS Code has run CMake, but it has not yet compiled the example programs.
 To compile them, click on the "Build" button in the blue bar at the bottom.
-If you run the build on the command line as above, then this time it should not take too long.
+If you already ran the build on the command line as above, then this time it should not take too long.
 
-When you see "Build finished with exit code 0," then you can load the code onto the robot using picotool.  To do this from within VS Code, select the Terminal tab in the Output subwindow and issue the load command as above:
+When you see "Build finished with exit code 0," then you can load the code onto the robot using `picotool``.  To do this from within VS Code, select the <kbd>Terminal</kbd> tab in the <kbd>Output</kdb> subwindow and issue the load command as above:
 
 ```bash
-    picotool load -x build/blink/blink.elf
+$ picotool load -x build/blink/blink.elf
 ```
 
 Make sure the robot is in `BOOTSEL` mode before doing this.
@@ -171,27 +178,27 @@ Explain how the timing of the blinking of the LED is controlled.
 
 ## 3.3 A First Lingua Franca Program
 
-Start code in the root `lf-pico` directory:
+Start `code` in the root of your repository based on `lf-3pi-template` (see [Getting Started](http://localhost:3000/GettingStarted.html#clone-your-repository)):
 
 ```bash
-    cd lf_pico
-    code .
+$ cd ~/my-rpi3
+$ code .
 ```
 
 Open and examine the `Blink.lf` program in the `src` directory.  You may want to open the diagram and drag its subwindow to the bottom so that you something like this:
 
 <img src="img/BlinkInCode.png" alt="Blink in code"/>
 
-To compile this program, select View->Terminal from the menu, and type in the terminal (or an external terminal window if you prefer),
+To compile this program, select <kbd>View > Terminal</kbd> from the menu, and type in the terminal (or an external terminal window if you prefer),
 
 ```bash
-    lfc src/Blink.lf
+$ lfc src/Blink.lf
 ```
 
 Connect your robot in `BOOTSEL` mode and load and execute the program:
 
 ```bash
-    picotool load -x bin/Blink.elf
+$ picotool load -x bin/Blink.elf
 ```
 
 You should see same blinking LED as before.
@@ -215,27 +222,33 @@ To do that, we a terminal emulator called **screen**.  But first, we have to ide
 A simple way to do that is to look in the `/dev/` directory on your computer for a device that includes "usb" in its name:
 
 ```bash
-    ls /dev/*usb*
+$ ls /dev/*usb*
 ```
 
-On my machine, this lists two:
+Output on macOS may look like this:
 
 ```bash
-    /dev/cu.usbmodem14201	/dev/tty.usbmodem14201
+/dev/cu.usbmodem14201	/dev/tty.usbmodem14201
+```
+
+On Linux, it may look like this:
+
+```bash
+/dev/cu.usbmodem14201	/dev/tty.usbmodem14201
 ```
 
 To use screen, we specify the first of these devices and a baud rate, as follows:
 
 ```bash
-    screen /dev/cu.usbmodem14201 115200
+$ screen <device-name> 115200
 ```
 
 You should now see the printed outputs.
-You can return terminal to normal mode by **detaching** screen by typing Control-A d.
+You can return terminal to normal mode by **detaching** screen by typing <kbd>Ctrl</kbd> + <kbd>a</kbd> followed by <kbd>d</kbd>.
 You can reattach with:
 
 ```bash
-    screen -r
+$ screen -r
 ```
 
 To permanently end screen, type Control-A k (for kill).

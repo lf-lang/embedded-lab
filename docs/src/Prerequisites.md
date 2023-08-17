@@ -9,15 +9,16 @@ Your system must have the following (very common) software packages installed:
  - `git` — [a distributed version control system](https://git-scm.com/)
  - `cmake` — [a cross-platform family of tools for building, testing and packaging software](https://cmake.org/)
  - `code` — [the Visual Studio Code IDE](https://code.visualstudio.com/download)
+ - `curl` — [a CLI tool and library for transfering data with URLs](https://curl.se/)
  - `java` — [Java 17](https://openjdk.org/projects/jdk/17)
  - `nix` — [a purely functional package manager](https://nix.dev/tutorials/install-nix)
- - `curl` — [a CLI tool and library for transfering data with URLs](https://curl.se/)
+ - `screen` — [a terminal multiplexer](https://devhints.io/screen)
 
 We recommend using your favorite package manager to install them.
 
 ### Installation on Ubuntu
 ```bash
-$ sudo apt install curl git openjdk-17-jdk openjdk-17-jre nix 
+$ sudo apt install curl git openjdk-17-jdk openjdk-17-jre nix screen
 $ sudo snap install code --classic
 ```
 
