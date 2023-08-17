@@ -226,28 +226,34 @@ By default, the robot is configured to direct all stdout text to a serial port o
 The trick, therefore, is to get your host computer to connect to that serial port and display data that arrives from the robot.
 
 To do that, we a terminal emulator called **screen**.  But first, we have to identify the serial port device that was created when the program started up.
-A simple way to do that is to look in the `/dev/` directory on your computer for a device that includes "usb" in its name:
+
+## Finding the device on macOS
+On macOS, the device is likely to appear in the `/dev` directory on your computer under a name that includes "usb" in its name, which you can look up as follows:
 
 ```bash
 $ ls /dev/*usb*
 ```
 
-Output on macOS may look like this:
+The output may look like this, listing both a "callin" device `/dev/tty.usb*` and a "callout" device `/dev/cu.usb*` (for more information, see [StackOverflow](https://stackoverflow.com/questions/8632586/whats-the-difference-between-dev-tty-and-dev-cu-on-macos)):
 
 ```bash
 /dev/cu.usbmodem14201	/dev/tty.usbmodem14201
 ```
 
-On Linux, it may look like this:
+## Finding the device on Linux
+
+On Linux, the device is likely to appear in the `/dev` directory under a name that starts with `ttyACM`, which you can look up as follows:
 
 ```bash
-/dev/cu.usbmodem14201	/dev/tty.usbmodem14201
+$ ls /dev/*usb*
 ```
 
-To use screen, we specify the first of these devices and a baud rate, as follows:
+## Using `screen`
+
+To use screen, we specify a device (e.g., `/dev/ttyACM0`) and a baud rate, as follows:
 
 ```bash
-$ screen <device-name> 115200
+$ screen <device> 115200
 ```
 
 You should now see the printed outputs.
