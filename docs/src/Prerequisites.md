@@ -12,7 +12,7 @@ Your system must have the following (very common) software packages installed:
  - `curl` — [a CLI tool and library for transfering data with URLs](https://curl.se/)
  - `java` — [Java 17](https://openjdk.org/projects/jdk/17)
  - `nix` — [a purely functional package manager](https://nix.dev/tutorials/install-nix)
- - `screen` — [a terminal multiplexer](https://devhints.io/screen)
+ - `screen` — [a terminal multiplexer](https://dev.to/thiht/learn-to-use-screen-a-terminal-multiplexer-gl)
 
 We recommend using your favorite package manager to install them.
 
@@ -25,7 +25,7 @@ $ sudo snap install code --classic
 ### Installation on macOS
 ```bash
 $ brew install --cask visual-studio-code
-$ brew install cmake git curl openjdk@17
+$ brew install cmake git curl openjdk@17 screen
 $ curl -L https://nixos.org/nix/install | sh
 ```
 
