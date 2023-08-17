@@ -1,6 +1,12 @@
-# Getting Started
-- [Introduction](./Introduction.md)
-- [Installation](./Installation.md)
+
+[Introduction](./README.md)
+
+---
+
+# Preparation
+
+- [Prerequisites](./Prerequisites.md)
+- [Getting Started](./GettingStarted.md)
 
 # Lab Exercises
 
@@ -8,16 +14,19 @@
 - [Interfacing with Sensors](./Sensors.md)
 - [Peripherals](./Peripherals.md)
 - [Interrupts](./Interrupts.md)
-- [Timers](./Timers.md)
 - [Robot](./Robot.md)
 - [Hill Climb](./Hill.md)
-- [Wireless](./Wireless.md)
 
 # Appendices
 
 - [Resources](./Resources.md)
-- [Acronyms](./Acronyms.md)
-- [Notes for Windows Users](./WindowsInstallation.md)
-- [Installing VSCode](./InstallVSCode.md)
-- [Installing Pico Tools](./InstallingPicoTools.md)
-- [Using a Debugger](./Debugger.md)
+    - [Acronyms](./Acronyms.md)
+    - [Using a Debugger](./Debugger.md)
+    - [Non-`nix` Setup](./Non-Nix.md)
+- [Project Ideas](./Project.md)
+
+---
+
+[Notes for VM users](./UbuntuVM.md)
+[Notes for Windows Users](./Windows.md)
+[Notes for Instructors](./Instructors.md)

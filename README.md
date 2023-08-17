@@ -3,15 +3,15 @@ This repository provides documentation and lab exercises for using [Lingua Franc
 You can build LF programs and flash them directly onto the robot or use a secondary [Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) as a debugger using the [picoprobe](https://github.com/raspberrypi/picoprobe) application.
 
 ## Read the docs
-To read the docs, go to [lf-lang.org/lf-embedded-lab](https://www.lf-lang.org/lf-embedded-lab/). 
+To read the docs, visit [lf-lang.org/lf-embedded-lab](https://www.lf-lang.org/lf-embedded-lab/). 
 
 ## Edit the docs
 To contribute to this documentation, fork of this repo and file a pull request.
 For documentation on the mdBook framework that we use to render the docs, see [mdbook](https://github.com/rust-lang/mdBook/).
 
 ### Build and run locally
-The book can also be built and served locally after installing mdbook and running.
-Simply run:
+The book can also be built and served locally after installing `mdbook`.
+Simply run the follow command in the root of this repository:
 ```
 mdbook serve docs/
 ```
