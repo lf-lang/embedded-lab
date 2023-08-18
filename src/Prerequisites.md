@@ -36,17 +36,19 @@ curl -s https://install.lf-lang.org | bash -s nightly cli
 
 ## VS Code extensions
 Please ensure that you have the following extensions installed:
- - `marus25.cortex-debug` — [ARM Cortex-M GDB Debugger support for VSCode](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug)
  - `ms-vscode.cmake-tools` — [Extended CMake support in Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
- - `ms-vscode.cpptools` — [C/C++ IntelliSense, debugging, and code browsing](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
+ - `ms-vscode.cpptools` — [C/C++ IntelliSense, debugging, and code browsing](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
  - `lf-lang.vscode-lingua-franca` — [Lingua Franca for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=lf-lang.vscode-lingua-franca)
+
+For debugging support in vscode
+ - `marus25.cortex-debug` — [ARM Cortex-M GDB Debugger support for VSCode](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug)
 
 To install them from the command line, run:
 ```bash
-$ code --install-extension marus25.cortex-debug
 $ code --install-extension ms-vscode.cmake-tools
 $ code --install-extension ms-vscode.cpptools
 $ code --install-extension --pre-release lf-lang.vscode-lingua-franca
+$ code --install-extension marus25.cortex-debug
 ```
 
 ## Permissions
