@@ -3,7 +3,7 @@ This repository provides documentation and lab exercises for using [Lingua Franc
 You can build LF programs and flash them directly onto the robot or use a secondary [Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) as a debugger using the [picoprobe](https://github.com/raspberrypi/picoprobe) application.
 
 ## Read the docs
-To read the docs, visit [lf-lang.org/lf-embedded-lab](https://www.lf-lang.org/lf-embedded-lab/). 
+To read the docs, visit [lf-lang.org/embedded-lab](https://www.lf-lang.org/embedded-lab/). 
 
 ## Edit the docs
 To contribute to this documentation, fork of this repo and file a pull request.
