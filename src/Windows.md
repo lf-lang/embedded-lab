@@ -19,7 +19,7 @@ lsusb
 ```
 > **Troubleshooting: udev in WSL**
 >
-> Due to usb being unofficially supported for WSL, 
+> Due to USB being unofficially supported for WSL, 
 > the [udev](https://wiki.archlinux.org/title/Udev) service daemon might need to be restarted after attaching
 > usb devices to the WSL instance as outlined above. 
 > This has particularly been an issue when debugging with openocd.
