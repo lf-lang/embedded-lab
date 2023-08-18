@@ -1,9 +1,9 @@
 # Using a Debugger
 
 ## Debugging
-To debug applications for RP2040 based boards, there exists a nice tool called [picoprobe](https://github.com/raspberrypi/picoprobe). This applications allows a Raspberry Pi Pico or RP2040 board to act as a [cmsis-dap](https://arm-software.github.io/CMSIS_5/DAP/html/index.html) device which interacts with the target device cortex cores through a [serial wire debug](https://wiki.segger.com/SWD)(swd) pin interface connection.
+To debug applications for RP2040 based boards, there exists a nice tool called [picoprobe](https://github.com/raspberrypi/picoprobe). This applications allows a Raspberry Pi Pico or RP2040 board to act as a [cmsis-dap](https://arm-software.github.io/CMSIS_5/DAP/html/index.html) device which interacts with the target device cortex cores through a [serial wire debug](https://wiki.segger.com/SWD) (swd) pin interface connection.
 
-To get started, you'll need a secondary RP2040 based board and will need to flash the picoprobe [binaries](https://github.com/raspberrypi/picoprobe/releases/tag/picoprobe-cmsis-v1.02)linked here. The page contains pre-built firmware packages that can be flashed using picotool or copied to a `bootsel` mounted board. 
+To get started, you'll need a secondary RP2040 based board and will need to flash the picoprobe [binaries](https://github.com/raspberrypi/picoprobe/releases/tag/picoprobe-cmsis-v1.02) linked here. The page contains pre-built firmware packages that can be flashed using picotool or copied to a `bootsel` mounted board. 
 
 ### Wiring
 Once the **probe** device is prepared, wire it up to the **target** device as follows. The following is an example of a pico to pico connection and the pin numbers will differ from board to board.
@@ -69,3 +69,22 @@ Once the GDB environment is opened, connect to the debug server using the follow
 ```
 
 From this point onwards normal gdb functionality such as breakpoints, stack traces and register analysis can be accessed through various gdb commands.
+
+### Visual Studio Code
+Breakpoints can be placed in generated lingua franca project source code within **vscode**. 
+As a part of the code generation process, each lfc generates a ``.vscode`` directory in the program ``src-gen`` folder. 
+This is populated with settings to configure and run ``gdb``, ``openocd`` and ``cmake``.
+
+Run the following after generating code for the desired lf program.
+```bash
+$ code src-gen/<program>/
+```
+In vscode, navigate to the run and debug tab on the left. A **Pico Debug** option should appear at the top as shown.
+
+<img src="img/vscode-debug.png" alt="Debugging in VSCode"/>
+
+Make sure the *picoprobe* is connected and wired as noted above and click run. The debugger should automatically break
+at the ``main`` method of the application. Breakpoints can be visually inserted and other debugger options are accessible through
+the IDE gui.
+
+
