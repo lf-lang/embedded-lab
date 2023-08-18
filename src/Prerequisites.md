@@ -31,7 +31,7 @@ $ curl -L https://nixos.org/nix/install | sh
 ## Lingua Franca Toolchain
 To install the nightly (recommended) Lingua Franca CLI tools (i.e, the compiler `lfc`, the diagram generator `lfd`, and the code formatter `lff`), run:
 ```
-curl -s https://install.lf-lang.org | bash -s nightly cli
+curl -Ls https://install.lf-lang.org | bash -s nightly cli
 ```
 
 ## VS Code extensions
