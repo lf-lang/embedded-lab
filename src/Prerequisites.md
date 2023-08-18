@@ -47,7 +47,7 @@ To install them from the command line, run:
 ```bash
 $ code --install-extension ms-vscode.cmake-tools
 $ code --install-extension ms-vscode.cpptools
-$ code --install-extension --pre-release lf-lang.vscode-lingua-franca
+$ code --install-extension lf-lang.vscode-lingua-franca --pre-release
 $ code --install-extension marus25.cortex-debug
 ```
 
