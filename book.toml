@@ -1,0 +1,6 @@
+[book]
+authors = ["Abhi Gundrala", "Edward A. Lee", "Marten Lohstroh"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Embedded Systems Labs"
