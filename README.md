@@ -13,7 +13,7 @@ For documentation on the mdBook framework that we use to render the docs, see [m
 The book can also be built and served locally after installing `mdbook`.
 Simply run the follow command in the root of this repository:
 ```
-mdbook serve docs/
+mdbook serve
 ```
 
 ## Other Resources
