@@ -41,7 +41,7 @@ If you have a higher risk tolerance, you could do without the dark bands and use
 First, you will get familiar with the reflectivity sensors.
 Then you will use them.  Your tasks:
 
-1. Examine and run the provided program `src/LineDisplay.lf`. How does this work? Use it to calibrate your robot on the ramp so that it reliably detects when the front of the robot is over the dark bands on the edges (or, if you choose the riskier option, over the edge of the ramp). Note that once your robot is calibrated, you should not have calibrate it again, so you can use the simpler `Line` reactor `src/lib/Line.lf` for subsequent exercises.
+1. Examine and run the provided program `src/LineDisplay.lf`. How does this work? Use it to calibrate your robot on the ramp so that it reliably detects when the front of the robot is over the dark bands on the edges (or, if you choose the riskier option, over the edge of the ramp). Note that once your robot is calibrated, you should not have calibrate it again, so you can use the simpler `Line` reactor `src/lib/Line.lf` for subsequent exercises. However, if lighting conditions change or you run the robot on a different surface, you will likely need to recalibrate.
 
 2. Create a Lingua Franca program that displays on the LCD display one of:
 
