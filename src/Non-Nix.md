@@ -21,7 +21,7 @@ $ echo "export PICO_SDK_PATH=$PICO_SDK_PATH" >> ~/.bash_profile
 Depending on what operating system and terminal you use, you may need to find some other way to set this environment variable.
 
 ## Install `picotool`
-To build and install `picotool` from source, refer to the [https://github.com/raspberrypi/picotool](raspberrypi/picotool) repository.
+To build and install `picotool` from source, refer to the [raspberrypi/picotool](https://github.com/raspberrypi/picotool) repository.
 
 ## Install CMake, Standard C Library, ARM cross compiler
 
