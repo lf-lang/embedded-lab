@@ -17,13 +17,15 @@ In the WSL instance, run the following to verify the device has mounted:
 ```
 lsusb
 ```
-
-TODO: add how to install `udev` permissions what is udev?
-For debugging with the picoprobe, `udev` permissions have to 
-be setup and restart every time the probe is used.
-Also see [these notes on udev](Prerequisites.html#using-picotool-on-linuxwsl).
-
-```
-sudo service udev restart && sudo udevadm trigger
-```
+> **Troubleshooting: udev in WSL**
+>
+> Due to usb being unofficially supported for WSL, 
+> the [udev](https://wiki.archlinux.org/title/Udev) service daemon might need to be restarted after attaching
+> usb devices to the WSL instance as outlined above. 
+> This has particularly been an issue when debugging with openocd.
+> Run the following commands to restart the udev daemon and reapply udev rules. 
+> ```bash
+> $ sudo service udev restart 
+> $ sudo udevadm trigger
+> ```
 
