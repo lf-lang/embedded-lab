@@ -36,7 +36,6 @@ This will create a directory called `my-3pi` in the current working directory.
 The template includes [raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk) as a submodule, which itself also has a lot of submodules. We recommend against using the `--recursive` flag because we do not need to recursively clone the submodules inside of `pico-sdk`. Instead, change directory into the root of your clone and run:
 
 ```bash
-$ cd my-3pi
 $ git submodule update --init
 ```
 
