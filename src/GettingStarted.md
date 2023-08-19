@@ -25,21 +25,30 @@ Give your repo a name and click on "Create repository":
 <img src="img/my-3pi.png" alt="new repo"/>
 
 ## Clone your repository
-On the command line on your host machine, clone the repo:
+On the command line on your host machine, change directory to the location where you would like to check out your repository. Let us assume that you named your repo `my-3pi`. Check it out using the following command (where `<username>` must be substituted with your GitHub username):
 
 ```bash
 $ gh repo clone <username>/<reponame>
 ```
 
+This will create a directory called `my-3pi` in the current working directory.
+
 The template includes [raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk) as a submodule, which itself also has a lot of submodules. We recommend against using the `--recursive` flag because we do not need to recursively clone the submodules inside of `pico-sdk`. Instead, change directory into the root of your clone and run:
 
 ```bash
+$ cd my-3pi
 $ git submodule update --init
 ```
 
-If  `pico-sdk` was checked out correctly, `git submodule` will show the hash _without_ a `-` preceding it,
+If  `pico-sdk` was checked out correctly running `git submodule` in the root of the repository will show the hash _without_ a `-` preceding it,
 e.g.: `6a7db34ff63345a7badec79ebea3aaef1712f374 pico-sdk (1.5.1)`.
 
+> **_Note for existing GitHub users_**
+>
+> If you are an existing GitHub user and have already set up a public/private key pair (or have done so by selecting `SSH` as the protocol when running `gh auth login`), you can also clone the repo as follows:
+> ```
+> $ git clone git@github.com/<username>/<reponame>.git
+> ```
 
 ## Configure Nix
 
