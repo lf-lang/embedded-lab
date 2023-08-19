@@ -33,6 +33,19 @@ $ gh repo clone <username>/my-3pi
 
 This will create a directory called `my-3pi` in the current working directory.
 
+> **_Troubleshooting (Unknown Key Fingerprint)_**
+>
+> If you are using the SSH protocol, then `gh repo clone` may report something like:
+> ```
+> The authenticity of host 'github.com (...)' cannot be established.
+> ```
+> and prompt you to with the following question:
+> ```
+> Are you sure you want to continue connecting (yes/no)?
+> ```
+> The reason for this is that the key used by `github.com` is not yet known by your machine.
+> Once you type `yes` and <kbd>Enter</kbd>, the fingerprint of GitHub's public key will be added to `~/.ssh/known_hosts`. Only when GitHub _changes_ its public key will this warning reappear. This feature of SSH is meant to avoid [man-in-the-middle attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
+
 The template includes [raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk) as a submodule, which itself also has a lot of submodules. We recommend against using the `--recursive` flag because we do not need to recursively clone the submodules inside of `pico-sdk`. Instead, change directory into the root of your clone and run:
 
 ```bash
