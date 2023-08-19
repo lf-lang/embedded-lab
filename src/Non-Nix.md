@@ -12,13 +12,13 @@ $ cd pico-sdk
 $ export PICO_SDK_PATH=`pwd`
 ```
 
-For convenience, set `PICO_SDK_PATH` in your `~/.bash_profile` file so that the environment variable is available to any bash terminal. After completing the steps above, this can be done as follows:
+For convenience, set `PICO_SDK_PATH` in your `~/.profile` file so that the environment variable is available to any bash terminal. After completing the steps above, this can be done as follows:
 
 ```bash
-$ echo "export PICO_SDK_PATH=$PICO_SDK_PATH" >> ~/.bash_profile
+$ echo "export PICO_SDK_PATH=$PICO_SDK_PATH" >> ~/.profile
 ```
 
-Depending on what operating system and terminal you use, you may need to find some other way to set this environment variable.
+__Caution__: Depending on what operating system and terminal you use, you may need to find some other way to set this environment variable.
 
 ## Install `picotool`
 To build and install `picotool` from source, refer to the [raspberrypi/picotool](https://github.com/raspberrypi/picotool) repository.
