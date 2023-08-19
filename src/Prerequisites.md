@@ -4,7 +4,8 @@ Before [getting started](./GettingStarted.html), please check whether you have a
 Alternatively, a pre-configured Ubuntu VM image is available [here](https://vm.lf-lang.org). Instructions for usage of the VM are provided [here](UbuntuVM.html).
 
 ## Packages
-Your system must have the following (very common) software packages installed:
+Your system must have the following (very common) software packages installed (we recommend using your favorite package manager to install them):
+ - `gh` — [a CLI tool for interaction with GitHub](https://cli.github.com/)
  - `git` — [a distributed version control system](https://git-scm.com/)
  - `cmake` — [a cross-platform family of tools for building, testing and packaging software](https://cmake.org/)
  - `code` — [the Visual Studio Code IDE](https://code.visualstudio.com/download)
@@ -12,8 +13,6 @@ Your system must have the following (very common) software packages installed:
  - `java` — [Java 17](https://openjdk.org/projects/jdk/17)
  - `nix` — [a purely functional package manager](https://nix.dev/tutorials/install-nix)
  - `screen` — [a terminal multiplexer](https://dev.to/thiht/learn-to-use-screen-a-terminal-multiplexer-gl)
-
-We recommend using your favorite package manager to install them.
 
 ### Installation on Ubuntu
 ```bash

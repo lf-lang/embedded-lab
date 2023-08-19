@@ -6,25 +6,12 @@ Before getting started, please make sure you have satisfied all the [prerequisit
 If you do not yet have a GitHub account, [create one](https://github.com/signup).
 
 ### Set up authentication with GitHub
-In order to push to your repo, you need to authenticate. You can either do this using a public/private key pair through SSH, or use token-based authentication via `gh`, the GitHub command-line interface (installation instructions [here](https://github.com/cli/cli#installation)). If you want to avoid the hassle of installing a private key on it, use `gh` for authentication (recommended; pre-installed on the VM).
+If you haven't already, set up authentication with GitHub. The recommended way of doing this is using `gh`, the GitHub CLI tool. Run the following command:
 
-#### Using GitHub CLI
-To authenticate with GitHub through its CLI tool, run:
 ```bash
 $ gh auth login
 ```
-
-#### Using SSH
-In the ⚙️ [Settings](https://github.com/settings/profile) of your [GitHub account](https://github.com), go to 🔑 [SSH and GPG keys](https://github.com/settings/keys) and enter the contents of your `~/.ssh/id_rsa.pub`. If you do not have this file, create it using the following command:
-```bash
-$ ssh-keygen -t rsa -b 4096 -C "your_github@email.com"
-```
-Additional information about setting up public key authentication with GitHub can be found [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
-
-> **_Tip for VM users_**
-> 
-> If you prefer not to use `gh` for authentication and are looking for a convenient way to copy your private key onto a VM, consider using [Magic Wormhole](https://github.com/magic-wormhole/magic-wormhole). It is preinstalled on the [Ubuntu VM](https://vm.lf-lang.org) prepared for this course.
-
+Then select `> GitHub.com` and `HTTPS` if you prefer to authenticate via HTTPS, or `SSH` if you prefer to authenticate via SSH. The former uses a token and the latter uses a public/private key pair that it installs as part of the login procedure. After agreeing to authenticate Git with your GitHub credentials, select `Login with a web browser`, copy the one-time code printed on the command prompt, and press <kbd>Enter</kbd>. You will then be taken to [github.com](https://github.com/login/device) in your browser. After entering your credentials and pasting the one-time code, authentication will be completed.
 
 ## Create your repository
 Start by creating a new private repository on GitHub based on the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository, which provides a starting point for students to carry out the exercises in this lab and to develop further applications using the [Raspberry Pi Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) and the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86).
@@ -38,14 +25,7 @@ Give your repo a name and click on "Create repository":
 <img src="img/my-3pi.png" alt="new repo"/>
 
 ## Clone your repository
-On the command line on your host machine, clone the repo.
-For an SSH-based setup, run:
-
-```bash
-$ git clone git@github.com/<username>/<reponame>.git
-```
-
-Or, for a setup that uses GitHub CLI, run:
+On the command line on your host machine, clone the repo:
 
 ```bash
 $ gh repo clone <username>/<reponame>
@@ -62,6 +42,10 @@ e.g.: `6a7db34ff63345a7badec79ebea3aaef1712f374 pico-sdk (1.5.1)`.
 
 
 ## Configure Nix
+
+> **_Note for VM users_**
+>
+> If you are using the [VM image](https://vm.lf-lang.org/), you can skip this step. You will never have to invoke `nix` and can ignore any reminders about doing this.
 
 To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager, which has support for Linux, macOS, and Windows (via WSL). See [prerequisites](Prerequisites.html) for installation instructions. If you prefer to manage dependencies yourself and not rely on `nix`, follow the [instructions for a non-`nix` setup](Non-Nix.html).
 
