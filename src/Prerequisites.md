@@ -33,6 +33,11 @@ To install the nightly (recommended) Lingua Franca CLI tools (i.e, the compiler 
 curl -Ls https://install.lf-lang.org | bash -s nightly cli
 ```
 
+If you prefer an Eclipse-based IDE over the VS Code extension, install the nightly build of `epoch` using the following command:
+```
+curl -Ls https://install.lf-lang.org | bash -s nightly epoch
+```
+
 ## VS Code extensions
 Please ensure that you have the following extensions installed:
  - `ms-vscode.cmake-tools` — [Extended CMake support in Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
