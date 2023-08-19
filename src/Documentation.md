@@ -1,4 +1,4 @@
-# Resources
+# Documentation and Tutorials
 
 ## Programming in C
 

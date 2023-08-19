@@ -19,14 +19,16 @@
 
 # Appendices
 
-- [Resources](./Resources.md)
-    - [Acronyms](./Acronyms.md)
-    - [Using a Debugger](./Debugger.md)
-    - [Non-`nix` Setup](./Non-Nix.md)
+- [Documentation](./Documentation.md)
+- [Acronyms](./Acronyms.md)
+- [Using a Debugger](./Debugger.md)
+- [Non-`nix` Setup](./Non-Nix.md)
 - [Project Ideas](./Project.md)
 
 ---
 
 [Notes for VM users](./UbuntuVM.md)
+
 [Notes for Windows Users](./Windows.md)
+
 [Notes for Instructors](./Instructors.md)
