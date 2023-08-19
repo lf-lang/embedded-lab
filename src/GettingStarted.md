@@ -28,7 +28,7 @@ Give your repo a name and click on "Create repository":
 On the command line on your host machine, change directory to the location where you would like to check out your repository. Let us assume that you named your repo `my-3pi`. Check it out using the following command (where `<username>` must be substituted with your GitHub username):
 
 ```bash
-$ gh repo clone <username>/<reponame>
+$ gh repo clone <username>/my-3pi
 ```
 
 This will create a directory called `my-3pi` in the current working directory.
