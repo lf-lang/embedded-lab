@@ -44,7 +44,6 @@ For reference, see the [GNU ARM installation instructions](https://developer.arm
 sudo apt update
 sudo apt install cmake make gcc gcc-arm-none-eabi libnewlib-arm-none-eabi
 ```
-**Note:** It might be additionally needed to also install `libstdc++-arm-none-eabi-newlib`.
 
 ### On macOS
 
