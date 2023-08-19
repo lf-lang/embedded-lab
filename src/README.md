@@ -8,7 +8,10 @@ The C code runs on a [Raspberry Pi RP2040](https://en.wikipedia.org/wiki/RP2040)
 on the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86). 
 The same RP2040 microprocessor is also available on the low-cost [Raspberry Pi Pico board](https://en.wikipedia.org/wiki/Raspberry_Pi#Raspberry_Pi_Pico), but this board does not have the sensors and actuators of the Pololu robot, so you will need the robot to be able to complete all the exercises.
 
-## Acknowlegments
+## Contributing
+You can find the Markdown sources of these labs on [GitHub](https://github.com/lf-lang/embedded-lab). If you discover any problems, please consider creating an [issue](https://github.com/lf-lang/embedded-lab/issues) or submitting a [pull request](https://github.com/lf-lang/embedded-lab/pulls).
+
+## Acknowledgments
 
 The main authors of this version of the labs are:
 
