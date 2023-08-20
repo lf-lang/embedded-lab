@@ -33,7 +33,7 @@ To install the nightly (recommended) Lingua Franca CLI tools (i.e, the compiler 
 curl -Ls https://install.lf-lang.org | bash -s nightly cli
 ```
 
-If you prefer an Eclipse-based IDE over the VS Code extension, install the nightly build of `epoch` using the following command:
+If you prefer an Eclipse-based IDE over the Lingua Franca VS Code extension, install the nightly build of `epoch` using the following command:
 ```
 curl -Ls https://install.lf-lang.org | bash -s nightly epoch
 ```
