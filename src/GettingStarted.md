@@ -33,6 +33,13 @@ $ gh repo clone <username>/my-3pi
 
 This will create a directory called `my-3pi` in the current working directory.
 
+> **_Note for existing GitHub users_**
+>
+> If you are an existing GitHub user and have already set up a public/private key pair (or have done so by selecting `SSH` as the protocol when running `gh auth login`), you can also clone the repo as follows:
+> ```
+> $ git clone git@github.com/<username>/<reponame>.git
+> ```
+
 > **_Troubleshooting (Unknown Key Fingerprint)_**
 >
 > If you are using the SSH protocol, then `gh repo clone` may report something like:
@@ -46,6 +53,9 @@ This will create a directory called `my-3pi` in the current working directory.
 > The reason for this is that the key used by `github.com` is not yet known by your machine.
 > Once you type `yes` and <kbd>Enter</kbd>, the fingerprint of GitHub's public key will be added to `~/.ssh/known_hosts`. Only when GitHub _changes_ its public key will this warning reappear. This feature of SSH is meant to avoid [man-in-the-middle attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
 
+> **_Note for VM users_**
+> If you are using the [VM image](https://vm.lf-lang.org/), you can skip the subsequent step; you do not have to update or initialize the `pico-sdk` submodule in your repository because it is already present in `~/pico-sdk`.
+
 The template includes [raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk) as a submodule, which itself also has a lot of submodules. We recommend against using the `--recursive` flag because we do not need to recursively clone the submodules inside of `pico-sdk`. Instead, change directory into the root of your clone and run:
 
 ```bash
@@ -55,18 +65,11 @@ $ git submodule update --init
 If  `pico-sdk` was checked out correctly running `git submodule` in the root of the repository will show the hash _without_ a `-` preceding it,
 e.g.: `6a7db34ff63345a7badec79ebea3aaef1712f374 pico-sdk (1.5.1)`.
 
-> **_Note for existing GitHub users_**
->
-> If you are an existing GitHub user and have already set up a public/private key pair (or have done so by selecting `SSH` as the protocol when running `gh auth login`), you can also clone the repo as follows:
-> ```
-> $ git clone git@github.com/<username>/<reponame>.git
-> ```
-
 ## Configure Nix
 
 > **_Note for VM users_**
 >
-> If you are using the [VM image](https://vm.lf-lang.org/), you can skip this step. You will never have to invoke `nix` and can ignore any reminders about doing this.
+> If you are using the [VM image](https://vm.lf-lang.org/), you can skip this step. You will never have to invoke `nix` and can ignore any reminders about doing this. 
 
 To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager, which has support for Linux, macOS, and Windows (via WSL). See [prerequisites](Prerequisites.html) for installation instructions. If you prefer to manage dependencies yourself and not rely on `nix`, follow the [instructions for a non-`nix` setup](Non-Nix.html).
 
