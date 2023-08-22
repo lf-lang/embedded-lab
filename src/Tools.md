@@ -340,7 +340,7 @@ These functions manipulate memory-mapped registers that control the GPIO pins of
 On the robot, one of those pins, identified in the header files by the `PICO_DEFAULT_LED_PIN` macro, controls the LED you see blinking.
 Subsequent labs will explore more deeply the use memory-mapped registers for I/O.
 
-**Checkoff:** Show the diagram for your program.
+**Checkoff:** Show and explain how your program works.
 
 
 ## 3.6 Postlab Questions
