@@ -77,8 +77,7 @@ You should see the display light up looking something like this:
 
 2. Examine the LF program
     1. Open the file `src/AccelerometerDisplay.lf` in VS Code. Enable the diagram, navigate and read the code, and explain what each of the reactions labeled _A_, _B_, _C_, and _D_ does:
-
-    <img src="img/AccelerometerDisplay.png" alt"AccelerometerDisplay diagram"/>
+<img src="img/AccelerometerDisplay.png" alt"AccelerometerDisplay diagram"/>
 
     2. Notice the `target` specification at the top of each of the .lf files.  What do you think is the significance of the directive:
     
