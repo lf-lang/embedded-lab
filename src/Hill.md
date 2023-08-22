@@ -24,7 +24,7 @@ The ramp shown above is about 4 feet long and 1.5 feet wide.
 3. Recall from the [Sensors](./Sensors.md) lab that you used an accelerometer to measure pitch and roll of the robot. Assume you have a measurement _p_ of pitch and _r_ of roll. If the robot is sitting on a ramp and its _x_ axis is pointing straight down the hill, then what values should you see for _r_?  What should the sign of _p_ be (assuming the angle is given in the range -&pi; / 2 to &pi; / 2)?
 You will use feedback control and adjust the wheel speeds to make _r_ approach the desired value. 
 
-## 8.2 Cliff Sensing
+## 8.2 Line Sensing
 
 For the hill-climbing exercise, your task is ultimately to get the robot to climb a ramp. So as to not damage the robot, you need to be sure that it will not drive off the edge of the ramp. Your first task, therefore, is to get the robot to take evasive action when it encounters the edge of the ramp.
 
@@ -32,27 +32,23 @@ Robots that navigate in the real world, such a Roomba vacuum cleaning robot, typ
 include "cliff sensors," which detect when the edge of the robot hangs over an empty space,
 for example at the top of a stairway.
 These are often implemented with ultrasonic distance sensors pointing down.
-The Pololu robot has infrared reflectivity sensors that can detect such cliffs (open space below the robot does not reflect infrared light), but to be even safer, your ramp can be equipped with dark bands on the edges as shown in the figure above.
-Your task now is to program the robot to identify when its front end is above one of these bands and have it stop.
-If you have a higher risk tolerance, you could do without the dark bands and use the IR sensors to detect when the front of the robot is hanging over the edge of the ramp.
+The Pololu robot has infrared LEDs pointing down and sensors that detect infrared light.
+If the LEDs are the main source of infrared light, then these sensors can function as cliff sensors, but often ambient light includes infrared light. The sensors, therefore, more reliably detect the difference between a light-colored and dark-colored surface under the robot.
+A common exercise in robotics is to get a robot equipped with such sensors to follow a line made with dark-colored tape.
+Hence, these IR sensors are often called "line sensors."
+
+Here, you will use the line sensors to detect the edges of the ramp, which, as shown in the image above, should be covered with a dark surface.
+Your task now is to program the robot to identify when its front end is above one of these edge markers and have it stop.
+If you have a higher risk tolerance, you could do without the dark bands and use the IR sensors to detect when the front of the robot is hanging over the edge of the ramp, but you will need to make sure there is little ambient IR light.
 
 **NOTE:** According to [Section 6.5, Line and bump sensors](https://www.pololu.com/docs/0J86/6.5) of the [Pololu 3pi+ 2040 robot User's Guide](https://www.pololu.com/docs/0J86), it is not practical to use the bump sensors in combination with the line sensors. Hence, in this lab, you will only use the line sensors.
 
-First, you will get familiar with the reflectivity sensors.
+First, you will get familiar with the line sensors.
 Then you will use them.  Your tasks:
 
-1. Examine and run the provided program `src/LineDisplay.lf`. How does this work? Use it to calibrate your robot on the ramp so that it reliably detects when the front of the robot is over the dark bands on the edges (or, if you choose the riskier option, over the edge of the ramp). Note that once your robot is calibrated, you should not have calibrate it again, so you can use the simpler `Line` reactor `src/lib/Line.lf` for subsequent exercises. However, if lighting conditions change or you run the robot on a different surface, you will likely need to recalibrate.
+1. Examine and run the provided program `src/LineDisplay.lf`. How does this work? Use it to calibrate your robot on the ramp so that it reliably detects when the front of the robot is over the dark bands on the edges (or, if you choose the riskier option, over the edge of the ramp). Note that calibration information is lost each time you upload a new program to the robot, so for reliable behavior, you will need to recalibrate each time you flash a new program onto the robot.
 
-2. Create a Lingua Franca program that displays on the LCD display one of:
-
-    - **No Edge**
-    - **Forward Edge**
-    - **Left Edge**
-    - **Right Edge**
-
-    depending on what the line sensors detect.
-    
-    **Hint:** A [center of mass](https://en.wikipedia.org/wiki/Center_of_mass) calculation may be useful.
+2. Create a Lingua Franca program that displays on the LCD display **Left** if either of the two left sensors detects a dark surface (or cliff), **Right** if either of the two right sensors detects a dark surface (or cliff), and **Center** if any of the three center sensors detects a dark surface (or cliff).  Note that more than one of these might be displayed at the same time.
 
     **Checkoff:** Show that your program detects edges of the ramp. You can manually push the robot towards the edge to check.
 
