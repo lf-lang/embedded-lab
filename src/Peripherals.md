@@ -112,12 +112,16 @@ You could similarly replace the reaction to the `startup` event, but that turns 
 
 Note that this exercise reveals why we are using the C programming language and a bare-metal target processor.  Higher-level languages like Python and operating systems like Linux do not allow such direct manipulation of hardware.
 
+**Checkoff:** Show and explain how your code works.
+
 ## 5.3.  Polling Input
 
-A GPIO pin can serve as an input or an output. As shown in the schematic above, GPIO pin 25 is connected to Button A on the robot as well as to the LED.  Your task is to create a Lingua Franca program that reads the state of this pin every 250ms to determine whether the button is being pushed or not.  Since you cannot use the GPIO pin simultaneously as an input and output, we suggest importing the library reactor `lib/Display.lf` and using the LCD display on the robot to display the state of the button rather than trying to drive the LED.
+A GPIO pin can serve as an input or an output. As shown in the schematic above, GPIO pin 25 is connected to Button A on the robot as well as to the LED.  Your task is to create a Lingua Franca program (`Button.lf`) that reads the state of this pin every 250ms to determine whether the button is being pushed or not.  Since you cannot use the GPIO pin simultaneously as an input and output, we suggest importing the library reactor `lib/Display.lf` and using the LCD display on the robot to display the state of the button rather than trying to drive the LED. Refer to the manual on how to read from pins using APIs or through memory addresses.
 
 The style of input where you periodically query the state of peripheral hardware is called "polling". What are some advantages and disadvantages of polling?
 In the next lab, we will investigate a more reactive technique that uses interrupts.
+
+**Checkoff:** Show and explain how your code works.
 
 ## 5.4.  Postlab
 
