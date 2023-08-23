@@ -16,14 +16,14 @@ Your system must have the following (very common) software packages installed (w
 
 ### Installation on Ubuntu
 ```bash
-$ sudo apt install curl git openjdk-17-jdk openjdk-17-jre nix screen
+$ sudo apt install gh git curl openjdk-17-jdk openjdk-17-jre nix screen
 $ sudo snap install code --classic
 ```
 
 ### Installation on macOS
 ```bash
 $ brew install --cask visual-studio-code
-$ brew install cmake git curl openjdk@17 screen
+$ brew install gh git cmake curl openjdk@17 screen
 $ curl -L https://nixos.org/nix/install | sh
 ```
 
