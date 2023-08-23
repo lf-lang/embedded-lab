@@ -212,6 +212,7 @@ You should see same blinking LED as before.
 
 Now, examine the LF program. How is the timing of the LED controlled here?  You may want to consult the [Lingua Franca documentation for timers](https://www.lf-lang.org/docs/handbook/time-and-timers?target=c#timers).
 Modify the Blink.lf program to use two timers, one that turns on the LED and one that turns it off, eliminating the state variable `led_on`.
+Put your modified program in a file called `ToolsBlinkSolution.lf`.
 
 **Checkoff:** Show your modified LF program. Explain how this use of timers is different from the `sleep` function used in the C code `blink.c`.
 
@@ -219,7 +220,9 @@ Modify the Blink.lf program to use two timers, one that turns on the LED and one
 
 As is typical of embedded platforms, the Pololu robot does not normally have a terminal connected to it.  The LEDs and small LCD display can be used to get information about the running program, but often, particularly while debugging, it is convenient to be able to simply insert `printf` statements into your programs to see what is going on.
 
-Your first task here is to modify your previous LED blinker to print "ON" and "OFF" each time it turns on or off the LED.  If you run the program as above, however, where do these printed statements go?
+Your first task here is to modify your previous LED blinker to print "ON" and "OFF" each time it turns on or off the LED.  
+Please put your modified program in a file called `ToolsPrintfSolution.lf`.
+If you run the program as above, however, where do these printed statements go?
 
 The C function `printf` sends textual data to a conceptual device called **stdout** (for "standard output").
 By default, the robot is configured to direct all stdout text to a serial port on its USB interface.
@@ -298,7 +301,7 @@ reactor LED {
 }
 ```
 
-Then create a new LF file that imports this reactor and drives its input in such a way as to blink the LED.  The following LF documentation could prove useful:
+Then create a new LF file called `ToolsLEDSolution.lf` that imports this reactor and drives its input in such a way as to blink the LED.  The following LF documentation could prove useful:
 
 - [Inputs and Outputs](https://www.lf-lang.org/docs/handbook/inputs-and-outputs?target=c)
 - [Composing Reactors](https://www.lf-lang.org/docs/handbook/composing-reactors?target=c)
