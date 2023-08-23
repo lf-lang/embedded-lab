@@ -46,7 +46,7 @@ The robot should start by displaying `INIT`, then switch between `DRIVING` and `
 
 1. Examine the `Motors` reactor. How does it work?  Find the `motors_set_power` function that it uses. (**Hint:** the search function in VS Code is very useful for this.) Explain how the implementation of this function conforms with the answer you gave in question (3) of the prelab.
 
-2. Use the `Motors` reactor to make robot move forward while it is the `DRIVING` mode and stops while in the `STOPPED` mode.  You can experiment with the power to provide, but a good starting point is 0.1f.
+2. Use the `Motors` reactor to make robot move forward while it is the `DRIVING` mode and stops while in the `STOPPED` mode.  You can experiment with the power to provide, but a good starting point is 0.1f.  Please put your solution in a file called `RobotDriveSolution.lf`.
 
     **Hint:** The motors will not run if the only source of power to the robot is the USB cable.  To get the motors to run, you must insert batteries and push the power button so that the blue power indicator LED is illuminated.
 
@@ -68,15 +68,15 @@ Find a formula that converts a change in angle in degrees to distance traveled i
 
 2. The encoder outputs increase as the wheels rotate forward. Given that the values are 32-bit signed integers, how far does a wheel need to travel before the numbers will overflow?  Do you think you need to worry about overflow for these labs?
 
-3. Write a reactor to convert a change in encoder value to distance.
-Then create a variant of `src/EncoderDisplay.lf` that displays distance traveled for each wheel rather than angle in degrees.
+3. Write a reactor `AngleToDistance` to convert a change in encoder value to distance.
+Then create a variant of `src/EncoderDisplay.lf` that displays distance traveled for each wheel rather than angle in degrees.  Please put your solution in a file called `RobotEncoderSolution.lf`.
 
 **Checkoff:** Show that your distance measurement is reasonably accurate.
 
 ## 7.4 Navigation with a Gyroscope
 
 As you (hopefully) determined in problem (2) of the prelab, the gyroscope output can be integrated to get a measure of the current angle of the robot relative to some starting point.
-You are provided with a reactor `GyroAngle` in `src/lib/IMU.lf` that uses the trapezoidal method to calculate the angle.  Use this reactor to create modal Lingua Franca program that drives for approximately half a meter, turns 90 degrees, drives another half meter, and then repeats, so that the robot moves roughly in a square.  What factors contribute to the imperfection of the square?
+You are provided with a reactor `GyroAngle` in `src/lib/IMU.lf` that uses the trapezoidal method to calculate the angle.  Use this reactor to create modal Lingua Franca program `RobotSquareSolution.lf` that drives for approximately half a meter, turns 90 degrees, drives another half meter, and then repeats, so that the robot moves roughly in a square.  What factors contribute to the imperfection of the square?
 
 **Checkoff:** Show your robot moving in a square and show the diagram of the modal Lingua Franca program.
 
@@ -86,7 +86,7 @@ Examine the [src/BumpDisplay.lf](https://github.com/lf-lang/lf-3pi-template/blob
 How does it work?
 What does the Bump reactor class do?
 
-Your task now is to use the [Bump](https://github.com/lf-lang/lf-3pi-template/blob/main/src/lib/Bump.lf) reactor class to modify your previous solution so that when the robot bumps into an obstacle as it navigates around the square, it backs off in such a way as to avoid the obstacle.
+Your task now is to use the [Bump](https://github.com/lf-lang/lf-3pi-template/blob/main/src/lib/Bump.lf) reactor class to modify your previous solution so that when the robot bumps into an obstacle as it navigates around the square, it backs off in such a way as to avoid the obstacle.  Please put your solution in a file called `RobotAvoidSolution.lf`.
 
 **Checkoff:** Show your robot evading obstacles.  Show your modal model.
 

@@ -48,17 +48,17 @@ Then you will use them.  Your tasks:
 
 1. Examine and run the provided program `src/LineDisplay.lf`. How does this work? Use it to calibrate your robot on the ramp so that it reliably detects when the front of the robot is over the dark bands on the edges (or, if you choose the riskier option, over the edge of the ramp). Note that calibration information is lost each time you upload a new program to the robot, so for reliable behavior, you will need to recalibrate each time you flash a new program onto the robot.
 
-2. Create a Lingua Franca program that displays on the LCD display **Left** if either of the two left sensors detects a dark surface (or cliff), **Right** if either of the two right sensors detects a dark surface (or cliff), and **Center** if any of the three center sensors detects a dark surface (or cliff).  Note that more than one of these might be displayed at the same time.
+2. Create a Lingua Franca program `HillLineDetectSolution.lf` that displays on the LCD display **Left** if either of the two left sensors detects a dark surface (or cliff), **Right** if either of the two right sensors detects a dark surface (or cliff), and **Center** if any of the three center sensors detects a dark surface (or cliff).  Note that more than one of these might be displayed at the same time.
 
     **Checkoff:** Show that your program detects edges of the ramp. You can manually push the robot towards the edge to check.
 
-3. Create a Lingua Franca program that drives the robot forward, but when the line sensors detect edges, backs up, turns, and then moves forward again.  The direction in which the robot turns should be influenced by whether the edge is detected in front of the robot, to the left, or to the right.
+3. Create a Lingua Franca program `HillLineAvoidSolution.lf` that drives the robot forward, but when the line sensors detect edges, backs up, turns, and then moves forward again.  The direction in which the robot turns should be influenced by whether the edge is detected in front of the robot, to the left, or to the right.
 
     **Checkoff:** Show your robot navigating on the ramp and avoiding the edges.
 
 ## 8.3 Hill Climbing
 
-Your final task is to add accelerometer and gyroscope measurements to your navigation code so that while the robot is on the slope of the ramp, it turns and drives towards the top. When it reaches the plateau at the top, it should turn 180 degrees and then drive down to the bottom of the ramp.  All the while, it should avoid the edges of the ramp.
+Your final task is to add accelerometer and gyroscope measurements to your navigation code so that while the robot is on the slope of the ramp, it turns and drives towards the top. When it reaches the plateau at the top, it should turn 180 degrees and then drive down to the bottom of the ramp.  All the while, it should avoid the edges of the ramp.  Please put your solution in a file called `HillClimbSolution.lf`.
 
 **Hint:** To drive up or down the ramp, periodically adjust the wheel speeds to attempt to keep the roll measurement near zero.  That is, if the roll measurement is positive, adjust up the speed of one wheel and down the speed of the other.
 If the roll is negative, perform the opposite adjustment.
