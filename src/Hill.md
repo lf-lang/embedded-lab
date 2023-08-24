@@ -66,11 +66,17 @@ If you make the adjustment proportional to the roll, then adjustments will get s
 You may want to review Section 2.4, Feedback Control, of [Lee and Seshia](https://leeseshia.org).
 You will want to keep the wheel speeds within reasonable bounds.
 
+**Hint:** The power needed by the motors to maintain a constant speed varies considerably as a function of the pitch.
+A variant of the `Motors` reactor called `MotorsWithFeedback` is provided for you in the template repo in the `src/lib` directory.
+The inputs to this reactor are desired speed and encoder readings.
+Each time the reactor receives an encoder reading, it adjusts the power to the motors to attempt to get the measured speed to match the desired speed.
+Hence, it can compensate (somewhat) for the pitch induced by the ramp.
+
 
 **Checkoff:** Show your robot driving to the top, turning around, and going down the ramp.
 
 ## Postlab
 
-1. Just as you used roll measurement and feedback to control the direction in which the robot travels, you could use the encoders to control the speed at which it travels.  Describe how you would do this.
+1. Encoders report the angle of the wheels in degrees relative to some starting point. Explain how the `MotorsWithFeedback` reactor uses this data to estimate the speed at which the robot is actually traveling.
 
 2. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
