@@ -106,7 +106,7 @@ APB is used for lower-speed peripherals, AHB for higher speed peripherals, and I
 
 An SDK like the Pico SDK is convenient and enables you to write code that can be more easily ported to different hardware.  In particular, this SDK includes a board-dependent header file that defines specific variables for a variety of boards that all use the same RP2040 processor.  For the Pololu 3pi+ 2040 robot, for example, the fact that GPIO pin 25 is connected to the yellow LED is defined in a header file `pololu_3pi_2040_robot.h`.
 
-But using an SDK also hides what is really happening in the hardware.  In this exercise, you are to rewrite part of the `src/Blink.lf` application to write directly to memory addresses without using SDK functions.  In particular, replace the reaction to the timer so that instead of using the SDK function `gpio_put`, your code writes directly to memory addresses that you specify.
+But using an SDK also hides what is really happening in the hardware.  In this exercise, you are to rewrite part of the `src/Blink.lf` application to write directly to memory addresses without using SDK functions.  In particular, replace the reaction to the timer so that instead of using the SDK function `gpio_put`, your code writes directly to memory addresses that you specify. Please put your program in a file called `PeripheralsDirectSolution.lf`.
 
 You could similarly replace the reaction to the `startup` event, but that turns out to be fairly tedious and doesn't lend much additional insight, so we do not recommend doing that.
 

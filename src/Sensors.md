@@ -77,8 +77,7 @@ You should see the display light up looking something like this:
 
 2. Examine the LF program
     1. Open the file `src/AccelerometerDisplay.lf` in VS Code. Enable the diagram, navigate and read the code, and explain what each of the reactions labeled _A_, _B_, _C_, and _D_ does:
-
-        <img src="img/AccelerometerDisplay.png" alt"AccelerometerDisplay diagram"/>
+![AccelerometerDisplay diagram](img/AccelerometerDisplay.png)
 
     2. Notice the `target` specification at the top of each of the .lf files.  What do you think is the significance of the directive:
     
@@ -88,7 +87,7 @@ You should see the display light up looking something like this:
 
 ## 4.3 Measuring Tilt
 
-Create a reactor called `Tilt` that takes as inputs the _x_, _y_, and _z_ readings from the accelerometer and outputs the pitch and roll in degrees. Put this reactor in the `src/lib` directory and then use it in a variant of the `AccelerometerDisplay.lf` named, say, `TiltSolution.lf`, to show pitch and roll in degrees rather than _g_ force accelerations in the LCD display. **Save your `Tilt` reactor for use in future labs.**
+Create a reactor called `Tilt` that takes as inputs the _x_, _y_, and _z_ readings from the accelerometer and outputs the pitch and roll in degrees. Put this reactor in the `src/lib` directory and then use it in a variant of the `AccelerometerDisplay.lf` named `SensorsTiltSolution.lf`, to show pitch and roll in degrees rather than _g_ force accelerations in the LCD display. **Save your `Tilt` reactor for use in future labs.**
 
 **CHECKOFF:** Show your pitch and roll displays and check that they are reasonable.
 

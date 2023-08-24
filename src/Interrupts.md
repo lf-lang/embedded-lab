@@ -42,7 +42,7 @@ sure to understand static variables in C.
 
 ## 6.2. Interrupt Service Routine
 
-1. The [`gpio_set_irq_enabled_with_callback`](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#ga6165f07f4b619dd08ea6dc97d069e78a) function of the Pico SDK provides a convenient "one-stop shop" for specifying a callback function to invoke upon a voltage event on a GPIO pin. Create a simple program that prints the arguments to the callback function each time you press button A on the robot.
+1. The [`gpio_set_irq_enabled_with_callback`](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#ga6165f07f4b619dd08ea6dc97d069e78a) function of the Pico SDK provides a convenient "one-stop shop" for specifying a callback function to invoke upon a voltage event on a GPIO pin. Create a simple program `InterruptCallbackSolution.lf` that prints the arguments to the callback function each time you press button A on the robot.
 
     **Hint:** To define a C function as part of a Lingua Franca program, use a [preamble](https://www.lf-lang.org/docs/handbook/preambles?target=c) within you reactor definition.
 
@@ -56,7 +56,7 @@ sure to understand static variables in C.
     }
     ```
 
-2. In the Lingua Franca C target, to create a timestamped event in response to an external event such as an interrupt, you call the the `lf_schedule` function, passing it a pointer to a a [physical action](https://www.lf-lang.org/docs/handbook/actions?target=c).  Modify your previous program so that a reaction is invoked each time you press the button.  In your reaction, print the logical time elapsed since the last button push in milliseconds.
+2. In the Lingua Franca C target, to create a timestamped event in response to an external event such as an interrupt, you call the the `lf_schedule` function, passing it a pointer to a a [physical action](https://www.lf-lang.org/docs/handbook/actions?target=c).  Modify your previous program so that a reaction is invoked each time you press the button.  In your reaction, print the logical time elapsed since the last button push in milliseconds. Please call your modified program `InterruptActionSolution.lf`.
 
     **Hint:** In the C target of LF, [logical time](https://www.lf-lang.org/docs/handbook/time-and-timers?target=c) is accessed within a reaction using the function `lf_time_logical` or `lf_time_logical_elapsed()`.
 
@@ -88,6 +88,7 @@ Correcting for this is called "**debouncing**".
 A simple technique is to ignore events that are too closely spaced.
 
 Modify your previous program so that the physical action is scheduled only if the physical time elapsed between detected events is greater than 200ms.
+Please call your modified program `InterruptDebouncedSolution.lf`.
 
 **Hint:** In your callback function, which is invoked outside the scope of any reaction, logical time has no reliable meaning.  Access [physical time](https://www.lf-lang.org/docs/handbook/time-and-timers?target=c) instead, using either `lf_time_physical()` or `lf_time_physical_elapsed()`.
 
@@ -97,7 +98,7 @@ Modify your previous program so that the physical action is scheduled only if th
 
 Lingua Franca provides syntax for specifying [**modal reactors**](https://www.lf-lang.org/docs/handbook/modal-models?target=c), where a finite state machine (FSM) governs the mode of operation of a reactor.
 
-Create a Lingua Franca program that displays a sequence of increasing counting numbers on the LCD display until you push button A, and then starts counting down instead of up.  Make your program switch between counting up and counting down on each button push.  Make your program count down at half the rate that it counts up.
+Create a Lingua Franca program `InterruptModalSolution.lf` that displays a sequence of increasing counting numbers on the LCD display until you push button A, and then starts counting down instead of up.  Make your program switch between counting up and counting down on each button push.  Make your program count down at half the rate that it counts up.
 
 **Checkoff:** Show your LCD display responding to button pushes and your LF diagram.
 
