@@ -107,7 +107,7 @@ This should result in a rather lengthy output.
 When it finally finishes, each of the subdirectories of the `build` directory will contain binary files that you can load onto the robot.
 
 Connect the robot to the USB port of your host computer.
-Before flashing the binary to your RP2040 based board, the board must be placed into `BOOTSEL` mode.  On the Pololu 3Pi+ robot, hold the `B` button and press `RESET`.
+Before flashing the binary to your RP2040 based board, the board must be placed into `BOOTSEL` mode.  On the Pololu 3Pi+ robot, hold the `B` button, press and release `RESET`, then release the `B` button.
 (On a Raspberry Pi Pico, hold the `RESET` button while connecting the board to the host.)
 You can then use the `picotool` to load and execute one of the sample programs:
 
@@ -122,7 +122,7 @@ You can disconnect the robot and use the power button to start it running on bat
 
 > **_Note_**
 >
-> When you put the robot in `BOOTSEL` mode, you should see an external disk appear with a name like `RPI-RP2`.
+> When you put the robot in `BOOTSEL` mode, you should see the OLED display go blank and an external disk appear with a name like `RPI-RP2`.
 > You can also deploy the `blink` demo by dragging `blink.uf2` (in `~/pico-examples/build/blink`) into the `RPI-RP2` folder. The robot should immediately start running the program.
 
 > **_Troubleshooting_**
@@ -151,13 +151,18 @@ This will likely result in a popup appearing as follows:
 
 <img src="img/SelectAKit.png" alt="Select a kit"/>
 
-You should select the `arm-none-eabi` kit. If you do not see one, select "Scan for kits". It you do not see the popup above, click on "No kit selected" on bottom blue bar.  **NOTE:** You may need to make sure that CMake Tools is the Configuration Provider. Select <kbd>View > Command Palette</kbd> in the menu and begin typing <kbd>C/C++ Change Configuration Provider</kbd> until you see this:
+You should select the `arm-none-eabi` kit. If you do not see one, select "Scan for kits". If you do not see the popup above, click on "No kit selected" on bottom bar. 
+ 
 
-<img src="img/ConfigurationProvider.png" alt="Configuration Provider" width="60%"/>
+> **NOTE** 
+> You may need to make sure that CMake Tools is the Configuration Provider. Select <kbd>View > Command Palette</kbd> in the menu and begin typing <kbd>C/C++ Change Configuration Provider</kbd> until you see this:
+> <img src="img/ConfigurationProvider.png" alt="Configuration Provider" width="60%"/>
+> If CMake Tools is not available, then the cmake extension is not installed in VS Code.
 
-If CMake Tools is not available, then the cmake extension is not installed in VS Code.
+> **_Note for VM users_**
+> If you are using the [VM image](https://vm.lf-lang.org/), click on "No kit selected" and you should be able to find the `arm-non-eabi` kit in the drop-down menu. You might also be unable to find the `CMake Tools (active)` as above, but compilation should still work.
 
-If all goes well, VS Code will have compiled all the examples, and you see output something like this:
+If all goes well, VS Code will have configured and generated all the build files, and you see output something like this:
 
 <img src="img/CompileOutput.png" alt="Compile output"/>
 
@@ -228,7 +233,7 @@ The C function `printf` sends textual data to a conceptual device called **stdou
 By default, the robot is configured to direct all stdout text to a serial port on its USB interface.
 The trick, therefore, is to get your host computer to connect to that serial port and display data that arrives from the robot.
 
-To do that, we a terminal emulator called **screen**.  But first, we have to identify the serial port device that was created when the program started up.
+To do that, we use a terminal emulator called **screen**.  But first, we have to identify the serial port device that was created when the program started up.
 
 ## Finding the device on macOS
 On macOS, the device is likely to appear in the `/dev` directory on your computer under a name that includes "usb" in its name, which you can look up as follows:
@@ -250,6 +255,10 @@ On Linux, the device is likely to appear in the `/dev` directory under a name th
 ```bash
 $ ls /dev/ttyACM*
 ```
+
+> **_Note for VM users_**
+> `ttyACM\*` cannot be found when Pololu is in BOOTSEL mode. To find it, press `RESET`, choose the USB device (in VirtualBox: `Device` -> `USB` -> `Raspberry Pi RP2 Boot`), and you should be able to see it under `/dev`.
+
 
 ## Using `screen`
 
@@ -334,7 +343,7 @@ These functions manipulate memory-mapped registers that control the GPIO pins of
 On the robot, one of those pins, identified in the header files by the `PICO_DEFAULT_LED_PIN` macro, controls the LED you see blinking.
 Subsequent labs will explore more deeply the use memory-mapped registers for I/O.
 
-**Checkoff:** Show the diagram for your program.
+**Checkoff:** Show and explain how your program works.
 
 
 ## 3.6 Postlab Questions
