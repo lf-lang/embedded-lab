@@ -151,7 +151,7 @@ This will likely result in a popup appearing as follows:
 
 <img src="img/SelectAKit.png" alt="Select a kit"/>
 
-You should select the `arm-none-eabi` kit. If you do not see one, select "Scan for kits". It you do not see the popup above, click on "No kit selected" on bottom blue bar.  **NOTE:** You may need to make sure that CMake Tools is the Configuration Provider. Select <kbd>View > Command Palette</kbd> in the menu (or use the keyboard shortcut <kbd>Shift-Cmd-P</kbd> on a Mac) and begin typing <kbd>C/C++ Change Configuration Provider</kbd> until you see this:
+You should select the `arm-none-eabi` kit. If you do not see one, select "Scan for kits". It you do not see the popup above, click on "No kit selected" on bottom blue bar.  **NOTE:** You may need to make sure that CMake Tools is the Configuration Provider. Select <kbd>View > Command Palette</kbd> in the menu (or use the keyboard shortcut <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>P</kbd> on Linux/Windows; <kbd>Shift</kbd> + <kbd>Cmd</kbd> + <kbd>P</kbd> on a Mac) and begin typing <kbd>C/C++ Change Configuration Provider</kbd> until you see this:
 
 <img src="img/ConfigurationProvider.png" alt="Configuration Provider" width="60%"/>
 
