@@ -107,7 +107,7 @@ This should result in a rather lengthy output.
 When it finally finishes, each of the subdirectories of the `build` directory will contain binary files that you can load onto the robot.
 
 Connect the robot to the USB port of your host computer.
-Before flashing the binary to your RP2040 based board, the board must be placed into `BOOTSEL` mode.  On the Pololu 3Pi+ robot, hold the `B` button, press `RESET`, then release the `B` button.
+Before flashing the binary to your RP2040 based board, the board must be placed into `BOOTSEL` mode.  On the Pololu 3Pi+ robot, hold the `B` button, press and release `RESET`, then release the `B` button.
 (On a Raspberry Pi Pico, hold the `RESET` button while connecting the board to the host.)
 You can then use the `picotool` to load and execute one of the sample programs:
 
