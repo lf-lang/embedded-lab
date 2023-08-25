@@ -194,7 +194,7 @@ $ cd ~/my-rpi3
 $ code .
 ```
 
-Open and examine the `Blink.lf` program in the `src` directory.  You may want to open the diagram and drag its window pane to the bottom so that you something like this:
+Open and examine the `Blink.lf` program in the `src` directory.  You may want to open the diagram and drag its window pane to the bottom so that you see something like this:
 
 <img src="img/BlinkInCode.png" alt="Blink in code"/>
 
