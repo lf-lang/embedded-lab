@@ -50,7 +50,10 @@ sure to understand static variables in C.
     
     ```
     target C {
-      platform: "RP2040",
+      platform: {
+        name: "rp2040",
+        board: "pololu_3pi_2040_robot"
+      },
       threading: false,
       keepalive: true
     }

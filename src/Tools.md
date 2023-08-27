@@ -52,7 +52,7 @@ The VS Code extension for Lingua Franca has a particularly useful feature where 
 
 <img src="img/VSCodeExtension.png" alt="VS Code extension for Lingua Franca"/>
 
-## 3.1 Prelab 
+## 3.1 Prelab
 
 These exercises are intended to make sure you are up-to-speed on using the Unix command line.  See [Resources](./Resources.md) for some pointers.
 
@@ -290,8 +290,11 @@ To do this, create a file in your `src/lib` directory called `LED.lf` with the f
 
 ```
 target C {
-  platform: "RP2040",
-  threading: false
+  platform: {
+    name: "rp2040",
+    board: "pololu_3pi_2040_robot"
+  },
+  threading: false,
 }
 preamble {=
   #include <hardware/gpio.h>
@@ -319,12 +322,15 @@ You have probably noticed some patterns here. E.g., each LF file begins with thi
 
 ```
 target C {
-  platform: "RP2040",
-  threading: false
+  platform: {
+    name: "rp2040",
+    board: "pololu_3pi_2040_robot"
+  },
+  threading: false,
 }
 ```
 
-This specifies that the target language is C, so the `lfc` compiler generates C programs. The platform specification indicates that the C runtime system for the Raspberry Pi 2040 should be used.  The `threading` directive indicates that the target is bare metal machine with no operating system and no thread library.
+This specifies that the target language is C, so the `lfc` compiler generates C programs. The platform specification indicates that the C runtime system for the Raspberry Pi 2040 should be used and that the target board is the Pololu robot.  The `threading` directive indicates that the target is bare metal machine with no operating system and no thread library.
 
 To initialize and toggle the LED, we are using library functions like `gpio_put` which are declared in a header file `gpio.h` that is part of the standard Pico SDK.
 Inclusion of this header file is a consequence of this directive:
@@ -351,8 +357,8 @@ Subsequent labs will explore more deeply the use memory-mapped registers for I/O
   
 2. When might `printf` statements be the best tool for debugging? 
 
-3. What other tools might be useful for debugging embedded software (note that using an interactive debugger like `gdb` with the robot or pico board [requires extra hardware](./Debugger.md))? 
+3. What other tools might be useful for debugging embedded software (note that [using an interactive debugger](./Debugger.md) like `gdb` with the robot or Pico board is possible but requires extra hardware)? 
 
-4. What does the `volatile` keyword mean in C?
+4. What does the `volatile` keyword mean in C and when might you use it?
 
 5. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
