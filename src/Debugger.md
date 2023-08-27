@@ -77,6 +77,7 @@ Complete wiring looks like this:
 
 <img src="img/wiring.jpg" alt="Robot to Pico wiring" width="60%"/>
 
+**NOTE:** The wiring connects the ground of the Pico to the ground of the robot, but there is no power connection to the robot. You will need to power the robot using its own batteries.
 
 ### Debug Symbols
 
@@ -86,9 +87,12 @@ For a Lingua Franca program to include such debug symbols, the **target** direct
 
 ```lf
 target C {
-    platform: "RP2040",
-    threading: false,
-    build-type: debug
+  platform: {
+    name: "rp2040",
+    board: "pololu_3pi_2040_robot"
+  },
+  threading: false,
+  build-type: debug
 }
 ```
 
@@ -122,14 +126,6 @@ The above will specify the
 	- `exit` disconnects openocd.
 
 When this is finished, the LED on the robot should be blinking.
-Included in the output from the above command should be something like this:
-
-```
-Info : starting gdb server for rp2040.core0 on 3333
-Info : Listening on port 3333 for gdb connections
-Info : starting gdb server for rp2040.core1 on 3334
-Info : Listening on port 3334 for gdb connections
-```
 
 ### GDB
 
@@ -139,6 +135,15 @@ First restart openocd using the following command:
 
 ```bash
 openocd -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2040.cfg -s tcl
+```
+
+Included in the output from the above command should be something like this:
+
+```
+Info : starting gdb server for rp2040.core0 on 3333
+Info : Listening on port 3333 for gdb connections
+Info : starting gdb server for rp2040.core1 on 3334
+Info : Listening on port 3334 for gdb connections
 ```
 
 In a separate terminal window, run the following `gdb` session specifying the `.elf` binary. Since this binary was built using the `debug` directive, it will include a symbol table that will be used for setting up breakpoints in `gdb`.
@@ -231,15 +236,39 @@ This is populated with settings to configure and run ``gdb``, ``openocd`` and ``
 Run the following after generating code for the desired lf program:
 
 ```bash
-$ code src-gen/<program>/
+$ code src-gen/Blink/
 ```
 
-In vscode, navigate to the run and debug tab on the left. A **Pico Debug** option should appear at the top as shown.
+In vscode, navigate to the run and debug tab on the left. A **Pico Debug** option should appear at the top as shown here:
 
 <img src="img/vscode-debug.png" alt="Debugging in VSCode"/>
 
-Make sure the *picoprobe* is connected and wired as noted above and click run. The debugger should automatically break
+First, you will need for VS Code to build the project.  Clean up from the previous `lfc` builds as follows:
+
+```bash
+rm -rf src-gen/Blink/build
+```
+
+Then click on the blue `Build` button at the bottom of the VS Code window.
+
+Make sure the *picoprobe* is connected and wired as noted above and click run (the green triangle). The debugger should automatically break
 at the ``main`` method of the application. Breakpoints can be visually inserted and other debugger options are accessible through
 the IDE gui.
+
+**Troubleshooting:** Depending on the platform you are running on and how `gdb` was installed, you may see the following error when try to run the program:
+
+<img src="img/vscode-error.png" alt="VS Code error screen" width="50%"/>
+
+Click on `Open 'launch.json'` and edit this line:
+
+```
+            "gdbPath" : "gdb-multiarch",
+```
+
+This line specifies the `gdb` program to use.  It may be simply:
+
+```
+            "gdbPath" : "gdb",
+```
 
 

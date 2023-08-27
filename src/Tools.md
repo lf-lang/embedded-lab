@@ -52,7 +52,7 @@ The VS Code extension for Lingua Franca has a particularly useful feature where 
 
 <img src="img/VSCodeExtension.png" alt="VS Code extension for Lingua Franca"/>
 
-## 3.1 Prelab
+## 3.1 Prelab 
 
 These exercises are intended to make sure you are up-to-speed on using the Unix command line.  See [Resources](./Resources.md) for some pointers.
 
