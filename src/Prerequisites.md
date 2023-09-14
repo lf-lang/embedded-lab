@@ -38,6 +38,20 @@ If you prefer an Eclipse-based IDE over the Lingua Franca VS Code extension, ins
 curl -Ls https://install.lf-lang.org | bash -s nightly epoch
 ```
 
+> **_Troubleshooting for permission denied error_**
+>
+> If you get a permission denied error while running the command above (the error will look like below):
+> ```
+> > Creating directory /usr/local/share/lingua-franca
+> mkdir: /usr/local/share/lingua-franca: Permission denied
+> ```
+> Try running the following commands which download the installation shell script and run the script with sudo:
+> ```bash
+> wget https://raw.githubusercontent.com/lf-lang/installation/main/install.sh
+> chmod +x install.sh
+> sudo bash install.sh nightly cli
+> ```
+
 ## VS Code extensions
 Please ensure that you have the following extensions installed:
  - `ms-vscode.cmake-tools` — [Extended CMake support in Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
