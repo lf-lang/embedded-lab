@@ -44,7 +44,7 @@ sure to understand static variables in C.
 
 1. The [`gpio_set_irq_enabled_with_callback`](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#ga6165f07f4b619dd08ea6dc97d069e78a) function of the Pico SDK provides a convenient "one-stop shop" for specifying a callback function to invoke upon a voltage event on a GPIO pin. Create a simple program `InterruptCallbackSolution.lf` that prints the arguments to the callback function each time you press button A on the robot.
 
-    **Hint:** To define a C function as part of a Lingua Franca program, use a [preamble](https://www.lf-lang.org/docs/handbook/preambles?target=c) within you reactor definition.
+    **Hint:** To define a C function as part of a Lingua Franca program, use a [preamble](https://www.lf-lang.org/docs/handbook/preambles?target=c) within your reactor definition.
 
     **Hint:** By default, a Lingua Franca program will exit if there are no pending events. Since nothing will be happening until you push button A, the program will exit immediately. You can prevent this either by including a timer and a reaction to that timer or by setting the `keepalive` target property. So your target specification should look like this:
     
