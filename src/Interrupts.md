@@ -42,7 +42,7 @@ sure to understand static variables in C.
 
 ## 6.2. Interrupt Service Routine
 
-1. The [`gpio_set_irq_enabled_with_callback`](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#ga6165f07f4b619dd08ea6dc97d069e78a) function of the Pico SDK provides a convenient "one-stop shop" for specifying a callback function to invoke upon a voltage event on a GPIO pin. Create a simple program `InterruptCallbackSolution.lf` that prints the arguments to the callback function each time you press button A on the robot.
+1. The [`gpio_set_irq_enabled_with_callback`](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#ga6165f07f4b619dd08ea6dc97d069e78a) function of the Pico SDK provides a convenient "one-stop shop" for specifying a callback function to invoke upon a voltage event on a GPIO pin. Create a simple program `InterruptCallbackSolution.lf` that prints the arguments to the callback function each time you press button A on the robot. (Use `printf` to a serial port for printing the arguments.)
 
     **Hint:** To define a C function as part of a Lingua Franca program, use a [preamble](https://www.lf-lang.org/docs/handbook/preambles?target=c) within your reactor definition.
 
