@@ -4,7 +4,7 @@ The goal of this exercise is to do LF programming using the Pololu robot to exec
 
 For this lab, you will need a suitable line like the one here:
 <!---
-TODO(@the-systematic-chaos): Add a picture of a line.
+TODO(@the-systematic-chaos): Add a picture of a line following track.
 -->
 
 ## 9. Prelab
