@@ -38,3 +38,5 @@ You may build a track at your own home, to test your code. The important thing t
 <!---
 TODO(@the-systematic-chaos): Need to finalize solution code, the postlab questions will be based on the final solution.
 -->
+
+1. hat were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
