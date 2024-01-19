@@ -23,7 +23,12 @@ NOTE: The prelabs may change according to the ordering of the lab.
 
 **Checkoff:** Calibrate your line sensors to detect the "out-of-track" area.
 
-## 9.3 Postlab
+## 9.1.1 Questions
+
+1. Can we use the gyroscope to make the robot navigate the curves?
+2. Can we use the line sensors on the edges, i.e., sensor 1 and 5 to detect angles and curves?
+
+## 9.2 Line Following
 
 Write LF code to make your robot follow the designated path. The trick is to make sure the robot's motor is calibrated perfectly to make the turns, adjust the speed of the robot.
 
@@ -39,4 +44,6 @@ You may build a track at your own home, to test your code. The important thing t
 TODO(@the-systematic-chaos): Need to finalize solution code, the postlab questions will be based on the final solution.
 -->
 
-1. hat were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
+1. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
+2. What method or logic did you use to tackle curves and sharp angles during the experiment?
+3. Justify or explain the logic behind choosing that particular method.
