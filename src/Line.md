@@ -4,9 +4,7 @@ The goal of this exercise is to do LF programming using the Pololu robot to exec
 
 For this lab, you will need a suitable line like the one here:
 
-<!---
-TODO(@the-systematic-chaos): Add a picture of a line following track.
--->
+<img src="img/Line.jpeg">
 
 ## 9.1 Prelab
 
@@ -34,7 +32,7 @@ Write LF code to make your robot follow the designated path. The trick is to mak
 
 **HINT:** 0.1f would be perfect to start, you may increase or decrease the speed eventually. The goal is functionality.
 
-You may build a track at your own home, to test your code. The important thing to keep in mind is that the track must be smooth and the robot should not get stuck somewhere in between. The key thing is that the track and the surroundings must have a significant contrast in terms of the color. You are free to test your code on that track before you submit the code for it. The robot should align itself without any external help, even if it starts out skewered with respect to the track. The robot should stop at the end of the track or keep continuing if the track is a loop. You are free to include any module of your choice to make sure the robot is precise in keeping itself on track, the robot should have enough intelligence or functionality to keep itself on track. If it reaches the end of the track the robot should stop. The robot will be tested on a different track from the one you developed your code with, to ensure uniformity.
+You may build a track at your own home, to test your code. The important thing to keep in mind is that the track must be smooth and the robot should not get stuck somewhere in between. The key thing is that the track and the surroundings must have a significant contrast in terms of the color. You are free to test your code on that track before you submit the code for it. The robot should align itself without any external help, even if it starts out skewered with respect to the track. The robot should stop at the end of the track or keep continuing if the track is a loop. You are free to include any module of your choice to make sure the robot is precise in keeping itself on track, the robot should have enough intelligence or functionality to keep itself on track. If it reaches the end of the track the robot should stop. The robot will be tested on a different track from the one you developed your code with, to ensure uniformity. Please put your solution in a file called `LineFollowSolution.lf`.
 
 **Checkoff:** Show your robot driving to the end of the line, handling the curves smoothly.
 
