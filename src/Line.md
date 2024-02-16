@@ -2,7 +2,7 @@
 
 The goal of this exercise is to do LF programming using the Pololu robot to execute a specified task, namely line follwoing, where the robot detects the line and follows the line until it reaches the end of line.
 
-For this lab, you will need a suitable line like the one here:
+For this lab, you will need a suitable line like the one here (made using black ducktape and a white foam board):
 
 <img src="img/Line.jpeg">
 
@@ -12,21 +12,21 @@ For this lab, you will need a suitable line like the one here:
 NOTE: The prelabs may change according to the ordering of the lab.
 -->
 
-1. Review [Section 6.5, Line and bump sensors](https://www.pololu.com/docs/0J86/6.5) of the [Pololu 3pi+ 2040 robot User's Guide](https://www.pololu.com/docs/0J86).
+- Review [Section 6.5, Line and bump sensors](https://www.pololu.com/docs/0J86/6.5) of the [Pololu 3pi+ 2040 robot User's Guide](https://www.pololu.com/docs/0J86).
 
-2. Review the section for the motors from the previous lab. This lab will test you how to adjust power to maneuver curves and sharp turns.
+- Review the section for the motors from the previous lab. This lab will test you how to adjust power to maneuver curves and sharp turns.
 
-3. Review line sensing, the same calibration should be done at the beginning of this excersie as well. However, there is a small difference in how the sensor is calibrated.
-   For this lab, you are required to indicate where the robot is going to move as the sensor moves out of the line in order for the robot to realign itself with the track.  
-
-**Checkoff:** Calibrate your line sensors to detect the "out-of-track" area.
-
-## 9.1.1 Questions
+- Review line sensing, the same calibration should be done at the beginning of this excersie as well. However, there is a small difference in how the sensor is calibrated.
+   For this lab, you are required to indicate where the robot is going to move as the sensor moves out of the line in order for the robot to realign itself with the track.
+  
+**Questions**
 
 1. Can we use the gyroscope to make the robot navigate the curves?
-2. Can we use the line sensors on the edges, i.e., sensor 1 and 5 to detect angles and curves?
+2. Can we use the line sensors on the edges, i.e., sensor 1 and 5 to detect angles and curves? 
 
 ## 9.2 Line Following
+
+**Checkoff:** Calibrate your line sensors to detect the "out-of-track" area.
 
 Write LF code to make your robot follow the designated path. The trick is to make sure the robot's motor is calibrated perfectly to make the turns, adjust the speed of the robot.
 
