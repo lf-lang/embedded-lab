@@ -16,7 +16,7 @@ NOTE: The prelabs may change according to the ordering of the lab.
 
 - Review the section for the motors from the previous lab. This lab will test how you adjust power to maneuver curves and sharp turns.
 
-- Review [Line Sensing](./Hill.md#82-line-sensing), the same calibration should be done at the beginning of this excersie as well. However, there is a small difference in how the sensor is calibrated.
+- Review [Line Sensing](./Hill.md#82-line-sensing). The same calibration should be done at the beginning of this exercise, however, with a small difference, explained below.
    For this lab, you are required to indicate where the robot is going to move as the sensor moves out of the line in order for the robot to realign itself with the track.
   
 **Questions**
