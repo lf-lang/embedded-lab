@@ -1,6 +1,6 @@
 # 9 Line Following
 
-The goal of this exercise is to do LF programming using the Pololu robot to execute a specified task, namely line follwoing, where the robot detects the line and follows the line until it reaches the end of line.
+The goal of this exercise is to program the Pololu robot in LF to perform line following, where the robot detects a line and follows it until it reaches the end.
 
 For this lab, you will need a suitable line like the one here (made using black ducktape and a white foam board):
 
