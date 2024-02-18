@@ -14,7 +14,7 @@ NOTE: The prelabs may change according to the ordering of the lab.
 
 - Review [Section 6.5, Line and bump sensors](https://www.pololu.com/docs/0J86/6.5) of the [Pololu 3pi+ 2040 robot User's Guide](https://www.pololu.com/docs/0J86).
 
-- Review the section for the motors from the previous lab. This lab will test you how to adjust power to maneuver curves and sharp turns.
+- Review the section for the motors from the previous lab. This lab will test how you adjust power to maneuver curves and sharp turns.
 
 - Review line sensing, the same calibration should be done at the beginning of this excersie as well. However, there is a small difference in how the sensor is calibrated.
    For this lab, you are required to indicate where the robot is going to move as the sensor moves out of the line in order for the robot to realign itself with the track.
