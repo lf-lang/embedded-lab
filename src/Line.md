@@ -18,7 +18,7 @@ NOTE: The prelabs may change according to the ordering of the lab.
 
 - Review [Line Sensing](./Hill.md#82-line-sensing). The same calibration should be done at the beginning of this exercise, however, with a small difference, explained below.
  
-  For this lab, you are required to indicate where the robot is planning or programmed to move as the sensor moves out of the track in order for the robot to realign itself with the track (For instance, if the right hand-side sensors of the robot detects an out-of-track area the print on the display should read "left" and vice-versa).  
+  For this lab, you are required to indicate where the robot is planning or programmed to move, when the sensor detects out-of-track area, in order for the robot to realign itself with the track (For instance, if the right hand-side sensors of the robot detects an out-of-track area the print on the display should read "left" and vice-versa).  
 
 **Questions**
 
