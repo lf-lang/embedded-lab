@@ -277,6 +277,8 @@ $ screen -r
 
 To permanently end screen, type Control-A k (for kill).
 
+If screen immediately exits with the message `[screen is terminating]`, you might need to execute it with root rights.
+
 **Checkoff:** Show ON-OFF output.    
 
 ## 3.5 Modular Reusable Reactors
@@ -294,7 +296,7 @@ target C {
     name: "rp2040",
     board: "pololu_3pi_2040_robot"
   },
-  threading: false,
+  single-threaded: true: false,
 }
 preamble {=
   #include <hardware/gpio.h>
@@ -316,7 +318,7 @@ Then create a new LF file called `ToolsLEDSolution.lf` that imports this reactor
 
 - [Inputs and Outputs](https://www.lf-lang.org/docs/handbook/inputs-and-outputs?target=c)
 - [Composing Reactors](https://www.lf-lang.org/docs/handbook/composing-reactors?target=c)
-- [Reactions and Methods](https://www.lf-lang.org/docs/handbook/reactions-and-methods?target=c)
+- [Reactions](https://www.lf-lang.org/docs/handbook/reactions?target=c)
 
 You have probably noticed some patterns here. E.g., each LF file begins with this:
 
@@ -326,11 +328,11 @@ target C {
     name: "rp2040",
     board: "pololu_3pi_2040_robot"
   },
-  threading: false,
+  single-threaded: true,
 }
 ```
 
-This specifies that the target language is C, so the `lfc` compiler generates C programs. The platform specification indicates that the C runtime system for the Raspberry Pi 2040 should be used and that the target board is the Pololu robot.  The `threading` directive indicates that the target is bare metal machine with no operating system and no thread library.
+This specifies that the target language is C, so the `lfc` compiler generates C programs. The platform specification indicates that the C runtime system for the Raspberry Pi 2040 should be used and that the target board is the Pololu robot.  The `single-threaded` directive indicates that the target is bare metal machine with no operating system and no thread library.
 
 To initialize and toggle the LED, we are using library functions like `gpio_put` which are declared in a header file `gpio.h` that is part of the standard Pico SDK.
 Inclusion of this header file is a consequence of this directive:

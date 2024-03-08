@@ -54,7 +54,7 @@ sure to understand static variables in C.
         name: "rp2040",
         board: "pololu_3pi_2040_robot"
       },
-      threading: false,
+      single-threaded: true,
       keepalive: true
     }
     ```
