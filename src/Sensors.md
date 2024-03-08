@@ -81,9 +81,9 @@ You should see the display light up looking something like this:
 
     2. Notice the `target` specification at the top of each of the .lf files.  What do you think is the significance of the directive:
     
-        ```threading: false```
+        ```single-threaded: true```
         
-    **CHECKOFF:** Explain what the four reactions do and the importance of threading being turned off.
+    **CHECKOFF:** Explain what the four reactions do and the importance of single-threaded being turned on.
 
 ## 4.3 Measuring Tilt
 

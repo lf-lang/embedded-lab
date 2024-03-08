@@ -91,7 +91,7 @@ target C {
     name: "rp2040",
     board: "pololu_3pi_2040_robot"
   },
-  threading: false,
+  single-threaded: true,
   build-type: debug
 }
 ```
@@ -152,7 +152,7 @@ In a separate terminal window, run the following `gdb` session specifying the `.
 gdb bin/Blink.elf
 ```
 Once the GDB environment is opened, connect to the debug server using the following. Each of the two cores exposes its own port.
-With `threading` set to `false` in the target directive, `core0` runs the main thread, so you want to connect gdb to port `3333`:
+With `single-threaded` set to `true` in the target directive, `core0` runs the main thread, so you want to connect gdb to port `3333`:
 
 ```bash
 (gdb) target extended-remote localhost:3333
