@@ -1,5 +1,5 @@
 # 3. Tools and Environments
-The purpose of this lab exercise is to familiarize you with the hardware and software used for embedded software programming. This lab exercise assumes you have followed the [Installation instructions](./Installation.md).  The [Resources](./Resources.md) and [Acronyms](./Acronyms.md) pages will also prove particularly useful.
+The purpose of this lab exercise is to familiarize you with the hardware and software used for embedded software programming. This lab exercise assumes you have followed the [installation instructions](./Prerequisites.html).  The [Documentation](./Documentation.md) and [Acronyms](./Acronyms.md) pages will also prove particularly useful.
 
 Embedded systems often have limited resources and interaction methods and hence require a different approach for programming.
 Their microprocessors often have no operating system, and are therefore called "bare metal" or "bare iron" machines.
@@ -144,8 +144,11 @@ Start VS Code in your root `pico-examples` directory:
 
 ```bash
 $ cd ~/pico-examples
+$ nix develop
 $ code .
 ```
+
+(The second line may not be necessary if you have already done this.)
 
 This will likely result in a popup appearing as follows:
 
