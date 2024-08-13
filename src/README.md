@@ -16,6 +16,8 @@ You can find the Markdown sources of these labs on [GitHub](https://github.com/l
 The main authors of this version of the labs are:
 
 - Abhi Gundrala
+- Aditya Krishnan 
+- Hokeun Kim
 - Edward A. Lee
 - Marten Lohstroh
 
@@ -28,6 +30,7 @@ These labs are derived from several generations of lab exercises for the Berkele
 - Abhi Gudrala
 - Jeff C. Jensen
 - Eric S. Kim
+- Hokeun Kim
 - Edward A. Lee
 - Shaokai Lin
 - Sanjit Seshia

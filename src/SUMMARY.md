@@ -16,6 +16,7 @@
 - [Interrupts](./Interrupts.md)
 - [Robot](./Robot.md)
 - [Hill Climb](./Hill.md)
+- [Track and Line Following](./Line.md)
 
 # Appendices
 
