@@ -1,6 +1,6 @@
 # Introduction
 This series of labs exposes students to introductory embedded systems concepts.
-The labs focus on cyber physical systems modeling and design.
+The labs focus on cyber-physical systems modeling and design.
 They use the [Lingua Franca coordination language](https://lf-lang.org) to provide timing, concurrency, and state-machine modeling (via its modal models),
 and low-level programming is in C.
 The labs are designed to be companion exercises for a course based on [Lee and Seshia, *Introduction to Embedded Systems: A Cyber-Physical Systems Approach*](https://leeseshia.org), MIT Press, 2017.
@@ -16,8 +16,8 @@ You can find the Markdown sources of these labs on [GitHub](https://github.com/l
 The main authors of this version of the labs are:
 
 - Abhi Gundrala
-- Aditya Krishnan 
 - Hokeun Kim
+- Aditya Krishnan 
 - Edward A. Lee
 - Marten Lohstroh
 
