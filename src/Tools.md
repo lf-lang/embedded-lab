@@ -90,7 +90,7 @@ First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pic
 Also, make sure to checkout to `c95295f830a68a4854f822f07ef1b9b5abc3079e` since SDK version updates have been made in the newest version of the `pico-examples`.
 
 ```bash
-$ cd /path/to/my-3pi
+$ cd ~
 $ git clone https://github.com/raspberrypi/pico-examples.git
 $ cd pico-examples
 $ git checkout c95295f830a68a4854f822f07ef1b9b5abc3079e
