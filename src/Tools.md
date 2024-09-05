@@ -86,7 +86,7 @@ If the environment variable `PICO_SDK_PATH` is not set, simply run `nix develop`
 
 ### Using the Command Line
 
-First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pico-examples) repository **inside the cloned directory in `my-3pi`** and make it your current working directory.
+First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pico-examples) repository (for example, in your home directory) and make it your current working directory:
 Also, make sure to checkout to `c95295f830a68a4854f822f07ef1b9b5abc3079e` since SDK version updates have been made in the newest version of the `pico-examples`.
 
 ```bash
