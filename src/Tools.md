@@ -91,7 +91,7 @@ First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pic
 > **_Note_**
 >
 > As of September 2024, we need to check out the specific commit version (`c95295f830a68a4854f822f07ef1b9b5abc3079e`) as shown below
-> because the current template uses Raspberry Pi Pico SDK version 1.5.1,
+> because the current template (`lf-3pi-template`) uses Raspberry Pi Pico SDK version 1.5.1,
 > while the current version of `pico-examples` requires Pico SDK version 2.0.0.
 
 
