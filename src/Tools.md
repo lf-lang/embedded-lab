@@ -88,10 +88,17 @@ If the environment variable `PICO_SDK_PATH` is not set, simply run `nix develop`
 
 First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pico-examples) repository (for example, in your home directory) and make it your current working directory:
 
+> **_Note_**
+>
+> As of September 2024, we need to check out the specific commit version (`c95295f830a68a4854f822f07ef1b9b5abc3079e`) as shown below
+> because the current template (`lf-3pi-template`) uses Raspberry Pi Pico SDK version 1.5.1,
+> while the current version of `pico-examples` requires Pico SDK version 2.0.0.
+
 ```bash
 $ cd ~
 $ git clone https://github.com/raspberrypi/pico-examples.git
 $ cd pico-examples
+$ git checkout c95295f830a68a4854f822f07ef1b9b5abc3079e
 ```
 
 Make a blank `build` directory and use it to compile all the examples:

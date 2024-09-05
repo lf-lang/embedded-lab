@@ -16,7 +16,8 @@ Your system must have the following (very common) software packages installed (w
 
 ### Installation on Ubuntu
 ```bash
-$ sudo apt install gh git curl openjdk-17-jdk openjdk-17-jre nix screen
+$ sudo apt update
+$ sudo apt install gh git curl openjdk-17-jdk openjdk-17-jre nix screen cmake
 $ sudo snap install code --classic
 ```
 
