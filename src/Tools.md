@@ -92,6 +92,7 @@ First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pic
 $ cd ~
 $ git clone https://github.com/raspberrypi/pico-examples.git
 $ cd pico-examples
+$ git checkout c95295f830a68a4854f822f07ef1b9b5abc3079e
 ```
 
 Make a blank `build` directory and use it to compile all the examples:
