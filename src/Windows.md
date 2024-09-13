@@ -8,8 +8,9 @@ To mount the a Pico device to the WSL instance, run the following in
 an administrator powershell to find the correct bus and attach:
 
 ```
-usbipd wsl list
-usbipd wsl attach --busid <busid>
+usbipd list
+usbipd bind --busid <busid>
+usbipd attach --wsl --busid <busid>
 ```
 
 In the WSL instance, run the following to verify the device has mounted:
