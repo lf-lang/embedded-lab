@@ -51,6 +51,8 @@ Our goal will to just measure pitch and roll because we will assume that the rob
 
 **Pitch** is the angle deviation from horizontal of a straight line coming out of the front of the robot. **Roll** is the angle deviation from horizontal of a straight line going directly through the wheels.  These are illustrated in the following figures:
 
+**Note:** An accelerometer cannot measure **yaw** because Earth's gravity acts in the same direction as the Z-axis, which prevents the accelerometer from measuring rotation on the Z-axis. Instead, a different sensor called a **magnetometer** (i.e., digital compass) could be used to measure yaw by measuring an object's orientation relative to Earth's magnetic north pole. [Reference](https://docs.idew.org/code-internet-of-things/references/physical-inputs/accelerometer)
+
 <img alt="Pitch" src="img/3pi-2040-pitch.png" width=48%/>
 <img alt="Roll" src="img/3pi-2040-roll.png" width=48%/>
 
