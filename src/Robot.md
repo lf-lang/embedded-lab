@@ -76,7 +76,7 @@ Then create a variant of `src/EncoderDisplay.lf` that displays distance traveled
 ## 7.4 Navigation with a Gyroscope
 
 As you (hopefully) determined in problem (2) of the prelab, the gyroscope output can be integrated to get a measure of the current angle of the robot relative to some starting point.
-You are provided with a reactor `GyroAngle` in `src/lib/IMU.lf` that uses the trapezoidal method to calculate the angle.  Use this reactor to create modal Lingua Franca program `RobotSquareSolution.lf` that drives for approximately half a meter, turns 90 degrees, drives another half meter, and then repeats, so that the robot moves roughly in a square.  What factors contribute to the imperfection of the square?
+You are provided with a reactor `GyroAngle` in `src/lib/IMU.lf` that uses the trapezoidal method to calculate the angle.  Use this reactor to create modal Lingua Franca program `RobotSquareSolution.lf` that drives for approximately half a meter, turns 90 degrees, drives another half meter, turns 90 degrees, and then repeats, so that the robot moves roughly in a square.  What factors contribute to the imperfection of the square?
 
 **Checkoff:** Show your robot moving in a square and show the diagram of the modal Lingua Franca program.
 
