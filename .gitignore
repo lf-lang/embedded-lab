@@ -64,3 +64,6 @@ include/
 # pico setup script location
 pico/
 lf-pico-solutions/
+
+# Temporary files by mdbook
+book/
