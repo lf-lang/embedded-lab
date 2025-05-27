@@ -4,7 +4,7 @@ The goal of this exercise is to program the Pololu robot in LF to perform track 
 
 For this lab, you will need a suitable line like the one here (made using black ducktape and a white foam board):
 
-<img src="img/Track.jpeg">
+<img src="img/Track_Example.jpg">
 
 ## 9.1 Prelab
 
