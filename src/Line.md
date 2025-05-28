@@ -2,9 +2,19 @@
 
 The goal of this exercise is to program the Pololu robot in LF to perform track and line following, where the robot detects a line or track and follows it until it reaches the end.
 
-For this lab, you will need a suitable line like the one here (made using black ducktape and a white foam board):
+For this lab, you will need a suitable line like the ones below, made using black poster chart paper (cut out to the track) or black ducktape on white foam boards:
 
-<img src="img/Track_Example.jpg">
+<table>
+<tr>
+<td><img src="img/Track_1.jpg"  alt="1" width = 360px ></td>
+<td><img src="img/Track_2.jpg" alt="2" width = 360px></td>
+</tr> 
+<tr>
+<td><img src="img/Track_3_4.jpg" alt="3" width = 360px></td>
+<td><img src="img/Track_Example.jpg" alt="4" width = 360px>
+</td>
+</tr>
+</table>
 
 ## 9.1 Prelab
 
