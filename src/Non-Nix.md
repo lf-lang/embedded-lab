@@ -21,6 +21,24 @@ $ echo "export PICO_SDK_PATH=$PICO_SDK_PATH" >> ~/.profile
 
 __Caution__: Depending on what operating system and terminal you use, and how it is configured, you may need to find some other way to set this environment variable.
 
+### Robot Board Header
+To support different pin configurations for rp2040 based boards, pico-sdk uses board header files found in `pico-sdk/src/boards/include/boards`.
+When building binaries for boards other than the raspberrypi pico, `-DPICO_BOARD=<board_name>` can be passed to the cmake command 
+where `<board_name>` is the header name.
+
+The board header for the 3pi robot in the repo might not correctly map the uart pins. Modify `pololu_3pi_2040_robot.h` in the board header directory 
+to include the following lines:
+
+``` C
+#ifndef PICO_DEFAULT_UART_TX_PIN
+#define PICO_DEFAULT_UART_TX_PIN 28
+#endif
+
+#ifndef PICO_DEFAULT_UART_RX_PIN
+#define PICO_DEFAULT_UART_RX_PIN 29
+#endif
+```
+
 ## Install `picotool`
 To build and install `picotool` from source, run the following commands:
 
