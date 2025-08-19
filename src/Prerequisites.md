@@ -59,15 +59,11 @@ Please ensure that you have the following extensions installed:
  - `ms-vscode.cpptools` — [C/C++ IntelliSense, debugging, and code browsing](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
  - `lf-lang.vscode-lingua-franca` — [Lingua Franca for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=lf-lang.vscode-lingua-franca)
 
-For debugging support in VS Code:
- - `marus25.cortex-debug` — [ARM Cortex-M GDB Debugger support for VSCode](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug)
-
 To install them from the command line, run:
 ```bash
 $ code --install-extension ms-vscode.cmake-tools
 $ code --install-extension ms-vscode.cpptools
 $ code --install-extension lf-lang.vscode-lingua-franca --pre-release
-$ code --install-extension marus25.cortex-debug
 ```
 
 ## Permissions
