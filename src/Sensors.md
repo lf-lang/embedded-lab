@@ -89,7 +89,7 @@ You should see the display light up looking something like this:
 
 ## 4.3 Measuring Tilt
 
-Create a reactor called `Tilt` that takes as inputs the _x_, _y_, and _z_ readings from the accelerometer and outputs the pitch and roll in degrees. Put this reactor in the `src/lib` directory and then use it in a variant of the `AccelerometerDisplay.lf` named `SensorsTiltSolution.lf`, to show pitch and roll in degrees rather than _g_ force accelerations in the LCD display. **Save your `Tilt` reactor for use in future labs.**
+Create a reactor called `Tilt` that takes as inputs the _x_, _y_, and _z_ readings from the accelerometer and outputs the pitch and roll in degrees. Save the file name as `Tilt.lf`, and put this file in the `src/lib` directory and then use it in a variant of the `AccelerometerDisplay.lf` named `SensorsTiltSolution.lf`, to show pitch and roll in degrees rather than _g_ force accelerations in the LCD display. **Save your `Tilt.lf` file and `Tilt` reactor for use in future labs.**
 
 **CHECKOFF:** Show your pitch and roll displays and check that they are reasonable.
 
