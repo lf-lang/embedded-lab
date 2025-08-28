@@ -133,9 +133,8 @@ You can disconnect the robot and use the power button to start it running on bat
 >    picotool was unable to connect. Maybe try 'sudo' or check your permissions.
 > ```
 > If you see this message, this means that your user does not have permission to access the RP2040 via USB.
-> You can add `udev` rules to allow regular users to access the RP2040, as described [here](Prerequisites.html#using-picotool-on-linuxwsl).
-
-> For WSL users, `usbipd` is required to install and used in Windows Powershell under Admin. Please check [here](Windows.html#wsl-setup).
+> You can add `udev` rules to allow regular users to access the RP2040, as described [here](Prerequisites.html#using-picotool-on-linuxwsl). <br>
+For WSL users, `usbipd` needs to be installed and used with Windows PowerShell as an administrator. Please check [here](Windows.html#wsl-setup) for more details.
 
 ### Using VS Code
 
