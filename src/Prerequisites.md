@@ -90,5 +90,5 @@ Please note that you might need to reboot your system after running `usermod` in
 ### Using `picotool` on Linux/WSL
 To allow access to the RP2040 via USB without superuser privileges, add custom `udev` rules using the following command:
 ```bash
-$ curl -s https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/99-picotool.rules | sudo tee -a /etc/udev/rules.d/99-picotool.rules >/dev/null
+$ curl -s https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/60-picotool.rules | sudo tee -a /etc/udev/rules.d/60-picotool.rules >/dev/null
 ```
