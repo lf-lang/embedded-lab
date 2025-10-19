@@ -13,7 +13,7 @@ Section B3.4 of the [Armv6-M Architecture Reference Manual](https://developer.ar
 
 ## 6.1 Prelab
 
-1. In this lab, you will write an interrupt service routine (ISR) that responds when you push button A on the Pololu robot.  The NVIC on the RP2040 can be set to request an interrupt when a voltage level on a GPIO pin is high, when it is low, when it transitions from high to low (falling edge), or when it transitions from low to high (rising edge).  If you would like your ISR to respond exactly once to pressing the B button, and you would like it to respond as quickly as possible, which of these four options should you choose?  What do you think will happen if you choose the other options?
+1. In this lab, you will write an interrupt service routine (ISR) that responds when you push button A on the Pololu robot.  The NVIC on the RP2040 can be set to request an interrupt when a voltage level on a GPIO pin is high, when it is low, when it transitions from high to low (falling edge), or when it transitions from low to high (rising edge).  If you would like your ISR to respond exactly once to pressing the button, and you would like it to respond as quickly as possible, which of these four options should you choose?  What do you think will happen if you choose the other options?
 
     **Hint:** Refer to the schematic in the previous lab showing GPIO pin 25 and button A.
 
