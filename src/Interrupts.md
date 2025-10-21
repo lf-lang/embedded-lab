@@ -35,10 +35,9 @@ factors may impact the latency of handling this interrupt?
     }
 ```
 
-1. Is the function `send_to_radio` reentrant? Why or why not? **Hint:** Make
-sure to understand static variables in C.
+4-1. Is the function `send_to_radio` reentrant? Why or why not? **Hint:** Make sure to understand static variables in C.
 
-2. What is one simple way to make the function reentrant?
+4-2. What is one simple way to make the function reentrant?
 
 ## 6.2. Interrupt Service Routine
 
