@@ -162,9 +162,6 @@ You should select the `arm-none-eabi` kit. If you do not see one, select "Scan f
 > <img src="img/ConfigurationProvider.png" alt="Configuration Provider" width="60%"/>
 > If CMake Tools is not available, then the cmake extension is not installed in VS Code.
 
-> **_Note for VM users_**
-> If you are using the [VM image](https://vm.lf-lang.org/), click on "No kit selected" and you should be able to find the `arm-non-eabi` kit in the drop-down menu. You might also be unable to find the `CMake Tools (active)` as above, but compilation should still work.
-
 If all goes well, VS Code will have configured and generated all the build files, and you see output something like this:
 
 <img src="img/CompileOutput.png" alt="Compile output"/>
@@ -258,10 +255,6 @@ On Linux, the device is likely to appear in the `/dev` directory under a name th
 ```bash
 $ ls /dev/ttyACM*
 ```
-
-> **_Note for VM users_**
-> `ttyACM\*` cannot be found when Pololu is in BOOTSEL mode. To find it, press `RESET`, choose the USB device (in VirtualBox: `Device` -> `USB` -> `Raspberry Pi RP2 Boot`), and you should be able to see it under `/dev`.
-
 
 ## Using `screen`
 
