@@ -1,6 +1,6 @@
 # Getting Started
 
-Before getting started, please make sure you have satisfied all the [prerequisites](Prerequisites.html).
+Before getting started, please make sure you have satisfied all the [prerequisites](Prerequisites.md).
 
 ## Set up GitHub account and SSH key
 If you do not yet have a GitHub account, [create one](https://github.com/signup).
@@ -71,7 +71,7 @@ e.g.: `6a7db34ff63345a7badec79ebea3aaef1712f374 pico-sdk (1.5.1)`.
 >
 > If you are using the [VM image](https://vm.lf-lang.org/), you can skip this step. You will never have to invoke `nix` and can ignore any reminders about doing this. 
 
-To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager, which has support for Linux, macOS, and Windows (via WSL). See [prerequisites](Prerequisites.html) for installation instructions. If you prefer to manage dependencies yourself and not rely on `nix`, follow the [instructions for a non-`nix` setup](Non-Nix.html).
+To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager, which has support for Linux, macOS, and Windows (via WSL). See [prerequisites](Prerequisites.md) for installation instructions. If you prefer to manage dependencies yourself and not rely on `nix`, follow the [instructions for a non-`nix` setup](Non-Nix.md).
 
 After installation, run the following in the shell to enable the experimental nix flakes feature, which helps to create more consistent builds:
 
@@ -87,7 +87,7 @@ $ nix develop
 ```
 
 This should automatically download and install specific revisions of the `gcc-arm` toolchain, `openocd`, and `picotool`. These packages will be required compiling, flashing and debugging C code for the RP2040.
-(You can alternatively manually [install the Raspberry Pi Pico Tools](Non-Nix.html#install-picotool).)
+(You can alternatively manually [install the Raspberry Pi Pico Tools](Non-Nix.md#install-picotool).)
 
 If you hit any error while running `nix develop`, see troubleshooting instructions below.
 
@@ -101,7 +101,7 @@ If you hit any error while running `nix develop`, see troubleshooting instructio
 >       cannot connect to socket at '/nix/var/nix/daemon-socket/socket': Permission denied
 >
 > ```
-> This means that your user is not a member of the `nix-users` group. To fix this, see [prerequisites](Prerequisites.html#using-nix-on-linuxwsl).
+> This means that your user is not a member of the `nix-users` group. To fix this, see [prerequisites](Prerequisites.md#using-nix-on-linuxwsl).
 
 > **_Troubleshooting (ARM/Apple Silicon Mac)_**
 >
