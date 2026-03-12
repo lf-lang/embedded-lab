@@ -63,7 +63,7 @@ $ git submodule update --init
 ```
 
 If  `pico-sdk` was checked out correctly running `git submodule` in the root of the repository will show the hash _without_ a `-` preceding it,
-e.g.: `6a7db34ff63345a7badec79ebea3aaef1712f374 pico-sdk (1.5.1)`.
+e.g.: `a1438dff1d38bd9c65dbd693f0e5db4b9ae91779 pico-sdk (2.2.0)`.
 
 ## Configure Nix
 
