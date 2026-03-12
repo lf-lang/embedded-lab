@@ -1,6 +1,6 @@
 # 9 Track and Line Following
 
-The goal of this exercise is to program the Pololu robot in LF to perform track and line following, where the robot detects a line or track and follows it until it reaches the end.
+The goal of this exercise is to program the Pololu robot in LF to perform [track and line following](https://en.wikipedia.org/wiki/Automated_guided_vehicle), where the robot detects a line or track and follows it until it reaches the end.
 
 For this lab, you will need a suitable line like the ones below, made using black poster chart paper (cut in the shape of the track) or black ducktape on white foam boards:
 
