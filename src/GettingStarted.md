@@ -85,9 +85,9 @@ To install the dependencies, run the following in the root of your repository:
 ```bash
 $ nix develop
 ```
+This starts a `bash` shell that provides our build environment, and should automatically download and install specific revisions of the `gcc-arm` toolchain, `openocd`, and `picotool`. These packages will be required for compiling, flashing and debugging C code for the RP2040. (You can alternatively manually [install the Raspberry Pi Pico Tools](Non-Nix.md#install-picotool).)
 
-This should automatically download and install specific revisions of the `gcc-arm` toolchain, `openocd`, and `picotool`. These packages will be required compiling, flashing and debugging C code for the RP2040.
-(You can alternatively manually [install the Raspberry Pi Pico Tools](Non-Nix.md#install-picotool).)
+**Important**: The command `nix develop` will be needed **every time you start a new shell** before trying to compile LF code. Trying to run `picotool` without it will likely give you `picotool: command not found`. `nix develop` starts a **new shell** with the build environment of the default package of the flake in the current directory. Thus the command `ps` should confirm that `nix` started a new `bash`, and `which picotool` should return a non-blank pathname.
 
 If you hit any error while running `nix develop`, see troubleshooting instructions below.
 
