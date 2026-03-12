@@ -16,16 +16,16 @@ Your system must have the following (very common) software packages installed (w
 
 ### Installation on Ubuntu
 ```bash
-$ sudo apt update
-$ sudo apt install gh git curl openjdk-17-jdk openjdk-17-jre nix screen cmake
-$ sudo snap install code --classic
+sudo apt update
+sudo apt install gh git curl openjdk-17-jdk openjdk-17-jre nix screen cmake
+sudo snap install code --classic
 ```
 
 ### Installation on macOS
 ```bash
-$ brew install --cask visual-studio-code
-$ brew install gh git cmake curl openjdk@17 screen
-$ curl -L https://nixos.org/nix/install | sh
+brew install --cask visual-studio-code
+brew install gh git cmake curl openjdk@17 screen
+curl -L https://nixos.org/nix/install | sh
 ```
 
 ## Lingua Franca Toolchain
@@ -64,10 +64,10 @@ For debugging support in VS Code:
 
 To install them from the command line, run:
 ```bash
-$ code --install-extension ms-vscode.cmake-tools
-$ code --install-extension ms-vscode.cpptools
-$ code --install-extension lf-lang.vscode-lingua-franca --pre-release
-$ code --install-extension marus25.cortex-debug
+code --install-extension ms-vscode.cmake-tools
+code --install-extension ms-vscode.cpptools
+code --install-extension lf-lang.vscode-lingua-franca --pre-release
+code --install-extension marus25.cortex-debug
 ```
 
 ## Permissions
@@ -76,13 +76,13 @@ $ code --install-extension marus25.cortex-debug
 To use `nix` on Linux, make sure that your user is a member of the `nix-users` group. To check this, run:
 
 ```bash
-$ groups
+groups
 ```
 
 If `nix-users` is not listed, run:
 
 ```bash
-$ sudo usermod -aG nix-users $USER
+sudo usermod -aG nix-users $USER
 ```
 
 Please note that you might need to reboot your system after running `usermod` in order for the new group membership to be reflected.
@@ -90,5 +90,5 @@ Please note that you might need to reboot your system after running `usermod` in
 ### Using `picotool` on Linux/WSL
 To allow access to the RP2040 via USB without superuser privileges, add custom `udev` rules using the following command:
 ```bash
-$ curl -s https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/60-picotool.rules | sudo tee -a /etc/udev/rules.d/60-picotool.rules >/dev/null
+curl -s https://raw.githubusercontent.com/raspberrypi/picotool/master/udev/60-picotool.rules | sudo tee -a /etc/udev/rules.d/60-picotool.rules >/dev/null
 ```
