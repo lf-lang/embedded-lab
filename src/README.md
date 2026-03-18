@@ -10,7 +10,7 @@ The same RP2040 microprocessor is also available on the low-cost [Raspberry Pi P
 
 ## Institutions Using the Labs
 
-The embedded systems labs with Lingua Franca have been used by institutions around the world, including the following (listed alphabetically):
+The embedded systems labs with Lingua Franca have been used by various courses at institutions around the world, including the following (listed alphabetically):
 
 - **Arizona State University** — *CSE 522: Real-Time Embedded Systems*
 - **Southern Illinois University** — *ECE 424/540: Design of Embedded Systems*
