@@ -72,7 +72,7 @@ $ code --install-extension marus25.cortex-debug
 
 ## Permissions
 
-### Using `nix` on Linux/WSL
+### Using `nix` on Linux/Windows Subsystem for Linux (WSL)
 To use `nix` on Linux, make sure that your user is a member of the `nix-users` group. To check this, run:
 
 ```bash
