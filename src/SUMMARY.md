@@ -33,3 +33,7 @@
 [Notes for Windows Users](./Windows.md)
 
 [Notes for Instructors](./Instructors.md)
+
+---
+
+[Institutions Using the Labs](./Institutions.md)
