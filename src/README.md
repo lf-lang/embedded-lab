@@ -18,7 +18,7 @@ The embedded systems labs with Lingua Franca have been used by various courses a
 - **University of Maryland** — *ENEB452: Advanced Software for Connected Embedded Systems*
 - **University of Michigan-Dearborn** — *ME 472: Principles and Applications of Mechatronic Systems, ECE 566 / ME 565: Mechatronics*
 
-If your institution is using the embedded systems labs but is not listed here, please email Hokeun Kim ([hokeun@asu.edu](mailto:hokeun@asu.edu)) with your course information, or submit a [pull request](https://github.com/lf-lang/embedded-lab/pulls) to add your course information.
+If your institution is using the embedded systems labs but is not listed here, please email [Hokeun Kim](https://hokeun.github.io) ([hokeun@asu.edu](mailto:hokeun@asu.edu)) with your course information, or submit a [pull request](https://github.com/lf-lang/embedded-lab/pulls) to add your course information.
 
 ## Contributing
 You can find the Markdown sources of these labs on [GitHub](https://github.com/lf-lang/embedded-lab). If you discover any problems, please consider creating an [issue](https://github.com/lf-lang/embedded-lab/issues) or submitting a [pull request](https://github.com/lf-lang/embedded-lab/pulls).
