@@ -3,7 +3,7 @@
 The embedded systems labs with [Lingua Franca](https://www.lf-lang.org/) have been used by various courses at institutions around the world, including the following (listed alphabetically):
 
 - **Arizona State University, United States** — *CSE 522: Real-Time Embedded Systems*
-- **Southern Illinois University, United States** — *ECE 424/540: Design of Embedded Systems*
+- **Southern Illinois University, United States** — *ECE 424/514: Design of Embedded Systems*
 - **University of California, Berkeley, United States** — *EECS 149/249A: Introduction to Embedded and Cyber Physical Systems*
 - **University of Manouba, Tunisia** — *ESDV.5.4: Cyber-Physical Systems, ESEP.5.3: Cyber-Physical Systems*
 - **University of Maryland, United States** — *ENEB452: Advanced Software for Connected Embedded Systems*
