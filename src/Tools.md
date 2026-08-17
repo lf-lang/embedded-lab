@@ -90,9 +90,11 @@ First, clone the [raspberry-pi/pico-examples](https://github.com/raspberrypi/pic
 
 ```bash
 $ cd ~
-$ git clone https://github.com/raspberrypi/pico-examples.git
+$ git clone --branch sdk-2.2.0 https://github.com/raspberrypi/pico-examples.git
 $ cd pico-examples
 ```
+
+The command above clones pico-examples with the tag [sdk-2.2.0](https://github.com/raspberrypi/pico-examples/releases/tag/sdk-2.2.0).
 
 Make a blank `build` directory and use it to compile all the examples:
 
