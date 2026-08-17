@@ -94,7 +94,7 @@ $ git clone --branch sdk-2.2.0 https://github.com/raspberrypi/pico-examples.git
 $ cd pico-examples
 ```
 
-The command above automatically switches to the tag [sdk-2.2.0](https://github.com/raspberrypi/pico-examples/releases/tag/sdk-2.2.0) to match the Pico SDK version.
+The command above clones pico-examples with the tag [sdk-2.2.0](https://github.com/raspberrypi/pico-examples/releases/tag/sdk-2.2.0).
 
 Make a blank `build` directory and use it to compile all the examples:
 
