@@ -29,14 +29,9 @@ $ curl -L https://nixos.org/nix/install | sh
 ```
 
 ## Lingua Franca Toolchain
-To install the nightly (recommended) Lingua Franca CLI tools (i.e, the compiler `lfc`, the diagram generator `lfd`, and the code formatter `lff`), run:
+To install the latest release (recommended) of Lingua Franca CLI tools (i.e, the compiler `lfc`, the diagram generator `lfd`, and the code formatter `lff`), run:
 ```
-curl -Ls https://install.lf-lang.org | bash -s nightly cli
-```
-
-If you prefer an Eclipse-based IDE over the Lingua Franca VS Code extension, install the nightly build of `epoch` using the following command:
-```
-curl -Ls https://install.lf-lang.org | bash -s nightly epoch
+curl -Ls https://install.lf-lang.org | bash -s cli
 ```
 
 > **_Troubleshooting for permission denied error_**
@@ -46,11 +41,15 @@ curl -Ls https://install.lf-lang.org | bash -s nightly epoch
 > > Creating directory /usr/local/share/lingua-franca
 > mkdir: /usr/local/share/lingua-franca: Permission denied
 > ```
-> Try running the following commands which download the installation shell script and run the script with sudo:
+> Try running either of the following commands which download the installation shell script and run the script with sudo:
+> ```
+> curl -Ls https://install.lf-lang.org | sudo bash -s cli
+> ```
+> or
 > ```bash
 > wget https://raw.githubusercontent.com/lf-lang/installation/main/install.sh
 > chmod +x install.sh
-> sudo bash install.sh nightly cli
+> sudo bash install.sh cli
 > ```
 
 ## VS Code extensions
