@@ -11,13 +11,14 @@ Your system must have the following (very common) software packages installed (w
  - `code` — [the Visual Studio Code IDE](https://code.visualstudio.com/download)
  - `curl` — [a CLI tool and library for transfering data with URLs](https://curl.se/)
  - `java` — [Java 17](https://openjdk.org/projects/jdk/17)
- - `nix` — [a purely functional package manager](https://nix.dev/tutorials/install-nix)
+ <!--- `nix` — [a purely functional package manager](https://nix.dev/tutorials/install-nix)-->
  - `screen` — [a terminal multiplexer](https://dev.to/thiht/learn-to-use-screen-a-terminal-multiplexer-gl)
 
 ### Installation on Ubuntu
 ```bash
 $ sudo apt update
-$ sudo apt install gh git curl openjdk-17-jdk openjdk-17-jre nix screen cmake
+<!--$ sudo apt install gh git curl openjdk-17-jdk openjdk-17-jre nix screen cmake-->
+$ sudo apt install gh git curl openjdk-17-jdk openjdk-17-jre screen cmake
 $ sudo snap install code --classic
 ```
 
@@ -25,7 +26,7 @@ $ sudo snap install code --classic
 ```bash
 $ brew install --cask visual-studio-code
 $ brew install gh git cmake curl openjdk@17 screen
-$ curl -L https://nixos.org/nix/install | sh
+<!--$ curl -L https://nixos.org/nix/install | sh-->
 ```
 
 ## Lingua Franca Toolchain
@@ -71,20 +72,20 @@ $ code --install-extension marus25.cortex-debug
 
 ## Permissions
 
-### Using `nix` on Linux/Windows Subsystem for Linux (WSL)
-To use `nix` on Linux, make sure that your user is a member of the `nix-users` group. To check this, run:
+<!--### Using `nix` on Linux/Windows Subsystem for Linux (WSL)-->
+<!--To use `nix` on Linux, make sure that your user is a member of the `nix-users` group. To check this, run:-->
 
 ```bash
-$ groups
+<!--$ groups-->
 ```
 
-If `nix-users` is not listed, run:
+<!--If `nix-users` is not listed, run:-->
 
 ```bash
-$ sudo usermod -aG nix-users $USER
+<!--$ sudo usermod -aG nix-users $USER-->
 ```
 
-Please note that you might need to reboot your system after running `usermod` in order for the new group membership to be reflected.
+<!--Please note that you might need to reboot your system after running `usermod` in order for the new group membership to be reflected.-->
 
 ### Using `picotool` on Linux/WSL
 To allow access to the RP2040 via USB without superuser privileges, add custom `udev` rules using the following command:
