@@ -65,31 +65,34 @@ $ git submodule update --init
 If  `pico-sdk` was checked out correctly running `git submodule` in the root of the repository will show the hash _without_ a `-` preceding it,
 e.g.: `a1438dff1d38bd9c65dbd693f0e5db4b9ae91779 pico-sdk (2.2.0)`.
 
-## Configure Nix
+> As of Fall of 2026, we are no longer having students
+> install and configure nix themselves
+
+> ## Configure Nix
 
 > **_Note for VM users_**
 >
 > If you are using the [VM image](https://vm.lf-lang.org/), you can skip this step. You will never have to invoke `nix` and can ignore any reminders about doing this. 
 
-To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager, which has support for Linux, macOS, and Windows (via WSL). See [prerequisites](Prerequisites.md) for installation instructions. If you prefer to manage dependencies yourself and not rely on `nix`, follow the [instructions for a non-`nix` setup](Non-Nix.md).
+<!--To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager, which has support for Linux, macOS, and Windows (via WSL). See [prerequisites](Prerequisites.md) for installation instructions. If you prefer to manage dependencies yourself and not rely on `nix`, follow the [instructions for a non-`nix` setup](Non-Nix.md).-->
 
-After installation, run the following in the shell to enable the experimental nix flakes feature, which helps to create more consistent builds:
-
-```bash
-$ mkdir -p ~/.config/nix
-$ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-```
-
-To install the dependencies, run the following in the root of your repository:
+<!--After installation, run the following in the shell to enable the experimental nix flakes feature, which helps to create more consistent builds:-->
 
 ```bash
-$ nix develop
+<!--$ mkdir -p ~/.config/nix-->
+<!--$ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf-->
 ```
 
-This should automatically download and install specific revisions of the `gcc-arm` toolchain, `openocd`, and `picotool`. These packages will be required compiling, flashing and debugging C code for the RP2040.
+<!--To install the dependencies, run the following in the root of your repository:-->
+
+```bash
+<!--$ nix develop-->
+```
+
+<!--This should automatically download and install specific revisions of the `gcc-arm` toolchain, `openocd`, and `picotool`. These packages will be required compiling, flashing and debugging C code for the RP2040.-->
 (You can alternatively manually [install the Raspberry Pi Pico Tools](Non-Nix.md#install-picotool).)
 
-If you hit any error while running `nix develop`, see troubleshooting instructions below.
+<!--If you hit any error while running `nix develop`, see troubleshooting instructions below.-->
 
 > **_Troubleshooting (Linux/WSL)_**
 >
