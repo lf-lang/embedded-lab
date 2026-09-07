@@ -1,5 +1,7 @@
 # Getting Started
 
+Steps 1 and 2 can be done on your own machines. Please log on to 
+the instructional machines from Step 3 onwards. 
 
 ## 1. Set up GitHub account and SSH key
 If you do not yet have a GitHub account, [create one](https://github.com/signup). 
