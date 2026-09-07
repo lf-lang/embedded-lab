@@ -88,7 +88,7 @@ Use the repo name from §1:
 
 ```bash
 cd ~
-gh repo clone <link to your own repo based on the template> my-3pi
+gh repo clone <link to your own repo created in section 2> my-3pi
 cd my-3pi
 git submodule update --init
 ```
