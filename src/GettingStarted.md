@@ -7,7 +7,9 @@ the instructional machines from Step 3 onwards.
 If you do not yet have a GitHub account, [create one](https://github.com/signup). 
 This can be done on your personal machine
 
-## 2. Create your repository
+## 2. Create your repository + Instructional Account
+
+### 2.1 GitHub repo
 This section can also be done on your own machine. Start by creating a new private repository on GitHub based on the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository, which provides a starting point for students to carry out the exercises in this lab and to develop further applications using the [Raspberry Pi Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) and the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86). 
 
 Navigate to the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository.  Select "Use this template" and "Create a new repository", as shown here:
@@ -18,6 +20,8 @@ Give your repo a name and click on "Create repository":
 
 <img src="img/my-3pi.png" alt="new repo"/>
 
+### 2.2 Instructional Account
+Visit https://acropolis.cs.berkeley.edu/~account/webacct/, log in with your CalNet ID and passphrase, and then sign up for an ee149 account. You will use this account on the computers in the lab.
 
 ## 3. Run the user setup (first login only)
 
