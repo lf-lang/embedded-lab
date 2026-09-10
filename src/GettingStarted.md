@@ -1,16 +1,20 @@
 # Getting Started
 
-Steps 1 and 2 can be done on your own machines. Please log on to 
-the instructional machines from Step 3 onwards. 
+Before getting started, please make sure you have satisfied all the [prerequisites](Prerequisites.md).
 
-## 1. Set up GitHub account and SSH key
-If you do not yet have a GitHub account, [create one](https://github.com/signup). 
-This can be done on your personal machine
+## Set up GitHub account and SSH key
+If you do not yet have a GitHub account, [create one](https://github.com/signup).
 
-## 2. Create your repository + Instructional Account
+### Set up authentication with GitHub
+If you haven't already, set up authentication with GitHub. The recommended way of doing this is using `gh`, the GitHub CLI tool. Run the following command:
 
-### 2.1 GitHub repo
-This section can also be done on your own machine. Start by creating a new private repository on GitHub based on the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository, which provides a starting point for students to carry out the exercises in this lab and to develop further applications using the [Raspberry Pi Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) and the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86). 
+```bash
+$ gh auth login
+```
+Then select `> GitHub.com` and `HTTPS` if you prefer to authenticate via HTTPS, or `SSH` if you prefer to authenticate via SSH. The former uses a token and the latter uses a public/private key pair that it installs as part of the login procedure. After agreeing to authenticate Git with your GitHub credentials, select `Login with a web browser`, copy the one-time code printed on the command prompt, and press <kbd>Enter</kbd>. You will then be taken to [github.com](https://github.com/login/device) in your browser. After entering your credentials and pasting the one-time code, authentication will be completed.
+
+## Create your repository
+Start by creating a new private repository on GitHub based on the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository, which provides a starting point for students to carry out the exercises in this lab and to develop further applications using the [Raspberry Pi Pico board](https://www.raspberrypi.com/products/raspberry-pi-pico/) and the [Pololu 3pi+ 2040 robot](https://www.pololu.com/docs/0J86).
 
 Navigate to the [lf-3pi-template](https://github.com/lf-lang/lf-3pi-template) repository.  Select "Use this template" and "Create a new repository", as shown here:
 
@@ -20,184 +24,93 @@ Give your repo a name and click on "Create repository":
 
 <img src="img/my-3pi.png" alt="new repo"/>
 
-### 2.2 Instructional Account
-Visit https://acropolis.cs.berkeley.edu/~account/webacct/, log in with your CalNet ID and passphrase, and then sign up for an ee149 account. You will use this account on the computers in the lab.
-
-## 3. Run the user setup (first login only)
-
-Once you are in the lab, sign in to one of the EECS149 computers with your
-new account (it'll be named something like `ee149-aaa`).  Open a terminal
-window (there is a Terminal icon in the panel at the top of the screen).  Enter
-the following two commands:
+## Clone your repository
+On the command line on your host machine, change directory to the location where you would like to check out your repository. Let us assume that you named your repo `my-3pi`. Check it out using the following command (where `<username>` must be substituted with your GitHub username):
 
 ```bash
-inst-containers-setup
-~ee149/lab-user-setup.sh
+$ gh repo clone <username>/my-3pi
 ```
 
-This will install a number of Visual Studio Code extensions for you and create
-the `lf-lab-box` container where you will do most of your work.
+This will create a directory called `my-3pi` in the current working directory.
 
-You only need to run these commands the first time you log in (though it's
-harmless to run them again).
+> **_Note for existing GitHub users_**
+>
+> If you are an existing GitHub user and have already set up a public/private key pair (or have done so by selecting `SSH` as the protocol when running `gh auth login`), you can also clone the repo as follows:
+> ```
+> $ git clone git@github.com/<username>/<reponame>.git
+> ```
 
-## 4. Start the container
+> **_Troubleshooting (Unknown Key Fingerprint)_**
+>
+> If you are using the SSH protocol, then `gh repo clone` may report something like:
+> ```
+> The authenticity of host 'github.com (...)' cannot be established.
+> ```
+> and prompt you to with the following question:
+> ```
+> Are you sure you want to continue connecting (yes/no)?
+> ```
+> The reason for this is that the key used by `github.com` is not yet known by your machine.
+> Once you type `yes` and <kbd>Enter</kbd>, the fingerprint of GitHub's public key will be added to `~/.ssh/known_hosts`. Only when GitHub _changes_ its public key will this warning reappear. This feature of SSH is meant to avoid [man-in-the-middle attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
 
-The `lf-lab-box` container is **not running** when you log in. Open a terminal
-**on the lab machine (host)** and run:
+> **_Note for VM users_**
+> If you are using the [VM image](https://vm.lf-lang.org/), you can skip the subsequent step; you do not have to update or initialize the `pico-sdk` submodule in your repository because it is already present in `~/pico-sdk`.
+
+The template includes [raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk) as a submodule, which itself also has a lot of submodules. We recommend against using the `--recursive` flag because we do not need to recursively clone the submodules inside of `pico-sdk`. Instead, change directory into the root of your clone and run:
 
 ```bash
-podman start lf-lab-box
+$ git submodule update --init
 ```
----
 
-## 5. Attach VS Code to the container
-Simply launch VSCode
+If  `pico-sdk` was checked out correctly running `git submodule` in the root of the repository will show the hash _without_ a `-` preceding it,
+e.g.: `a1438dff1d38bd9c65dbd693f0e5db4b9ae91779 pico-sdk (2.2.0)`.
 
----
+## Configure Nix
 
-## 6. Sign in to GitHub and clone your repo (inside the container)
+> **_Note for VM users_**
+>
+> If you are using the [VM image](https://vm.lf-lang.org/), you can skip this step. You will never have to invoke `nix` and can ignore any reminders about doing this. 
 
-Everything below runs in the **VS Code integrated terminal** opened in §3
-(prompt should be inside `lf-lab-box`). Quick sanity check:
+To create a reproducible unix shell environment that installs all required dependency applications, we use the [nix](https://nixos.org) package manager, which has support for Linux, macOS, and Windows (via WSL). See [prerequisites](Prerequisites.md) for installation instructions. If you prefer to manage dependencies yourself and not rely on `nix`, follow the [instructions for a non-`nix` setup](Non-Nix.md).
+
+After installation, run the following in the shell to enable the experimental nix flakes feature, which helps to create more consistent builds:
 
 ```bash
-which lfc           # should print  /usr/local/bin/lfc
+$ mkdir -p ~/.config/nix
+$ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
-### 6.1 Sign in to GitHub
-
-If you have not used `gh` on this machine before:
+To install the dependencies, run the following in the root of your repository:
 
 ```bash
-gh auth login
+$ nix develop
 ```
 
-Choose:
+This should automatically download and install specific revisions of the `gcc-arm` toolchain, `openocd`, and `picotool`. These packages will be required compiling, flashing and debugging C code for the RP2040.
+(You can alternatively manually [install the Raspberry Pi Pico Tools](Non-Nix.md#install-picotool).)
 
-- `GitHub.com`
-- `HTTPS`
-- `Login with a web browser`
+If you hit any error while running `nix develop`, see troubleshooting instructions below.
 
-Copy the one-time code shown, press Enter, paste it in the browser, sign in.
+> **_Troubleshooting (Linux/WSL)_**
+>
+> You may see an error message like this when running the `nix develop` command:
+> ```bash
+> error:
+>       … while fetching the input 'git+file:///home/osboxes/lf-lang/my-3pi'
+> error:
+>       cannot connect to socket at '/nix/var/nix/daemon-socket/socket': Permission denied
+>
+> ```
+> This means that your user is not a member of the `nix-users` group. To fix this, see [prerequisites](Prerequisites.md#using-nix-on-linuxwsl).
 
-### 6.2 Configure your name + email for git
-
-```bash
-git config --global user.name  "Your Name"
-git config --global user.email "you@berkeley.edu"
-```
-
-### 6.3 Clone your assignment repo
-
-Use the repo name from §1:
-
-```bash
-cd ~
-gh repo clone <link to your own repo created in section 2> my-3pi
-cd my-3pi
-git submodule update --init
-```
-
-The `my-3pi` directory name is just a friendly local name — pick anything.
-The submodule step pulls in `pico-sdk`. Do **not** use `--recursive`, the
-official guide explains why.
-
-Sanity check:
-
-```bash
-git submodule
-# expected: a hash WITHOUT a leading '-' next to pico-sdk, e.g.:
-#   a1438dff... pico-sdk (2.2.0)
-```
-
-### 6.4 Open the folder in VS Code
-
-In the same VS Code window (still attached to `lf-lab-box`):
-**File → Open Folder…** → choose `~/my-3pi`. VS Code reloads with that folder
-open, still inside the container.
-
----
-
-## 7. Build and flash
-
-> inside `lf-lab-box` and the Pico SDK is in your repo as a submodule.
-
-### 7.1 Build a Lingua Franca program
-
-In the VS Code integrated terminal (which is inside `lf-lab-box`):
-
-```bash
-lfc src/Blink.lf
-```
-
-Output: `bin/Blink.elf`.
-
-You can also use the Lingua Franca extension's **Build** button (top-right
-of the editor when viewing a `.lf` file).
-
-### 7.2 Flash the Pololu 3pi+ 2040
-
-1. Hold **BOOTSEL** on the robot while plugging the USB cable in.
-2. The robot appears as a USB drive named **`RPI-RP2`** on the desktop.
-3. Either drag-and-drop the `.uf2` file onto it, or in the VS Code terminal:
-
-   ```bash
-   picotool load -x bin/Blink.elf
-   ```
-
-The robot reboots automatically and runs your program.
-
----
-
-## 7. Daily workflow
-
-```bash
-# 1. Make sure the container is running:
-podman start lf-lab-box                # no-op if already up
-# 2. VS Code → F1 → Dev Containers: Attach to Running Container → lf-lab-box
-# 3. Open your repo folder
-# 4. In the integrated terminal:
-git pull                              # if you collaborate
-lfc src/Blink.lf                      # build
-picotool load -x bin/Blink.elf        # flash (robot in BOOTSEL)
-git add -A && git commit -m "..." && git push
-```
-
----
-
-## 8. Common issues
-
-| Symptom | Fix |
-|---|---|
-| `lf-lab-box` is not in the Dev Containers list | The container is not running. In a host terminal: `podman start lf-lab-box`, then retry. |
-| `lfc: command not found` | 1. You opened a terminal *outside* the container. Use VS Code's integrated terminal in the attached window, or `distrobox enter lf-lab-box`. OR 2. If you are in the container run nix develop in your git repo|
-| `picotool: command not found` | Same — use the container terminal. |
-| `gh: command not found` | Same — use the container terminal. |
-| `git submodule update --init` is slow | Normal — `pico-sdk` is large. |
-| `picotool: no accessible RP-series devices` | Robot is not in BOOTSEL — unplug, hold BOOTSEL, replug. |
-| Robot doesn't show up as `RPI-RP2` | Try a different USB cable (some are charge-only). |
-| `gh auth login` fails / can't open a browser | Use the SSH option, paste the public key into `github.com/settings/keys`. |
-
-If something stays broken, ask a TA — **do not** install packages on the lab
-machine yourself.
-
-> If you are working **on your own laptop** instead of a lab machine, follow
-> the upstream guide in full — `nix develop` and the rest are how you get
-> the toolchain there.
-
----
-
-Have fun!
-
-<!--Now log on to the instructional machines using your instructional Unix account. And-->
-<!--then follow everything from Step 3 of the README located at the bottom of -->
-<!--[this repository](https://github.com/eecs149-249a/lingua_franca_lab_setup). -->
-<!--Some parts to change and skip in the README:-->
-<!--- Sections 1 and 2-->
-<!--- The verification part of step 4-->
-<!--- In Step 5, just open VSCode and skip the rest-->
-<!--- In Step 6.3, the `gh repo clone` instruction should be cloning your own repo built from-->
-<!--the lab template instead.-->
-<!--- Ignore Section 9-->
-
+> **_Troubleshooting (ARM/Apple Silicon Mac)_**
+>
+> As of August 1, 2023, the stable version of nix does *not* support ARM/Apple Silicon Macs. You may see an error message like this when running the `nix develop` command:
+> ```
+> is not available on the requested hostPlatform
+> ```
+> You can work around this issue by setting up an environmental variable and running the nix command with an additional argument, `--impure`, like this:
+> ```bash
+> $ export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+> $ nix develop --impure
+> ```
