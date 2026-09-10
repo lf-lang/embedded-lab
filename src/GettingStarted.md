@@ -52,7 +52,29 @@ podman start lf-lab-box
 ---
 
 ## 5. Attach VS Code to the container
-Simply launch VSCode
+1. Launch **VS Code**.
+2. Press `F1` → **Dev Containers: Attach to Running Container…**
+3. Pick **`lf-lab-box`** in the list.
+4. A new VS Code window opens. The bottom-left corner should read
+   `Container lf-lab-box` in blue.
+5. Open the integrated terminal with `` Ctrl+` ``. **This terminal is inside
+   `lf-lab-box`** — every command in §4 and §5 is run here, not on the host.
+
+VS Code prompts you to install the workspace's recommended extensions inside
+the container — accept. The key one is:
+
+- **Lingua Franca** (`lf-lang.vscode-lingua-franca`)
+
+Optional but useful:
+
+- **C/C++** (`ms-vscode.cpptools`)
+- **CMake Tools** (`ms-vscode.cmake-tools`)
+
+> If `lf-lab-box` does not appear in the Dev Containers picker, it is not
+> running — go back to §2.
+>
+> The first attach to the container takes 10–20 seconds while VS Code
+> installs a small server component into it.
 
 ---
 
@@ -97,7 +119,8 @@ cd ~
 gh repo clone <link to your own repo created in section 2> my-3pi
 cd my-3pi
 git submodule update --init
-```
+cd pico-sdk
+git submodule update --init```
 
 The `my-3pi` directory name is just a friendly local name — pick anything.
 The submodule step pulls in `pico-sdk`. Do **not** use `--recursive`, the
@@ -138,7 +161,7 @@ of the editor when viewing a `.lf` file).
 
 ### 7.2 Flash the Pololu 3pi+ 2040
 
-1. Hold **BOOTSEL** on the robot while plugging the USB cable in.
+1. Hold **BOOTSEL** (button that says "B") on the robot while plugging the USB cable in.
 2. The robot appears as a USB drive named **`RPI-RP2`** on the desktop.
 3. Either drag-and-drop the `.uf2` file onto it, or in the VS Code terminal:
 
@@ -178,6 +201,7 @@ git add -A && git commit -m "..." && git push
 | `picotool: no accessible RP-series devices` | Robot is not in BOOTSEL — unplug, hold BOOTSEL, replug. |
 | Robot doesn't show up as `RPI-RP2` | Try a different USB cable (some are charge-only). |
 | `gh auth login` fails / can't open a browser | Use the SSH option, paste the public key into `github.com/settings/keys`. |
+| open another folder in VSCode | In the VSCode terminal, `cd` into the target directory, and enter `code .` A new VSCode window should open and should automatically attach to the container
 
 If something stays broken, ask a TA — **do not** install packages on the lab
 machine yourself.
