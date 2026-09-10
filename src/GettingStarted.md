@@ -2,6 +2,8 @@
 
 Before getting started, please make sure you have satisfied all the [prerequisites](Prerequisites.md).
 
+If you are a student doing these labs as part of a class, please check for [institution-specific instructions](Institutions.md). The instructions below are generic and may be different at your institution.  Alternatively, a pre-configured Ubuntu VM image is available [here](https://vm.lf-lang.org). Instructions for usage of the VM are provided [here](UbuntuVM.html).
+
 ## Set up GitHub account and SSH key
 If you do not yet have a GitHub account, [create one](https://github.com/signup).
 

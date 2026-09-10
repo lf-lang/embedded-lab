@@ -1,7 +1,6 @@
 # Prerequisites
 
-Before [getting started](./GettingStarted.html), please check whether you have all the necessary software installed and configured properly.
-Alternatively, a pre-configured Ubuntu VM image is available [here](https://vm.lf-lang.org). Instructions for usage of the VM are provided [here](UbuntuVM.html).
+If you are a student doing these labs as part of a class, please check for [institution-specific instructions](Institutions.md). The prerequisites below are generic and may already be provided by your institution.  Alternatively, a pre-configured Ubuntu VM image is available [here](https://vm.lf-lang.org). Instructions for usage of the VM are provided [here](UbuntuVM.html).
 
 ## Packages
 Your system must have the following (very common) software packages installed (we recommend using your favorite package manager to install them):

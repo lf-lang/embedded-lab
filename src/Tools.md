@@ -175,7 +175,7 @@ VS Code has run CMake, but it has not yet compiled the example programs.
 To compile them, click on the "Build" button in the blue bar at the bottom.
 If you already ran the build on the command line as above, then this time it should not take too long.
 
-When you see "Build finished with exit code 0," then you can load the code onto the robot using `picotool`.  To do this from within VS Code, select the <kbd>Terminal</kbd> tab in the <kbd>Output</kdb> subwindow and issue the load command as above:
+When you see "Build finished with exit code 0," then you can load the code onto the robot using `picotool`.  To do this from within VS Code, select the <kbd>Terminal</kbd> tab in the <kbd>Output</kbd> subwindow and issue the load command as above:
 
 ```bash
 $ picotool load -x build/blink/blink.elf

@@ -26,6 +26,11 @@
 - [Non-`nix` Setup](./Non-Nix.md)
 - [Project Ideas](./Project.md)
 
+# Institutions
+
+- [Institutions Using the Labs](./Institutions.md)
+- [Setup instructions for Berkeley](./GettingStartedAtBerkeley.md)
+
 ---
 
 [Notes for VM users](./UbuntuVM.md)
@@ -33,7 +38,3 @@
 [Notes for Windows Users](./Windows.md)
 
 [Notes for Instructors](./Instructors.md)
-
----
-
-[Institutions Using the Labs](./Institutions.md)
