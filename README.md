@@ -9,6 +9,10 @@ To read the docs, visit [lf-lang.org/embedded-lab](https://www.lf-lang.org/embed
 To contribute to this documentation, fork of this repo and file a pull request.
 For documentation on the mdBook framework that we use to render the docs, see [mdbook](https://github.com/rust-lang/mdBook/).
 
+## Cautions for institution-specific instructions
+These embedded systems labs are open-source and currently used by [at least 6 institutions around the world](https://www.lf-lang.org/embedded-lab/Institutions.html).
+Please avoid making any institution-specific instructions default, as such instructions can cause confusion at other institutions.
+
 ### Build and run locally
 The book can also be built and served locally after installing `mdbook`.
 Simply run the follow command in the root of this repository:
