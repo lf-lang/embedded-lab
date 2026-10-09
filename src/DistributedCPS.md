@@ -2,15 +2,6 @@
 <!-- TODO: Update the introduction -->
 The purpose of this exercise is to learn challenges in coordinating distributed nodes in cyber-physical systems, such as the [CAL theorem](https://doi.org/10.1145/3609119) defining the fudnamental tradeoff of consistency, availability, and latency in distributed systems. In this exercise, we are not using the Pololu robot.
 
-### Prerequisites
-
----
-
-1. The provided LF source files, Protocol Buffers file, and input images. To build and run the program directly on your laptop, you need `lfc-dev`, a C build environment, and a Python virtual environment with PyTorch and torchvision.
-2. On Ubuntu/Debian Linux, you need `sudo` privileges and `iproute2` for the `tc` command. If `ping` is unavailable, install it with `sudo apt install iputils-ping`.
-3. On an Apple Silicon Mac, install and start Docker Desktop. The provided `byeonggiljun/cse522-lab8:arm64` image includes the files and execution environment needed for this lab.
-4. On x86-64 WSL, install Docker Desktop and enable WSL integration. The provided `byeonggiljun/cse522-lab8:amd64` image includes the files and execution environment needed for this lab.
-
 
 ## 10.1 Prelab
 
@@ -47,6 +38,41 @@ The purpose of this exercise is to learn challenges in coordinating distributed 
 
 ## 10.3 ADAS Example
 
+
+### Prerequisites
+
+---
+<!-- 
+1. The provided LF source files, Protocol Buffers file, and input images. To build and run the program directly on your laptop, you need `lfc-dev`, a C build environment, and a Python virtual environment with PyTorch and torchvision.
+2. On Ubuntu/Debian Linux or WSL, you need `sudo` privileges and `iproute2` for the `tc` command. If `ping` is unavailable, install it with `sudo apt install iputils-ping`.
+3. On an Apple Silicon Mac, install and start Docker Desktop. The provided `byeonggiljun/cse522-lab8:arm64` image includes the files and execution environment needed for this lab. -->
+
+When setting up the environment on Ubuntu or WSL, install the Protocol Buffers compilers, the protobuf-c development library, and the Python development headers:
+
+```sh
+sudo apt install protobuf-compiler protobuf-c-compiler libprotobuf-c-dev python3-dev
+```
+
+On Mac, install Protocol Buffers with Homebrew:
+
+```sh
+brew install protobuf
+```
+
+From the repository root, create and activate a Python virtual environment, then install the Python dependencies:
+
+```sh
+python3 -m venv my_env
+source my_env/bin/activate
+pip install protobuf
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+```
+
+If creating the virtual environment fails because `venv` is unavailable on Ubuntu/Debian Linux or WSL, install it with `sudo apt install python3-venv`. Keep the virtual environment activated when compiling with `lfc-dev` and running the Python federate so that the compiler can find the correct Python environment.
+
+### Exercise
+
+---
 In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS). Copy the provided [ADASPolyglotTemplate.lf](./ADASPolyglotTemplate.lf) to `src/ADASPolyglotSolution.lf`. Keep [ProtoAdas.proto](./ProtoAdas.proto) in `src/` and the supplied images in the repository's `data/` directory. Run the program from the repository root so that the camera can find the images.
 
 This program is a **polyglot federation**, a collection of federates implemented in different target languages. The `Vision` federate uses Python for image processing, while the `Braking` federate uses C for the brake pedal and brake reactions. The `@language` annotations specify their languages, and the `"proto"` serializer lets them exchange Protocol Buffers messages. Read the [LF Handbook section on Polyglot Federations](https://www.lf-lang.org/docs/writing-reactors/polyglot/) for more information.
@@ -84,7 +110,7 @@ The CAL theorem says that strong consistency requires enough waiting, or enough 
 
 Run your completed program with the baseline network conditions, then use Linux's `tc` command to add network delay. Keep the model, camera timer, coordination settings, and connection's `after` value fixed so that you can compare the effect of network latency on lag.
 
-On Ubuntu/Debian Linux, install `iproute2`:
+On Ubuntu/Debian Linux, including distributions running in WSL, install `iproute2`. WSL supports `tc` directly, so Docker is not needed:
 
 ```sh
 sudo apt update
@@ -105,23 +131,9 @@ docker run -it \
 
 The image contains the required lab files and execution environment. The `NET_ADMIN` capability allows you to configure network delay inside the container.
 
-For x86-64 WSL, use the following commands once the `amd64` image is published. This image is not yet available.
-
-<!-- TODO: Publish byeonggiljun/cse522-lab8:amd64 before enabling the WSL instructions. -->
-
-```sh
-docker pull byeonggiljun/cse522-lab8:amd64
-
-docker run -it \
-    --name cse522-lab8 \
-    --cap-add=NET_ADMIN \
-    byeonggiljun/cse522-lab8:amd64 \
-    bash
-```
-
 If you have already created and exited the container, reconnect with `docker start -ai cse522-lab8` rather than creating another container with the same name.
 
-Run the RTI and both federates in the same Linux environment or the same container for this experiment. First, run `ping localhost` and your completed ADAS program without added delay to record the baseline RTT, lag, and deadline behavior. Press `Ctrl+C` to stop `ping`.
+Run the RTI and both federates in the same Linux or WSL environment, or in the same container on Mac, for this experiment. First, run `ping localhost` and your completed ADAS program without added delay to record the baseline RTT, lag, and deadline behavior.
 
 Next, run these commands on Linux or inside the container to add 100 ms of delay to packets sent through the loopback interface, `lo`:
 
@@ -129,8 +141,6 @@ Next, run these commands on Linux or inside the container to add 100 ms of delay
 sudo tc qdisc add dev lo root netem delay 100ms
 ping localhost
 ```
-
-**Hint:** If you are running as root inside the container, omit `sudo`. If `add` fails because a root queue discipline already exists, inspect it with `tc qdisc show dev lo`. Remove it with the cleanup command below only if it is a setting you added for this experiment, then try again.
 
 The delay applies to all loopback traffic, including communication with the RTI, not just messages between `Vision` and `Braking`. Ping measures round-trip time (RTT): both the request and the reply are delayed, so the measured RTT may increase by approximately 200 ms rather than 100 ms. Press `Ctrl+C` to stop `ping`, then run your completed ADAS program in the same environment and compare its lag and deadline behavior with the baseline.
 
@@ -141,17 +151,24 @@ sudo tc qdisc del dev lo root
 ping localhost
 ```
 
-**Note:** The `after` clause adds a delay to the logical timestamp of a message. Changing it does not inject actual network latency. For this experiment, change the network delivery delay rather than the `after` clause.
-
 **Checkoff:** Show results (including the measured lags) for the baseline and the 100 ms added-delay condition. Explain how the results relate to availability.
 
 ## 10.5 Federated Execution
 
-Now run `Vision` and `Braking` on separate devices. Work with another student and connect both laptops to the same Wi-Fi network. One laptop will run the runtime infrastructure (RTI) and `Braking`; the other will run `Vision`.
+Now run `Vision` and `Braking` on two separate devices. One laptop (**RTI laptop**) will run the runtime infrastructure (RTI) and `Braking`; the other (**Vision laptop**) will run `Vision`.
 
-Docker is not required for this section. We recommend running the programs directly on each laptop with the necessary build and Python environments installed. If you use Docker, container addresses may differ from host addresses, and additional port forwarding, IP address configuration, or routing may be needed to communicate between laptops. The loopback delay configured in Section 10.4 does not apply to Wi-Fi traffic between the two laptops.
+**Note:** Both devices should be connected to the same network. Also, the firewall should be adjusted to allow the outbound and inbound TCP connection.
 
-The template declares `federated reactor at localhost`. Here, `localhost` refers to the computer running the program. The generated launcher runs the RTI and both federates on that computer. To connect two laptops, first run `ifconfig` on the RTI laptop and find the IPv4 address of its Wi-Fi interface. Use that address in the `federated reactor` declaration on both laptops. For example:
+For Mac users, Docker is not required for this section. We recommend running the programs directly on MacOS because Docker may require additional network setting, e.g., port forwarding.
+
+The code that we've used so far declares the federation with `federated reactor at localhost`. Here, `localhost` indicates that all three entities, `Vision`, `Braking`, and the `RTI` will be running on the same machine that compiles this file. To run them on separate devices, we need to give the IP address of the **RTI laptop**.
+
+
+### Network Setup and Compilation
+
+---
+
+First, find the IPv4 address of the **RTI laptop**. Use that address in the `federated reactor` declaration on both laptops. For example:
 
 ```lf
 federated reactor at 192.168.0.1 {
@@ -162,9 +179,38 @@ federated reactor at 192.168.0.1 {
 }
 ```
 
-Replace the example address with the RTI laptop's actual address and retain your existing connection delay and other settings. This declaration specifies the RTI's location. You will choose where each federate runs by starting its generated program separately.
+If one laptop uses WSL and the other uses Linux or Mac, run the RTI on the Linux or Mac laptop. Use that laptop's Wi-Fi IPv4 address in the `federated reactor` declaration on both laptops.
 
-On each laptop, activate the Python virtual environment and compile the same `src/ADASPolyglotSolution.lf` using `lfc-dev`. Each laptop must compile its own executables. The Vision laptop also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands below from the repository root.
+If both laptops are using WSL, we need to setup port forwarding. If you use this setup, run the RTI inside WSL on one laptop and use that laptop's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both laptops. Find the Windows Wi-Fi address with `ipconfig` in PowerShell. On both laptops, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. This simplifies the network setup, because centralized coordination routes federate messages through the RTI, avoiding separate incoming peer connections to WSL.
+
+On the laptop hosting the RTI, configure forwarding from Windows TCP port `15045` to the RTI inside WSL:
+
+1. Inside WSL, find its internal IP address:
+
+    ```sh
+    hostname -I
+    ```
+
+2. Open PowerShell **as Administrator** on that Windows host and run:
+
+    ```powershell
+    netsh interface portproxy add v4tov4 `
+        listenaddress=0.0.0.0 `
+        listenport=15045 `
+        connectaddress=172.25.123.45 `
+        connectport=15045
+    ```
+
+    Replace `172.25.123.45` with the WSL IPv4 address from step 1. This is only an example address. The WSL address may change after WSL restarts, so check it each time and update the forwarding rule if needed. See Microsoft's [WSL networking instructions](https://learn.microsoft.com/en-us/windows/wsl/networking) for details.
+
+3. Temporarily disable Windows firewall or allow inbound TCP connections to port `15045` through the Windows firewall(refer to the [New-NetFirewallRule documentation](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2025-ps)).
+
+
+### Distributed Execution
+
+---
+
+On each laptop, activate the Python virtual environment and compile the same `src/ADASPolyglotSolution.lf` using `lfc`. Each laptop must compile its own executables. The Vision laptop also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands below from the repository root.
 
 First, start the RTI on the chosen laptop:
 
