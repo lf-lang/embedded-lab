@@ -1,14 +1,10 @@
 # 10 Coordination of Distributed Cyber-Physical Systems
-<!-- TODO: Update the introduction -->
 The purpose of this exercise is to learn challenges in coordinating distributed nodes in cyber-physical systems, such as the [CAL theorem](https://doi.org/10.1145/3609119) defining the fudnamental tradeoff of consistency, availability, and latency in distributed systems. In this exercise, we are not using the Pololu robot.
 
 
 ## 10.1 Prelab
 
 **Questions**
-<!-- Read a section in the CAL theorem paper and ask a question -->
-<!-- Question about Lag (give a link? https://www.lf-lang.org/docs/next/writing-reactors/time-and-timers/) -->
-<!-- Pytorch toy example -->
 
 <style type="text/css">
     ol ol { list-style-type: lower-alpha; }
@@ -42,10 +38,6 @@ The purpose of this exercise is to learn challenges in coordinating distributed 
 ### Prerequisites
 
 ---
-<!-- 
-1. The provided LF source files, Protocol Buffers file, and input images. To build and run the program directly on your laptop, you need `lfc-dev`, a C build environment, and a Python virtual environment with PyTorch and torchvision.
-2. On Ubuntu/Debian Linux or WSL, you need `sudo` privileges and `iproute2` for the `tc` command. If `ping` is unavailable, install it with `sudo apt install iputils-ping`.
-3. On an Apple Silicon Mac, install and start Docker Desktop. The provided `byeonggiljun/cse522-lab8:arm64` image includes the files and execution environment needed for this lab. -->
 
 When setting up the environment on Ubuntu or WSL, install the Protocol Buffers compilers, the protobuf-c development library, and the Python development headers:
 
