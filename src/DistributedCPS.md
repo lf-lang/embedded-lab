@@ -36,7 +36,7 @@ The purpose of this exercise is to learn challenges in coordinating distributed 
 
     **Hint:** Review the PyTorch tensor methods `.item()` and `.tolist()`.
 
-## 10.3 ADAS Example
+## 10.2 ADAS Example
 
 
 ### Prerequisites
@@ -102,7 +102,7 @@ Please put your program in a file called `ADASPolyglotSolution.lf`.
 
 **Checkoff:** Show one complete image cycle in which only `image_10.png` is identified as a pedestrian hazard. Show that the resulting automatic brake message reaches the C `Braking` federate.
 
-## 10.4 The CAL Theorem
+## 10.3 The CAL Theorem
 
 [**Lee et al. (2023)**](https://doi.org/10.1145/3609119) proved the following result for distributed cyber-physical systems:
 
@@ -118,6 +118,10 @@ For our ADAS example:
 | **Latency** | Network round-trip time + clock sync error + computation overhead |
 
 The CAL theorem says that strong consistency requires enough waiting, or enough tolerated inconsistency, to cover apparent latency. There is no shortcut.
+
+For this exercise, use **lag** (physical time minus logical time) as a measure of unavailability: a larger lag indicates a less timely response to an event.
+
+The program uses decentralized coordination with `@maxwait(0)` on `Braking`. This setting allows `Braking` to advance without waiting for late messages from `Vision`, prioritizing availability at the possible expense of consistency.
 
 Run your completed program with the baseline network conditions, then use Linux's `tc` command to add network delay. Keep the model, camera timer, coordination settings, and connection's `after` value fixed so that you can compare the effect of network latency on lag.
 
@@ -166,9 +170,9 @@ sudo tc qdisc del dev lo root
 ping localhost
 ```
 
-**Checkoff:** Show results (including the measured lags) for the baseline and the 100 ms added-delay condition. Explain how the results relate to availability.
+**Checkoff:** Show the results for the baseline and the 100 ms added-delay condition. Compare the lag of automatic braking and manual braking separately between the two conditions, and explain how each changes. Using lag as a measure of unavailability, what effect does a delayed automatic brake signal have on the unavailability of manual braking? Explain why, referring to the local brake pedal event and the `@maxwait(0)` setting.
 
-## 10.5 Execution on separate machines
+## 10.4 Execution on separate machines
 
 Now, we will run `Vision` and `Braking` on two separate devices. One laptop (**RTI laptop**) will run the runtime infrastructure (RTI) and `Braking`; the other (**Vision laptop**) will run `Vision`.
 
@@ -252,7 +256,7 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 **Checkoff:** Show the execution results from both laptops. Demonstrate that `Vision` detects the pedestrian and sends an automatic brake request that is received by `Braking` on the other laptop.
 
 
-## 10.6 Postlab Questions
+## 10.5 Postlab Questions
 1. Considier a vehicle with ADAS (advanced driver assistance systems) that triggers the brake automatically in an emergency. Which should be more important, strong consistency or high availability? Why?
 
 2. In 10.3, we detect the pedestrian by checking only the center of the bounding box. Suppose we want to make the system triggers a brake only if a pedestrian is close enough. Which condition would you add to the current system to achive this goal?
