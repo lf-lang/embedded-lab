@@ -60,7 +60,7 @@ pip install protobuf
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 ```
 
-If creating the virtual environment fails because `venv` is unavailable on Ubuntu/Debian Linux or WSL, install it with `sudo apt install python3-venv`. Keep the virtual environment activated when compiling with `lfc-dev` and running the Python federate so that the compiler can find the correct Python environment.
+If creating the virtual environment fails because venv is unavailable on Ubuntu/Debian Linux or WSL, install it with `sudo apt install python3-venv`. If you are using a specific Python version, you may need to install the corresponding package instead (e.g., `sudo apt install python3.12-venv` for Python 3.12). Keep the virtual environment activated when compiling with `lfc-dev` and running the Python federate so that the compiler can find the correct Python environment. When you open a new shell, return to the repository root and reactivate it with `source my_env/bin/activate`.
 
 ### Exercise
 
@@ -91,6 +91,17 @@ Set `hazard` to `True` and break out of the loop when you find a qualifying dete
 Please put your program in a file called `ADASPolyglotSolution.lf`.
 
 **Hint:** Use your answers to prelab question 3 to extract the tensor values. Divide the horizontal center coordinate by `image_width` to compare it with the road region boundaries.
+
+**Note:** You may see `WARNING: Failed to accept the socket. Resource temporarily unavailable. Trying again.`. This is only a warning and can be safely ignored.
+
+**Note:** You may also see the following error:
+
+```text
+Fed 0 (braking_main): ERROR: STP violation occurred in a trigger to reaction 2, and there is no handler.
+**** Invoking reaction at the wrong tag!
+```
+
+This occurs because the program prioritizes availability over consistency: `Braking` may advance before a delayed message from `Vision` arrives. This error is expected for this exercise and can be safely ignored.
 
 **Checkoff:** Show one complete image cycle in which only `image_10.png` is identified as a pedestrian hazard. Show that the resulting automatic brake message reaches the C `Braking` federate.
 
@@ -136,12 +147,8 @@ docker run -it \
     bash
 ```
 
-The image contains the required lab files and execution environment in `~/Lab8`.
-The `NET_ADMIN` capability allows you to configure network delay inside the container. Inside the containter, active the Python virtual envirionemnt by:
-```sh
-cd ~/Lab8
-source my_env/bin/activate
-```
+The image contains the required lab files and execution environment in `~/Lab8`. A virtual environment is already available at `~/Lab8/my_env`; activate it before compiling or running the lab.
+The `NET_ADMIN` capability allows you to configure network delay inside the container.
 
 If you have already created and exited the container, reconnect with `docker start -ai cse522-lab8` rather than creating another container with the same name.
 
@@ -171,20 +178,20 @@ ping localhost
 
 ## 10.4 Execution on separate machines
 
-Now, we will run `Vision` and `Braking` on two separate devices. One laptop (**RTI laptop**) will run the runtime infrastructure (RTI) and `Braking`; the other (**Vision laptop**) will run `Vision`.
+Now, we will run `Vision` and `Braking` on two separate devices (e.g., laptops or desktops). One device (**RTI device**) will run the runtime infrastructure (RTI) and `Braking`; the other (**Vision device**) will run `Vision`.
 
 **Note:** Both devices should be connected to the same network. Also, the firewall should be adjusted to allow the outbound and inbound TCP connection.
 
 For Mac users, Docker is not required for this section. We recommend running the programs directly on MacOS because Docker may require additional network setting, e.g., port forwarding.
 
-The code that we've used so far declares the federation with `federated reactor at localhost`. Here, `localhost` indicates that all three entities, `Vision`, `Braking`, and the `RTI` will be running on the same machine that compiles this file. To run them on separate devices, we need to give the IP address of the **RTI laptop**.
+The code that we've used so far declares the federation with `federated reactor at localhost`. Here, `localhost` indicates that all three entities, `Vision`, `Braking`, and the `RTI` will be running on the same machine that compiles this file. To run them on separate devices, we need to give the IP address of the **RTI device**.
 
 
 ### Network Setup and Compilation
 
 ---
 
-First, find the IPv4 address of the **RTI laptop**. Use that address in the `federated reactor` declaration on both laptops. For example:
+First, find the IPv4 address of the **RTI device**. Use that address in the `federated reactor` declaration on both devices. For example:
 
 ```lf
 federated reactor at 192.168.0.1 {
@@ -195,11 +202,11 @@ federated reactor at 192.168.0.1 {
 }
 ```
 
-If one laptop uses WSL and the other uses Linux or Mac, run the RTI on the Linux or Mac laptop. Use that laptop's Wi-Fi IPv4 address in the `federated reactor` declaration on both laptops.
+If one device uses WSL and the other uses Linux or Mac, run the RTI on the Linux or Mac device. Use that device's Wi-Fi IPv4 address in the `federated reactor` declaration on both devices.
 
-If both laptops are using WSL, we need to setup port forwarding. If you use this setup, run the RTI inside WSL on one laptop and use that laptop's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both laptops. Find the Windows Wi-Fi address with `ipconfig` in PowerShell. On both laptops, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. This simplifies the network setup, because centralized coordination routes federate messages through the RTI, avoiding separate incoming peer connections to WSL.
+If both devices are using WSL, we need to setup port forwarding. If you use this setup, run the RTI inside WSL on one device and use that device's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both devices. Find the Windows Wi-Fi address with `ipconfig` in PowerShell. On both devices, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. This simplifies the network setup, because centralized coordination routes federate messages through the RTI, avoiding separate incoming peer connections to WSL.
 
-On the laptop hosting the RTI, configure forwarding from Windows TCP port `15045` to the RTI inside WSL:
+On the device hosting the RTI, configure forwarding from Windows TCP port `15045` to the RTI inside WSL:
 
 1. Inside WSL, find its internal IP address:
 
@@ -228,21 +235,21 @@ On the laptop hosting the RTI, configure forwarding from Windows TCP port `15045
 
 In this exercise, we will run each executable seaparately instead of using the script `bin/ADASPolyglotSolution`. 
 
-On each laptop, activate the Python virtual environment and compile the same `src/ADASPolyglotSolution.lf` using `lfc`. Each laptop must compile its own executables. The Vision laptop also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands below from the repository root.
+On each device, activate the Python virtual environment and compile the same `src/ADASPolyglotSolution.lf` using `lfc`. Each device must compile its own executables. The Vision device also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands below from the repository root.
 
-First, start the RTI on the chosen laptop:
+First, start the RTI on the chosen device:
 
 ```sh
 fed-gen/ADASPolyglotSolution/bin/RTI -n 2 -i adas-lab
 ```
 
-The `-n 2` option tells the RTI to expect two federates. In another terminal on the same laptop, start `Braking`:
+The `-n 2` option tells the RTI to expect two federates. In another terminal on the same device, start `Braking`:
 
 ```sh
 fed-gen/ADASPolyglotSolution/bin/federate__braking -i adas-lab
 ```
 
-On the other laptop, activate the Python virtual environment and start `Vision`:
+On the other device, activate the Python virtual environment and start `Vision`:
 
 ```sh
 fed-gen/ADASPolyglotSolution/bin/federate__vision -i adas-lab
@@ -250,7 +257,7 @@ fed-gen/ADASPolyglotSolution/bin/federate__vision -i adas-lab
 
 All three programs must use the same federation ID, here `adas-lab`. For this experiment, start the programs individually rather than using the launcher that starts both federates together.
 
-**Checkoff:** Show the execution results from both laptops. Demonstrate that `Vision` detects the pedestrian and sends an automatic brake request that is received by `Braking` on the other laptop.
+**Checkoff:** Show the execution results from both devices. Demonstrate that `Vision` detects the pedestrian and sends an automatic brake request that is received by `Braking` on the other device.
 
 
 ## 10.5 Postlab Questions
