@@ -180,7 +180,7 @@ ping localhost
 
 Now, we will run `Vision` and `Braking` on two separate devices (e.g., laptops or desktops). One device (**RTI device**) will run the runtime infrastructure (RTI) and `Braking`; the other (**Vision device**) will run `Vision`.
 
-**Note:** Both devices should be connected to the same network. Also, the firewall should be adjusted to allow the outbound and inbound TCP connection.
+**Note:** Both devices should be connected to the same network. As a sanity check, find the IPv4 address of each device and verify that they can ping each other before continuing. Some Wi-Fi routers, especially those on guest or campus networks, may prevent connected devices from communicating with each other. If possible, we recommend connecting both devices to a personal mobile hotspot instead. Also, the firewall should be adjusted to allow the outbound and inbound TCP connection.
 
 For Mac users, Docker is not required for this section. We recommend running the programs directly on MacOS because Docker may require additional network setting, e.g., port forwarding.
 
@@ -204,6 +204,7 @@ federated reactor at 192.168.0.1 {
 
 If one device uses WSL and the other uses Linux or Mac, run the RTI on the Linux or Mac device. Use that device's Wi-Fi IPv4 address in the `federated reactor` declaration on both devices.
 
+#### Additional setps for connecting two WSL devices
 If both devices are using WSL, we need to setup port forwarding. If you use this setup, run the RTI inside WSL on one device and use that device's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both devices. Find the Windows Wi-Fi address with `ipconfig` in PowerShell. On both devices, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. This simplifies the network setup, because centralized coordination routes federate messages through the RTI, avoiding separate incoming peer connections to WSL.
 
 On the device hosting the RTI, configure forwarding from Windows TCP port `15045` to the RTI inside WSL:
@@ -226,7 +227,7 @@ On the device hosting the RTI, configure forwarding from Windows TCP port `15045
 
     Replace `172.25.123.45` with the WSL IPv4 address from step 1. This is only an example address. The WSL address may change after WSL restarts, so check it each time and update the forwarding rule if needed. See Microsoft's [WSL networking instructions](https://learn.microsoft.com/en-us/windows/wsl/networking) for details.
 
-3. Temporarily disable Windows firewall or allow inbound TCP connections to port `15045` through the Windows firewall(refer to the [New-NetFirewallRule documentation](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2025-ps)).
+3. Allow inbound TCP connections to port `15045` through the Windows firewall(refer to the [New-NetFirewallRule documentation](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2025-ps)) or temporaily disable Windows firewall.
 
 
 ### Distributed Execution
