@@ -136,7 +136,12 @@ docker run -it \
     bash
 ```
 
-The image contains the required lab files and execution environment. The `NET_ADMIN` capability allows you to configure network delay inside the container.
+The image contains the required lab files and execution environment in `~/Lab8`.
+The `NET_ADMIN` capability allows you to configure network delay inside the container. Inside the containter, active the Python virtual envirionemnt by:
+```sh
+cd ~/Lab8
+source my_env/bin/activate
+```
 
 If you have already created and exited the container, reconnect with `docker start -ai cse522-lab8` rather than creating another container with the same name.
 
