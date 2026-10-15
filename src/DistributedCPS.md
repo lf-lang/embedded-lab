@@ -13,8 +13,8 @@ The purpose of this exercise is to learn challenges in coordinating distributed 
 1. Read the first seven paragraphs of the Introduction of the paper ["Consistency vs. Availability in Distributed Cyber-Physical Systems"](https://doi.org/10.1145/3609119).
     1. Consider a warehouse where multiple distributed robots work together. Since the aisles are narrow, the robots share information about aisle occupancy to avoid collisions or blocking each other. Therefore, it is important to ensure that all robots have the same view of the current aisle occupancy. Which of the following properties is most directly related to this requirement: **consistency, availability, or latency**? Briefly explain your answer.
     2. Consider a vehicle equipped with an advanced driver assistance system (ADAS), where both an autonomous vision-based system and the physical brake pedal can trigger the braking system. When either input source generates a braking request, it is important to actiavate brakes as quickly as possible. Which of the following properties is most directly related to this requirement: **consistency, availability, or latency**? Briefly explain your answer.
-    3. The paper mentiones that network partitioning is a limiting case of network latency. How could we express the network partitioning using the network latency? Specifically, consider two distributed nodes where the network latency is $l$. What would be the value of $l$ if the network is partitioned?
-2. In Lingua Franca, the term **lag** is defined as physical time minus logical time ([LF Handbook - time and timers](https://www.lf-lang.org/docs/next/writing-reactors/time-and-timers/)). For instance, if a reaction is executed at physical time $106\,ms$, where the scheduled logical time is $100\,ms$, the lag is $6\,ms$.
+    3. The paper mentiones that network partitioning is a limiting case of network latency. How could we express the network partitioning using the network latency? Specifically, consider two distributed nodes where the network latency is `l`. What would be the value of `l` if the network is partitioned?
+2. In Lingua Franca, the term **lag** is defined as physical time minus logical time ([LF Handbook - time and timers](https://www.lf-lang.org/docs/next/writing-reactors/time-and-timers/)). For instance, if a reaction is executed at physical time `106 ms`, where the scheduled logical time is `100 ms`, the lag is `6 ms`.
     1. **True or False**: In general, a larger lag corresponds to lower availability. Briefly explain your answer. **Hint** You can refer to Section 4.2 in the [CAL theorem](https://doi.org/10.1145/3609119) paper.
     2. Can a lag become negative in Lingua Franca under the default execution semantics of reactor model? Briefly explain your answer.
 3. Extracting values from PyTorch tensors. A pretrained object detection model returns a dictionary containing three tensors: `prediction["labels"]` contains object category IDs, `prediction["scores"]` contains confidence scores, and `prediction["boxes"]` contains bounding boxes in the form `[x1, y1, x2, y2]`. The following loop examines one detection at a time:
@@ -48,7 +48,7 @@ sudo apt install protobuf-compiler protobuf-c-compiler libprotobuf-c-dev python3
 On Mac, install Protocol Buffers with Homebrew:
 
 ```sh
-brew install protobuf
+brew install protobuf protobuf-c
 ```
 
 From the repository root, create and activate a Python virtual environment, then install the Python dependencies:
@@ -74,7 +74,7 @@ First, examine and run the template with the following commands:
 lfc src/ADASPolyglotTemplate.lf
 ./bin/ADASPolyglotTemplate
 ```
-`lfc` will create three separate executables (`federate_vision`, `federate_braking`, and `RTI`) in `fed-gen/ADASPolyglotTemplate/bin/`, along with the script (`bin/ADASPolyglotTemplate`) running all executables.
+`lfc` will create three separate executables (`federate__vision`, `federate__braking`, and `RTI`) in `fed-gen/ADASPolyglotTemplate/bin/`, along with the script (`bin/ADASPolyglotTemplate`) running all executables.
 
 The `Camera` reactor reads the images in numeric order and repeatedly sends them on a timer with a period of 1 sec. `PedestrianDetector` loads a pretrained torchvision Faster R-CNN model and runs inference on each frame. However, the unfinished condition skips every detection, so the template reports no pedestrian hazard and sends no automatic brake requests. `BrakePedal` schedules a manual brake event every 5 s. 
 
