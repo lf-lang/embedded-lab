@@ -65,7 +65,28 @@ If creating the virtual environment fails because venv is unavailable on Ubuntu/
 ### Exercise
 
 ---
-In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS). Copy the provided [ADASPolyglotTemplate.lf](./ADASPolyglotTemplate.lf) to `src/ADASPolyglotSolution.lf`. Keep [ProtoAdas.proto](./ProtoAdas.proto) in `src/` and the supplied images in the repository's `data/` directory. Run the program from the repository root so that the camera can find the images.
+In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS). Download the following lab files directly from this page:
+
+- <a href="ADASPolyglotTemplate.lf" download>Download ADASPolyglotTemplate.lf</a>
+- <a href="ProtoAdas.proto" download>Download ProtoAdas.proto</a>
+- <a href="dataset/pedestrians.zip" download>Download pedestrians.zip (11 images)</a>
+
+Suppose your repository root is `<root>`. Save `ADASPolyglotTemplate.lf` and `ProtoAdas.proto` in `<root>/src/`, and save `pedestrians.zip` in `<root>/`. The ZIP contains a `data/` folder with 11 images selected from the [Caltech Pedestrians dataset](https://data.caltech.edu/records/f6rph-90m20) and an `ATTRIBUTION.txt` file. From `<root>`, extract the ZIP and create your solution file. Your files should have the following layout:
+
+```text
+<root>/
+├── src/
+│   ├── ADASPolyglotTemplate.lf
+│   └── ProtoAdas.proto
+├── data/
+│   ├── image_1.png
+│   ├── ...
+│   ├── image_11.png
+│   └── ATTRIBUTION.txt
+└── my_env/
+```
+
+Keep `data/` alongside `src/`, and run all compilation and execution commands from `<root>` so that the programs can find the images.
 
 This program is a **polyglot federation**, a collection of federates implemented in different target languages. The `Vision` federate uses Python for image processing, while the `Braking` federate uses C for the brake pedal and brake reactions. The `@language` annotations specify their languages, and the `"proto"` serializer lets them exchange Protocol Buffers messages. Read the [LF Handbook section on Polyglot Federations](https://www.lf-lang.org/docs/writing-reactors/polyglot/) for more information.
 
@@ -237,6 +258,10 @@ On the device hosting the RTI, configure forwarding from Windows TCP port `15045
 In this exercise, we will run each executable seaparately instead of using the script `bin/ADASPolyglotSolution`. 
 
 On each device, activate the Python virtual environment and compile the same `src/ADASPolyglotSolution.lf` using `lfc`. Each device must compile its own executables. The Vision device also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands below from the repository root.
+
+On each device, prepare the same file structure as in Section 10.2. Use the same RTI address and coordination settings in both copies of the solution, as described above.
+
+Each device must compile its own executables. Run all commands below from that device's repository root with the virtual environment activated in each terminal.
 
 First, start the RTI on the chosen device:
 

@@ -1,0 +1,172 @@
+target polyglot {
+    protobufs: [ProtoAdas.proto],
+    coordination: decentralized
+}
+
+@language(Python)
+reactor Camera {
+    preamble {= from pathlib import Path; import torchvision.io as io =}
+
+    timer t(0, 1 sec)
+    output frame
+
+    state image_paths
+    state index = 0
+
+    reaction(startup) {=
+        data_dir = self.Path("data")
+        self.image_paths = sorted(
+            data_dir.glob("image_*.png"),
+            key=lambda path: int(path.stem.rsplit("_", maxsplit=1)[1]),
+        )
+
+        if not self.image_paths:
+            raise RuntimeError(f"No input images found in {data_dir.resolve()}")
+    =}
+
+    reaction (t) -> frame {=
+        image_path = self.image_paths[self.index]
+        self.index = (self.index + 1) % len(self.image_paths) # Roll over when reaching the last image.
+
+        image = self.io.read_image(str(image_path)).float().div(255.0)
+        print(f"[camera] Sending {image_path.name} - {int(lf.time.physical_elapsed() / 1_000_000)} ms.")
+        frame.set(image)
+    =}
+}
+
+@language(Python)
+reactor PedestrianDetector {
+    preamble {= import torch, torchvision.models.detection as detection =}
+
+    input frame
+    output trigger_brake
+
+    state model
+    state device
+    state count = 0
+
+    reaction(startup) {=
+        self.device = self.torch.device(
+            "cuda" if self.torch.cuda.is_available() else "cpu"
+        )
+        self.model = self.detection.fasterrcnn_resnet50_fpn(
+            weights=self.detection.FasterRCNN_ResNet50_FPN_Weights.DEFAULT
+        )
+        self.model.to(self.device).eval()
+        print(f"[vision] Pedestrian detector ready on {self.device}.")
+    =}
+
+    reaction(frame) -> trigger_brake {=
+        # TODO: Initialize the variables according to the system specification.
+        score_threshold = 0
+        road_region_left_fraction = 0
+        road_region_right_fraction = 0
+
+        self.count += 1
+        image = frame.value
+        image_width = image.shape[-1]
+
+        with self.torch.inference_mode():
+            prediction = self.model([image.to(self.device)])[0]
+
+        hazard = False
+        for label, score_tensor, box_tensor in zip(
+            prediction["labels"], prediction["scores"], prediction["boxes"]
+        ):
+            if True:  # TODO: check if label, a zero-dimensional PyTorch tensor, is not 1 ( which is "person" in COCO category).
+                continue
+
+            # TODO: if the label is "person", compare the score. Then, compare the center of the bounding box, and check if the center is within the road area defined by road_region_left_fraction and road_region_right_fraction. If all conditions are met, set the hazard to True and break the loop.
+
+        if hazard:
+            print(f"[vision] Frame {self.count}: pedestrian hazard ")
+            print(f"[automatic] Send the brake signal - {int(lf.time.physical_elapsed() / 1_000_000)} ms.")
+            protoAdas = ProtoAdas.ProtoAdas()
+            protoAdas.value = 1
+            trigger_brake.set(protoAdas)
+        else:
+            print(f"[vision] Frame {self.count}: no pedestrian hazard.")
+    =}
+}
+
+@language(C)
+reactor BrakePedal {
+    preamble {=
+        // Thread to trigger an action once every second.
+        void* detect_brake(void* actionref) {
+            while(true) {
+                lf_sleep(SEC(5));
+                lf_print("[manual] Pressing the break pedal - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
+                lf_schedule(actionref, 0);
+            }
+            return NULL;
+        }
+    =}
+
+    physical action pedal
+    output trigger_brake: bool
+
+    reaction(startup) -> pedal {=
+        lf_thread_t thread_id;
+        lf_thread_create(&thread_id, &detect_brake, pedal);
+    =}
+
+    reaction(pedal) -> trigger_brake {=
+        lf_print("[manual] Send the brake signal - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
+        lf_set(trigger_brake, true);
+    =}
+}
+
+@language(C)
+reactor Brake {
+    input brake_assistant: ProtoAdas*
+    input brake_pedal: bool
+
+    reaction(brake_pedal) {=
+        lf_print("[system] Brake triggered - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
+        lf_print("[system] source: manual\n");
+        lf_print("[system] Manual braking lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - lf_time_logical_elapsed())/MSEC(1));
+    =} deadline (3 msecs) {=
+        lf_print("[error] Deadline on manual braking violated - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
+
+        lf_print("[error] The lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - lf_time_logical_elapsed())/MSEC(1));
+    =}
+
+    reaction(brake_assistant) {=
+        lf_print("[system] Brake triggered - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
+        lf_print("[system] source: assistant\n");
+        lf_print("[system] Automatic braking lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - lf_time_logical_elapsed())/MSEC(1));
+    =} deadline (10 msecs) {=
+        lf_print("[error] Deadline on automatic braking violated - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
+
+        lf_print("[error] The lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - lf_time_logical_elapsed())/MSEC(1));
+    =}
+}
+
+@language(C)
+reactor Braking {
+    input brake_assistant: ProtoAdas*
+    pedal = new BrakePedal()
+    brake = new Brake()
+
+    pedal.trigger_brake -> brake.brake_pedal
+    brake_assistant -> brake.brake_assistant
+}
+
+@language(Python)
+reactor Vision {
+    output trigger_brake
+    camera = new Camera()
+    detect = new PedestrianDetector()
+
+    camera.frame -> detect.frame
+    detect.trigger_brake -> trigger_brake
+}
+
+federated reactor at localhost {
+    @maxwait(0)
+    braking = new Braking()
+    vision = new Vision()
+
+    vision.trigger_brake -> braking.brake_assistant after 10 msec serializer "proto"
+}
