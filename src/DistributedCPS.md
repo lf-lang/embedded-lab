@@ -12,8 +12,8 @@ The purpose of this exercise is to learn challenges in coordinating distributed 
 
 1. Read the first seven paragraphs of the Introduction of the paper ["Consistency vs. Availability in Distributed Cyber-Physical Systems"](https://doi.org/10.1145/3609119).
     1. Consider a warehouse where multiple distributed robots work together. Since the aisles are narrow, the robots share information about aisle occupancy to avoid collisions or blocking each other. Therefore, it is important to ensure that all robots have the same view of the current aisle occupancy. Which of the following properties is most directly related to this requirement: **consistency, availability, or latency**? Briefly explain your answer.
-    2. Consider a vehicle equipped with an advanced driver assistance system (ADAS), where both an autonomous vision-based system and the physical brake pedal can trigger the braking system. When either input source generates a braking request, it is important to actiavate brakes as quickly as possible. Which of the following properties is most directly related to this requirement: **consistency, availability, or latency**? Briefly explain your answer.
-    3. The paper mentiones that network partitioning is a limiting case of network latency. How could we express the network partitioning using the network latency? Specifically, consider two distributed nodes where the network latency is `l`. What would be the value of `l` if the network is partitioned?
+    2. Consider a vehicle equipped with an advanced driver assistance system (ADAS), where both an autonomous vision-based system and the physical brake pedal can trigger the braking system. When either input source generates a braking request, it is important to activate brakes as quickly as possible. Which of the following properties is most directly related to this requirement: **consistency, availability, or latency**? Briefly explain your answer.
+    3. The paper mentiones that network partitioning is a limiting case of network latency. How could we express the network partitioning using the network latency? Specifically, consider two distributed nodes where the network latency is `L`. What would be the value of `L` if the network is partitioned?
 2. In Lingua Franca, the term **lag** is defined as physical time minus logical time ([LF Handbook - time and timers](https://www.lf-lang.org/docs/next/writing-reactors/time-and-timers/)). For instance, if a reaction is executed at physical time `106 ms`, where the scheduled logical time is `100 ms`, the lag is `6 ms`.
     1. **True or False**: In general, a larger lag corresponds to lower availability. Briefly explain your answer. **Hint** You can refer to Section 4.2 in the [CAL theorem](https://doi.org/10.1145/3609119) paper.
     2. Can a lag become negative in Lingua Franca under the default execution semantics of reactor model? Briefly explain your answer.
@@ -141,7 +141,7 @@ For our ADAS example:
 | **Availability** | How quickly an operator's command takes effect (low wait = high availability) |
 | **Latency** | Network round-trip time + clock sync error + computation overhead |
 
-The CAL theorem says that strong consistency requires enough waiting, or enough tolerated inconsistency, to cover apparent latency. There is no shortcut.
+The CAL theorem says that strong consistency requires enough waiting to cover apparent latency; reducing that waiting can require tolerating inconsistency instead. There is no shortcut.
 
 For this exercise, use **lag** (physical time minus logical time) as a measure of unavailability: a larger lag indicates a less timely response to an event.
 
@@ -203,7 +203,7 @@ Now, we will run `Vision` and `Braking` on two separate devices (e.g., laptops o
 
 **Note:** Both devices should be connected to the same network. As a sanity check, find the IPv4 address of each device and verify that they can ping each other before continuing. Some Wi-Fi routers, especially those on guest or campus networks, may prevent connected devices from communicating with each other. If possible, we recommend connecting both devices to a personal mobile hotspot instead. Also, the firewall should be adjusted to allow the outbound and inbound TCP connection.
 
-For Mac users, Docker is not required for this section. We recommend running the programs directly on MacOS because Docker may require additional network setting, e.g., port forwarding.
+For Mac users, Docker is not required for this section. We recommend running the programs directly on macOS because Docker may require additional network setting, e.g., port forwarding.
 
 The code that we've used so far declares the federation with `federated reactor at localhost`. Here, `localhost` indicates that all three entities, `Vision`, `Braking`, and the `RTI` will be running on the same machine that compiles this file. To run them on separate devices, we need to give the IP address of the **RTI device**.
 
@@ -225,7 +225,7 @@ federated reactor at 192.168.0.1 {
 
 If one device uses WSL and the other uses Linux or Mac, run the RTI on the Linux or Mac device. Use that device's Wi-Fi IPv4 address in the `federated reactor` declaration on both devices.
 
-#### Additional setps for connecting two WSL devices
+#### Additional setup for connecting two WSL devices
 If both devices are using WSL, we need to setup port forwarding. If you use this setup, run the RTI inside WSL on one device and use that device's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both devices. Find the Windows Wi-Fi address with `ipconfig` in PowerShell. On both devices, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. This simplifies the network setup, because centralized coordination routes federate messages through the RTI, avoiding separate incoming peer connections to WSL.
 
 On the device hosting the RTI, configure forwarding from Windows TCP port `15045` to the RTI inside WSL:
@@ -255,7 +255,7 @@ On the device hosting the RTI, configure forwarding from Windows TCP port `15045
 
 ---
 
-In this exercise, we will run each executable seaparately instead of using the script `bin/ADASPolyglotSolution`. 
+In this exercise, we will run each executable separately instead of using the script `bin/ADASPolyglotSolution`. 
 
 On each device, activate the Python virtual environment and compile the same `src/ADASPolyglotSolution.lf` using `lfc`. Each device must compile its own executables. The Vision device also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands below from the repository root.
 
@@ -287,7 +287,7 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 
 
 ## 10.5 Postlab Questions
-1. Considier a vehicle with ADAS (advanced driver assistance systems) that triggers the brake automatically in an emergency. Which should be more important, strong consistency or high availability? Why?
+1. Consider a vehicle with ADAS (advanced driver assistance systems) that triggers the brake automatically in an emergency. Which should be more important, strong consistency or high availability? Why?
 
 2. In 10.3, we detect the pedestrian by checking only the center of the bounding box. Suppose we want to make the system triggers a brake only if a pedestrian is close enough. Which condition would you add to the current system to achive this goal?
   
