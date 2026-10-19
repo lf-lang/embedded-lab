@@ -60,16 +60,16 @@ pip install protobuf
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 ```
 
-If creating the virtual environment fails because venv is unavailable on Ubuntu/Debian Linux or WSL, install it with `sudo apt install python3-venv`. If you are using a specific Python version, you may need to install the corresponding package instead (e.g., `sudo apt install python3.12-venv` for Python 3.12). Keep the virtual environment activated when compiling with `lfc-dev` and running the Python federate so that the compiler can find the correct Python environment. When you open a new shell, return to the repository root and reactivate it with `source my_env/bin/activate`.
+If creating the virtual environment fails because venv is unavailable on Ubuntu or WSL, install it with `sudo apt install python3-venv`. If you are using a specific Python version, you may need to install the corresponding package instead (e.g., `sudo apt install python3.12-venv` for Python 3.12). Keep the virtual environment activated when compiling with `lfc-dev` and running the Python federate so that the compiler can find the correct Python environment. When you open a new shell, return to the repository root and reactivate it with `source my_env/bin/activate`.
 
 ### Exercise
 
 ---
-In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS). Download the following lab files directly from this page:
+In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS). Download the following lab files:
 
-- <a href="ADASPolyglotTemplate.lf" download>Download ADASPolyglotTemplate.lf</a>
-- <a href="ProtoAdas.proto" download>Download ProtoAdas.proto</a>
-- <a href="dataset/pedestrians.zip" download>Download pedestrians.zip (11 images)</a>
+ - [Download ADASPolyglotTemplate.lf](./materials/src/ADASPolyglotTemplate.lf)
+ - [Download ProtoAdas.proto](./materials/src/ProtoAdas.proto)
+ - [Download pedestrians.zip](./materials/dataset/pedestrians.zip)
 
 Suppose your repository root is `<root>`. Save `ADASPolyglotTemplate.lf` and `ProtoAdas.proto` in `<root>/src/`, and save `pedestrians.zip` in `<root>/`. The ZIP contains a `data/` folder with 11 images selected from the [Caltech Pedestrians dataset](https://data.caltech.edu/records/f6rph-90m20) and an `ATTRIBUTION.txt` file. From `<root>`, extract the ZIP and create your solution file. Your files should have the following layout:
 
@@ -114,15 +114,6 @@ Please put your program in a file called `ADASPolyglotSolution.lf`.
 **Hint:** Use your answers to prelab question 3 to extract the tensor values. Divide the horizontal center coordinate by `image_width` to compare it with the road region boundaries.
 
 **Note:** You may see `WARNING: Failed to accept the socket. Resource temporarily unavailable. Trying again.`. This is only a warning and can be safely ignored.
-
-**Note:** You may also see the following error:
-
-```text
-Fed 0 (braking_main): ERROR: STP violation occurred in a trigger to reaction 2, and there is no handler.
-**** Invoking reaction at the wrong tag!
-```
-
-This occurs because the program prioritizes availability over consistency: `Braking` may advance before a delayed message from `Vision` arrives. This error is expected for this exercise and can be safely ignored.
 
 **Checkoff:** Show one complete image cycle in which only `image_10.png` is identified as a pedestrian hazard. Show that the resulting automatic brake message reaches the C `Braking` federate.
 
@@ -175,12 +166,14 @@ If you have already created and exited the container, reconnect with `docker sta
 
 First, run `ping localhost` and `ADASPolyglotSolution.lf` without added delay.
 
-Next, run these commands on Linux or inside the container to add 100 ms of delay to packets sent through the loopback interface, `lo`:
+Next, run these commands on Ubuntu or inside the container to add 100 ms of delay to packets sent through the loopback interface, `lo`:
 
 ```sh
 sudo tc qdisc add dev lo root netem delay 100ms
 ping localhost
 ```
+
+**Note:** When running the command inside a Docker container, omit sudo from the first line.
 
 Ping allows you to confirm that the delay has been applied. Ideally, it will show around 200 ms of delay because the delay is applied to both incoming and outgoing directions. After confirming the applied delay, run the `ADASPolyglotSolution.lf` program.
 
@@ -194,6 +187,8 @@ After the experiment, remove the added delay and run `ping localhost` again to v
 sudo tc qdisc del dev lo root
 ping localhost
 ```
+
+**Note:** When running the command inside a Docker container, omit sudo from the first line.
 
 **Checkoff:** Show the results for the baseline and the 100 ms added-delay condition. Compare the lag of automatic braking and manual braking separately between the two conditions, and explain how each changes. Using lag as a measure of unavailability, what effect does a delayed automatic brake signal have on the unavailability of manual braking? Explain why, referring to the local brake pedal event and the `@maxwait(0)` setting.
 
@@ -223,7 +218,7 @@ federated reactor at 192.168.0.1 {
 }
 ```
 
-If one device uses WSL and the other uses Linux or Mac, run the RTI on the Linux or Mac device. Use that device's Wi-Fi IPv4 address in the `federated reactor` declaration on both devices.
+If one device uses WSL and the other uses Ubuntu or Mac, run the RTI on the Ubuntu or Mac device. Use that device's Wi-Fi IPv4 address in the `federated reactor` declaration on both devices.
 
 #### Additional setup for connecting two WSL devices
 If both devices are using WSL, we need to setup port forwarding. If you use this setup, run the RTI inside WSL on one device and use that device's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both devices. Find the Windows Wi-Fi address with `ipconfig` in PowerShell. On both devices, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. This simplifies the network setup, because centralized coordination routes federate messages through the RTI, avoiding separate incoming peer connections to WSL.
