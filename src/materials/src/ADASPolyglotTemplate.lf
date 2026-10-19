@@ -96,7 +96,7 @@ reactor BrakePedal {
         void* detect_brake(void* actionref) {
             while(true) {
                 lf_sleep(SEC(5));
-                lf_print("[manual] Pressing the break pedal - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
+                lf_print("[manual] Pressing the brake pedal - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
                 lf_schedule(actionref, 0);
             }
             return NULL;
