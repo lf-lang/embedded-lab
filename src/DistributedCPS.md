@@ -99,7 +99,7 @@ lfc src/ADASPolyglotTemplate.lf
 
 The `Camera` reactor reads the images in numeric order and repeatedly sends them on a timer with a period of 1 sec. `PedestrianDetector` loads a pretrained torchvision Faster R-CNN model and runs inference on each frame. However, the unfinished condition skips every detection, so the template reports no pedestrian hazard and sends no automatic brake requests. `BrakePedal` schedules a manual brake event every 5 s. 
 
-**Note:** The actual reaction times and any deadline violations depend on coordination and computation delays. Since we're using CPU (not GPU) for inference, we set the period of inference to 1 sec to give enough time for each inference.
+**Note:** The actual reaction times depend on computation delays. Since we're using CPU (not GPU) for inference, we set the period of inference to 1 sec to give enough time for each inference.
 
 Your task is to complete the TODOs in `PedestrianDetector`. A detection should trigger an automatic brake request only if all of the following conditions hold:
 
@@ -138,7 +138,7 @@ For this exercise, use **lag** (physical time minus logical time) as a measure o
 
 The program uses decentralized coordination with `@maxwait(0)` on `Braking`. This setting allows `Braking` to advance without waiting for late messages from `Vision`, prioritizing availability at the possible expense of consistency.
 
-Run your completed program with the baseline network conditions, then use Linux's `tc` command to add network delay. Keep the model, camera timer, coordination settings, and connection's `after` value fixed so that you can compare the effect of network latency on lag.
+Run your completed program with the baseline network conditions, then use Linux's `tc` command to add network delay. Keep the program itself fixed so that you can compare the effect of network latency on lag.
 
 On Ubuntu and WSL, install `iproute2`:
 
@@ -243,8 +243,7 @@ On the device hosting the RTI, configure forwarding from Windows TCP port `15045
 
     Replace `172.25.123.45` with the WSL IPv4 address from step 1. This is only an example address. The WSL address may change after WSL restarts, so check it each time and update the forwarding rule if needed. See Microsoft's [WSL networking instructions](https://learn.microsoft.com/en-us/windows/wsl/networking) for details.
 
-3. Allow inbound TCP connections to port `15045` through the Windows firewall(refer to the [New-NetFirewallRule documentation](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2025-ps)) or temporaily disable Windows firewall.
-
+3. Allow inbound TCP connections to port `15045` through the Windows firewall (refer to the [New-NetFirewallRule documentation](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2025-ps)) or temporaily disable Windows firewall (**warning:** disabling firewall is risky; we cannot help you resolve any security issue that this may cause).
 
 ### Distributed Execution
 

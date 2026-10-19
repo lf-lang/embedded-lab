@@ -126,21 +126,13 @@ reactor Brake {
         lf_print("[system] Brake triggered - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
         lf_print("[system] source: manual\n");
         lf_print("[system] Manual braking lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - lf_time_logical_elapsed())/MSEC(1));
-    =} tardy deadline (3 msecs) {=
-        lf_print("[error] Deadline on manual braking violated - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
-
-        lf_print("[error] The lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - lf_time_logical_elapsed())/MSEC(1));
-    =}
+    =} tardy
 
     reaction(brake_assistant) {=
         lf_print("[system] Brake triggered - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
         lf_print("[system] source: assistant\n");
         lf_print("[system] Automatic braking lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - lf_time_logical_elapsed())/MSEC(1));
-    =} tardy deadline (10 msecs) {=
-        lf_print("[error] Deadline on automatic braking violated - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
-
-        lf_print("[error] The lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - lf_time_logical_elapsed())/MSEC(1));
-    =}
+    =} tardy
 }
 
 @language(C)
@@ -168,5 +160,5 @@ federated reactor at localhost {
     braking = new Braking()
     vision = new Vision()
 
-    vision.trigger_brake -> braking.brake_assistant after 10 msec serializer "proto"
+    vision.trigger_brake -> braking.brake_assistant serializer "proto"
 }
