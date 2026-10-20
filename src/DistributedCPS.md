@@ -1,5 +1,5 @@
 # 10 Coordination of Distributed Cyber-Physical Systems
-The purpose of this exercise is to learn challenges in coordinating distributed nodes in cyber-physical systems, such as the [CAL theorem](https://doi.org/10.1145/3609119) defining the fudnamental tradeoff of consistency, availability, and latency in distributed systems. In this exercise, we are not using the Pololu robot.
+The purpose of this exercise is to learn about the challenges in coordinating distributed nodes in cyber-physical systems, including the fundamental tradeoff among consistency, availability, and latency described by the [CAL theorem](https://doi.org/10.1145/3609119). In this exercise, we are not using the Pololu robot.
 
 
 ## 10.1 Prelab
@@ -13,10 +13,10 @@ The purpose of this exercise is to learn challenges in coordinating distributed 
 1. Read the first seven paragraphs of the Introduction of the paper ["Consistency vs. Availability in Distributed Cyber-Physical Systems"](https://doi.org/10.1145/3609119).
     1. Consider a warehouse where multiple distributed robots work together. Since the aisles are narrow, the robots share information about aisle occupancy to avoid collisions or blocking each other. Therefore, it is important to ensure that all robots have the same view of the current aisle occupancy. Which of the following properties is most directly related to this requirement: **consistency, availability, or latency**? Briefly explain your answer.
     2. Consider a vehicle equipped with an advanced driver assistance system (ADAS), where both an autonomous vision-based system and the physical brake pedal can trigger the braking system. When either input source generates a braking request, it is important to activate brakes as quickly as possible. Which of the following properties is most directly related to this requirement: **consistency, availability, or latency**? Briefly explain your answer.
-    3. The paper mentiones that network partitioning is a limiting case of network latency. How could we express the network partitioning using the network latency? Specifically, consider two distributed nodes where the network latency is `L`. What would be the value of `L` if the network is partitioned?
+    3. The paper mentions that network partitioning is a limiting case of network latency. How could we express network partitioning in terms of network latency? Specifically, consider two distributed nodes where the network latency is `L`. What would be the value of `L` if the network is partitioned?
 2. In Lingua Franca, the term **lag** is defined as physical time minus logical time ([LF Handbook - time and timers](https://www.lf-lang.org/docs/next/writing-reactors/time-and-timers/)). For instance, if a reaction is executed at physical time `106 ms`, where the scheduled logical time is `100 ms`, the lag is `6 ms`.
     1. **True or False**: In general, a larger lag corresponds to lower availability. Briefly explain your answer. **Hint** You can refer to Section 4.2 in the [CAL theorem](https://doi.org/10.1145/3609119) paper.
-    2. Can a lag become negative in Lingua Franca under the default execution semantics of reactor model? Briefly explain your answer.
+    2. Can lag become negative in Lingua Franca under the default execution semantics of the reactor model? Briefly explain your answer.
 3. Extracting values from PyTorch tensors. A pretrained object detection model returns a dictionary containing three tensors: `prediction["labels"]` contains object category IDs, `prediction["scores"]` contains confidence scores, and `prediction["boxes"]` contains bounding boxes in the form `[x1, y1, x2, y2]`. The following loop examines one detection at a time:
 
     ```python
@@ -60,7 +60,7 @@ pip install protobuf
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 ```
 
-If creating the virtual environment fails because venv is unavailable on Ubuntu or WSL, install it with `sudo apt install python3-venv`. If you are using a specific Python version, you may need to install the corresponding package instead (e.g., `sudo apt install python3.12-venv` for Python 3.12). Keep the virtual environment activated when compiling with `lfc-dev` and running the Python federate so that the compiler can find the correct Python environment. When you open a new shell, return to the repository root and reactivate it with `source my_env/bin/activate`.
+If creating the virtual environment fails because venv is unavailable on Ubuntu or WSL, install it with `sudo apt install python3-venv`. If you are using a specific Python version, you may need to install the corresponding package instead (e.g., `sudo apt install python3.12-venv` for Python 3.12). Keep the virtual environment activated when compiling with `lfc` and running the Python federate so that the compiler can find the correct Python environment. When you open a new shell, return to the repository root and reactivate it with `source my_env/bin/activate`.
 
 ### Exercise
 
@@ -147,7 +147,7 @@ sudo apt update
 sudo apt install iproute2
 ```
 
-Sinice Linux's `tc` command is not working on Mac, we provide a docker image. For installing docker on Mac, please refer to this document, [Install Docker Desktop on Mac](https://docs.docker.com/desktop/setup/install/mac-install/). Start Docker Desktop and run these commands in the host terminal:
+Since Linux's `tc` command is not available on macOS, we provide a Docker image. For installation instructions, see [Install Docker Desktop on Mac](https://docs.docker.com/desktop/setup/install/mac-install/). Start Docker Desktop and run these commands in the host terminal:
 
 ```sh
 docker pull byeonggiljun/cse522-lab8:arm64
@@ -194,11 +194,11 @@ ping localhost
 
 ## 10.4 Execution on separate machines
 
-Now, we will run `Vision` and `Braking` on two separate devices (e.g., laptops or desktops). One device (**RTI device**) will run the runtime infrastructure (RTI) and `Braking`; the other (**Vision device**) will run `Vision`.
+Now, we will run `Vision` and `Braking` on two separate devices (e.g., laptops or desktops). One device (**RTI device**) will run the runtime infrastructure (RTI) and `federate__braking`; the other (**Vision device**) will run `federate__vision`.
 
-**Note:** Both devices should be connected to the same network. As a sanity check, find the IPv4 address of each device and verify that they can ping each other before continuing. Some Wi-Fi routers, especially those on guest or campus networks, may prevent connected devices from communicating with each other. If possible, we recommend connecting both devices to a personal mobile hotspot instead. Also, the firewall should be adjusted to allow the outbound and inbound TCP connection.
+**Note:** Both devices should be connected to the same network. As a sanity check, find the IPv4 address of each device and verify that they can ping each other before continuing. Some Wi-Fi routers, especially those on guest or campus networks, may prevent connected devices from communicating with each other. If possible, we recommend connecting both devices to a personal mobile hotspot instead.
 
-For Mac users, Docker is not required for this section. We recommend running the programs directly on macOS because Docker may require additional network setting, e.g., port forwarding.
+For Mac users, Docker is not required for this section. We recommend running the programs directly on macOS because Docker may require additional network configuration, e.g., port forwarding.
 
 The code that we've used so far declares the federation with `federated reactor at localhost`. Here, `localhost` indicates that all three entities, `Vision`, `Braking`, and the `RTI` will be running on the same machine that compiles this file. To run them on separate devices, we need to give the IP address of the **RTI device**.
 
@@ -211,39 +211,87 @@ First, find the IPv4 address of the **RTI device**. Use that address in the `fed
 
 ```lf
 federated reactor at 192.168.0.1 {
+    @maxwait(0)
     braking = new Braking()
     vision = new Vision()
 
-    vision.trigger_brake -> braking.brake_assistant after 10 msec serializer "proto"
+    vision.trigger_brake -> braking.brake_assistant serializer "proto"
 }
 ```
 
-If one device uses WSL and the other uses Ubuntu or Mac, run the RTI on the Ubuntu or Mac device. Use that device's Wi-Fi IPv4 address in the `federated reactor` declaration on both devices.
+You should replace an example IP address, `192.168.0.1`, with the IPv4 address of the **RTI device**.
 
-#### Additional setup for connecting two WSL devices
-If both devices are using WSL, we need to setup port forwarding. If you use this setup, run the RTI inside WSL on one device and use that device's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both devices. Find the Windows Wi-Fi address with `ipconfig` in PowerShell. On both devices, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. This simplifies the network setup, because centralized coordination routes federate messages through the RTI, avoiding separate incoming peer connections to WSL.
-
-On the device hosting the RTI, configure forwarding from Windows TCP port `15045` to the RTI inside WSL:
-
-1. Inside WSL, find its internal IP address:
-
-    ```sh
-    hostname -I
-    ```
-
-2. Open PowerShell **as Administrator** on that Windows host and run:
+#### Additional setup for WSL
+1. Check whether the system supports WSL mirrored networking. Run in Windows PowerShell:
 
     ```powershell
-    netsh interface portproxy add v4tov4 `
-        listenaddress=0.0.0.0 `
-        listenport=15045 `
-        connectaddress=172.25.123.45 `
-        connectport=15045
+    winver
     ```
 
-    Replace `172.25.123.45` with the WSL IPv4 address from step 1. This is only an example address. The WSL address may change after WSL restarts, so check it each time and update the forwarding rule if needed. See Microsoft's [WSL networking instructions](https://learn.microsoft.com/en-us/windows/wsl/networking) for details.
+    Mirrored networking requires Windows 11 22H2 or later. If necessary, update WSL with:
 
-3. Allow inbound TCP connections to port `15045` through the Windows firewall (refer to the [New-NetFirewallRule documentation](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2025-ps)) or temporaily disable Windows firewall (**warning:** disabling firewall is risky; we cannot help you resolve any security issue that this may cause).
+    ```powershell
+    wsl --update
+    ```
+
+2. Open the WSL configuration file from PowerShell (the command below will create it if it doesn't exist):
+
+    ```powershell
+    notepad $env:USERPROFILE\.wslconfig
+    ```
+
+    Add the following settings. If `[wsl2]` already exists, add or update `networkingMode` under it:
+
+    ```ini
+    [wsl2]
+    networkingMode=mirrored
+    ```
+
+    Then restart WSL:
+
+    ```powershell
+    wsl --shutdown
+    ```
+
+    Start WSL again afterward.
+
+3. Allow inbound connections to WSL through the Hyper-V firewall. Run in Windows PowerShell **as Administrator**:
+
+    ```powershell
+    Set-NetFirewallHyperVVMSetting -Name '{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}' -DefaultInboundAction Allow
+    ```
+
+    After completing the experiment, restore the default inbound blocking policy with:
+
+    ```powershell
+    Set-NetFirewallHyperVVMSetting -Name '{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}' -DefaultInboundAction Block
+    ```
+
+If the RTI runs inside WSL, use that device's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both devices. Find this address with `ipconfig` in PowerShell. See Microsoft's [WSL networking instructions](https://learn.microsoft.com/en-us/windows/wsl/networking) for details.
+
+> **_Troubleshooting_** If mirrored networking is not supported (e.g., on Windows versions earlier than Windows 11 22H2), use NAT networking and port forwarding instead. If you already set `networkingMode=mirrored`, change it to `networkingMode=nat` and restart WSL with `wsl --shutdown`.
+>
+> On both devices, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. Then, federates will only communicate with the RTI.
+>
+> If the RTI runs inside WSL, configure forwarding from Windows TCP port `15045` on that device to the RTI inside WSL:
+>
+> 1. Inside WSL, find its internal IP address:
+>
+>     ```sh
+>     hostname -I
+>     ```
+>
+> 2. Open PowerShell **as Administrator** on that Windows host and run:
+>
+>     ```powershell
+>     netsh interface portproxy add v4tov4 `
+>         listenaddress=0.0.0.0 `
+>         listenport=15045 `
+>         connectaddress=172.25.123.45 `
+>         connectport=15045
+>     ```
+>
+>     Replace `172.25.123.45` with the WSL IPv4 address from step 1. This is only an example address. The WSL address may change after WSL restarts, so check it each time and update the forwarding rule if needed.
 
 ### Distributed Execution
 
@@ -251,11 +299,7 @@ On the device hosting the RTI, configure forwarding from Windows TCP port `15045
 
 In this exercise, we will run each executable separately instead of using the script `bin/ADASPolyglotSolution`. 
 
-On each device, activate the Python virtual environment and compile the same `src/ADASPolyglotSolution.lf` using `lfc`. Each device must compile its own executables. The Vision device also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands below from the repository root.
-
-On each device, prepare the same file structure as in Section 10.2. Use the same RTI address and coordination settings in both copies of the solution, as described above.
-
-Each device must compile its own executables. Run all commands below from that device's repository root with the virtual environment activated in each terminal.
+On each device, prepare the file structure described in Section 10.2 and compile `src/ADASPolyglotSolution.lf` using `lfc`. Use the same RTI address and coordination settings in both copies of the solution. The Vision device also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands from that device's repository root with the Python virtual environment activated in each terminal.
 
 First, start the RTI on the chosen device:
 
@@ -277,12 +321,28 @@ fed-gen/ADASPolyglotSolution/bin/federate__vision -i adas-lab
 
 All three programs must use the same federation ID, here `adas-lab`. For this experiment, start the programs individually rather than using the launcher that starts both federates together.
 
+> **_Troubleshooting_** If the programs get stuck after launching, it's likely because of a network issue. Use [`nc`](https://manpages.ubuntu.com/manpages/xenial/man1/nc_openbsd.1.html) to check whether you can manually establish a TCP connection between the devices.
+>
+> Check that the firewall allows outbound and inbound TCP connections. With decentralized coordination, each federate also acts as a server, so allow inbound TCP connections on both devices. Federates typically use ports in the range `32768–65535`, so allowing this range should usually be sufficient for federate connections. Also allow inbound TCP connections to port `15045` on the **RTI device**.
+>
+> If needed, consider allowing inbound connections on all TCP ports. As a last resort, you can temporarily disable the firewall, but this carries security risks. We recommend disabling it only briefly and turning it back on immediately after testing. We cannot help you resolve any security issues this may cause.
+>
+> Devices managed by a school or institution may have other rules that you cannot change. If these block the connection, you will need to find another way to run the experiment, such as using a different device.
+
 **Checkoff:** Show the execution results from both devices. Demonstrate that `Vision` detects the pedestrian and sends an automatic brake request that is received by `Braking` on the other device.
 
 
 ## 10.5 Postlab Questions
-1. Consider a vehicle with ADAS (advanced driver assistance systems) that triggers the brake automatically in an emergency. Which should be more important, strong consistency or high availability? Why?
+1. In Lingua Franca, we can specify a logical delay on communication using the [`after`](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#communication-between-federates) keyword. The diagram below shows the `ADASPolyglotSolution` program with a logical delay of **100 ms**.
 
-2. In 10.3, we detect the pedestrian by checking only the center of the bounding box. Suppose we want to make the system triggers a brake only if a pedestrian is close enough. Which condition would you add to the current system to achive this goal?
-  
-3. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
+    <img src="img/ADASPolyglotWithDelay.png" alt="ADASPolyglot with delay"/>
+
+    If reactor `Vision` sends a message at logical time `1 sec`, its intended logical timestamp at reactor `Braking` is `1.1 sec`. Suppose the message arrives and is processed at physical time `1.5 sec`.
+
+    1. What would be the lag measured in the reaction processing the message (Reaction 2 in reactor `Brake`)?
+    2. What would be the lag without the `after` delay? Assume that physical processing time remains `1.5 sec`.
+    3. Explain how the `after` delay affects consistency and availability. Does it sacrifice consistency to improve availability, or sacrifice availability to improve consistency? You can assume a larger lag indicates lower availability.
+
+2. In 10.2, we detect the pedestrian by checking only the center of the bounding box. Suppose we want to make the system trigger braking only if a pedestrian is close enough. Which condition would you add to the current system to achieve this goal?
+
+4. What were your takeaways from the lab? What did you learn during the lab? Did any results in the lab surprise you?
