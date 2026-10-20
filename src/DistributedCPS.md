@@ -228,11 +228,7 @@ You should replace an example IP address, `192.168.0.1`, with the IPv4 address o
     winver
     ```
 
-    Mirrored networking requires Windows 11 22H2 or later. If necessary, update WSL with:
-
-    ```powershell
-    wsl --update
-    ```
+    Mirrored networking requires Windows 11 22H2 or later. If your system does not meet this requirement, skip to the troubleshooting box below.
 
 2. Open the WSL configuration file from PowerShell (the command below will create it if it doesn't exist):
 
@@ -269,7 +265,18 @@ You should replace an example IP address, `192.168.0.1`, with the IPv4 address o
 
 If the RTI runs inside WSL, use that device's **Windows Wi-Fi IPv4 address**, not its internal WSL address, in the `federated reactor` declaration on both devices. Find this address with `ipconfig` in PowerShell. See Microsoft's [WSL networking instructions](https://learn.microsoft.com/en-us/windows/wsl/networking) for details.
 
-> **_Troubleshooting_** If mirrored networking is not supported (e.g., on Windows versions earlier than Windows 11 22H2), use NAT networking and port forwarding instead. If you already set `networkingMode=mirrored`, change it to `networkingMode=nat` and restart WSL with `wsl --shutdown`.
+> **_Troubleshooting for WSL users_** 
+> 
+> If your system meets the Windows version requirement but mirrored networking does not work, try updating WSL and restarting it from PowerShell:
+>
+> ```powershell
+> wsl --update
+> wsl --shutdown
+> ```
+>
+> Start WSL again and retry the setup above.
+>
+> If your system does not meet the requirement, or mirrored networking still does not work, use NAT networking and port forwarding instead. If you already set `networkingMode=mirrored`, change it to `networkingMode=nat` and restart WSL with `wsl --shutdown`.
 >
 > On both devices, change `coordination: decentralized` to `coordination: centralized` in the target configuration before compiling. Then, federates will only communicate with the RTI.
 >
@@ -291,7 +298,7 @@ If the RTI runs inside WSL, use that device's **Windows Wi-Fi IPv4 address**, no
 >         connectport=15045
 >     ```
 >
->     Replace `172.25.123.45` with the WSL IPv4 address from step 1. This is only an example address. The WSL address may change after WSL restarts, so check it each time and update the forwarding rule if needed.
+>     Replace `172.25.123.45` with the WSL IPv4 address from step 1 (you can check it by running ifconfig inside the WSL). This is only an example address. The WSL address may change after WSL restarts, so check it each time and update the forwarding rule if needed.
 
 ### Distributed Execution
 
@@ -321,7 +328,9 @@ fed-gen/ADASPolyglotSolution/bin/federate__vision -i adas-lab
 
 All three programs must use the same federation ID, here `adas-lab`. For this experiment, start the programs individually rather than using the launcher that starts both federates together.
 
-> **_Troubleshooting_** If the programs get stuck after launching, it's likely because of a network issue. Use [`nc`](https://manpages.ubuntu.com/manpages/xenial/man1/nc_openbsd.1.html) to check whether you can manually establish a TCP connection between the devices.
+> **_Troubleshooting_** 
+> 
+> If the programs get stuck after launching, it's likely because of a network issue. Use [`nc`](https://manpages.ubuntu.com/manpages/xenial/man1/nc_openbsd.1.html) to check whether you can manually establish a TCP connection between the devices.
 >
 > Check that the firewall allows outbound and inbound TCP connections. With decentralized coordination, each federate also acts as a server, so allow inbound TCP connections on both devices. Federates typically use ports in the range `32768–65535`, so allowing this range should usually be sufficient for federate connections. Also allow inbound TCP connections to port `15045` on the **RTI device**.
 >
