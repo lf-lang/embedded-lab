@@ -139,7 +139,7 @@ The CAL theorem says that strong consistency requires enough waiting to cover ap
 
 For this exercise, use **lag** (physical time minus logical time) as a measure of unavailability: a larger lag indicates a less timely response to an event.
 
-The program uses decentralized coordination with `@maxwait(0)` on `Braking`. This setting allows `Braking` to advance without waiting for late messages from `Vision`, prioritizing availability at the possible expense of consistency.
+The program uses decentralized coordination with `@maxwait(0)` on `Braking`. This setting allows `Braking` to advance without waiting for late messages from `Vision`, prioritizing availability at the possible expense of consistency. Please refer to the [LF handbook - Maxwait](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#maxwait) for more information.
 
 Run your completed program with the baseline network conditions, then use Linux's `tc` command to add network delay. Keep the program itself fixed so that you can compare the effect of network latency on lag.
 
@@ -353,7 +353,8 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 
     1. What would be the lag measured in the reaction processing the message (Reaction 2 in reactor `Brake`)?
     2. What would be the lag without the `after` delay? Assume that physical processing time remains `1.5 sec`.
-    3. Explain how the `after` delay affects consistency and availability. Does it sacrifice consistency to improve availability, or sacrifice availability to improve consistency? You can assume a larger lag indicates lower availability.
+    3. How does the `after` delay affect the lag?
+    4. Equation (2) in the [CAL theorem paper](https://doi.org/10.1145/3609119) defines unavailability as physical processing time minus event timestamp. For this program, assume that this difference equals to the lag calculated above. Using lag as a measure of unavailability, discuss how the `after` delay affects consistency and availability in this example.
 
 2. In 10.2, we detect the pedestrian by checking only the center of the bounding box. Suppose we want to make the system trigger braking only if a pedestrian is close enough. Which condition would you add to the current system to achieve this goal?
 
