@@ -39,6 +39,30 @@ The purpose of this exercise is to learn about the challenges in coordinating di
 
 ---
 
+Download the following lab files:
+
+ - [Download ADASPolyglotTemplate.lf](./materials/src/ADASPolyglotTemplate.lf)
+ - [Download ProtoAdas.proto](./materials/src/ProtoAdas.proto)
+ - [Download pedestrians.zip](./materials/dataset/pedestrians.zip)
+
+You can use the `my-3pi` repository created in [Getting Started](GettingStarted.md), or create a new folder for this exercise. We will refer to this folder as the **project root**, represented by `<root>` below.
+
+Save `ADASPolyglotTemplate.lf` and `ProtoAdas.proto` in `<root>/src/`, creating `src/` if needed, and save `pedestrians.zip` in `<root>/`. The ZIP contains a `data/` folder with 11 images selected from the [Caltech Pedestrians dataset](https://data.caltech.edu/records/f6rph-90m20) and an `ATTRIBUTION.txt` file. Extract the ZIP from `<root>`. Your files should have the following layout:
+
+```text
+<root>/
+├── src/
+│   ├── ADASPolyglotTemplate.lf
+│   └── ProtoAdas.proto
+└── data/
+    ├── image_1.png
+    ├── ...
+    ├── image_11.png
+    └── ATTRIBUTION.txt
+```
+
+Keep `data/` alongside `src/`, and run all compilation and execution commands from the project root so that the programs can find the images.
+
 When setting up the environment on Ubuntu or WSL, install the Protocol Buffers compilers, the protobuf-c development library, and the Python development headers:
 
 ```sh
@@ -51,7 +75,7 @@ On Mac, install Protocol Buffers with Homebrew:
 brew install protobuf protobuf-c
 ```
 
-From the repository root, create and activate a Python virtual environment, then install the Python dependencies:
+From the project root, create and activate a Python virtual environment, then install the Python dependencies:
 
 ```sh
 python3 -m venv my_env
@@ -60,35 +84,14 @@ pip install protobuf
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 ```
 
-If creating the virtual environment fails because venv is unavailable on Ubuntu or WSL, install it with `sudo apt install python3-venv`. If you are using a specific Python version, you may need to install the corresponding package instead (e.g., `sudo apt install python3.12-venv` for Python 3.12). Keep the virtual environment activated when compiling with `lfc` and running the Python federate so that the compiler can find the correct Python environment. When you open a new shell, return to the repository root and reactivate it with `source my_env/bin/activate`.
+If creating the virtual environment fails because venv is unavailable on Ubuntu or WSL, install it with `sudo apt install python3-venv`. If you are using a specific Python version, you may need to install the corresponding package instead (e.g., `sudo apt install python3.12-venv` for Python 3.12). Keep the virtual environment activated when compiling with `lfc` and running the Python federate so that the compiler can find the correct Python environment. When you open a new shell, return to the project root and reactivate it with `source my_env/bin/activate`.
 
 ### Exercise
 
 ---
-In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS). Download the following lab files:
+In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS).
 
- - [Download ADASPolyglotTemplate.lf](./materials/src/ADASPolyglotTemplate.lf)
- - [Download ProtoAdas.proto](./materials/src/ProtoAdas.proto)
- - [Download pedestrians.zip](./materials/dataset/pedestrians.zip)
-
-Suppose your repository root is `<root>`. Save `ADASPolyglotTemplate.lf` and `ProtoAdas.proto` in `<root>/src/`, and save `pedestrians.zip` in `<root>/`. The ZIP contains a `data/` folder with 11 images selected from the [Caltech Pedestrians dataset](https://data.caltech.edu/records/f6rph-90m20) and an `ATTRIBUTION.txt` file. From `<root>`, extract the ZIP and create your solution file. Your files should have the following layout:
-
-```text
-<root>/
-├── src/
-│   ├── ADASPolyglotTemplate.lf
-│   └── ProtoAdas.proto
-├── data/
-│   ├── image_1.png
-│   ├── ...
-│   ├── image_11.png
-│   └── ATTRIBUTION.txt
-└── my_env/
-```
-
-Keep `data/` alongside `src/`, and run all compilation and execution commands from `<root>` so that the programs can find the images.
-
-This program is a **polyglot federation**, a collection of federates implemented in different target languages. The `Vision` federate uses Python for image processing, while the `Braking` federate uses C for the brake pedal and brake reactions. The `@language` annotations specify their languages, and the `"proto"` serializer lets them exchange Protocol Buffers messages. Read the [LF Handbook section on Polyglot Federations](https://www.lf-lang.org/docs/writing-reactors/polyglot/) for more information.
+The program `ADASPolyglotTemplate.lf` is a **polyglot federation**, a collection of federates implemented in Python and C target languages. The `Vision` federate uses Python for image processing, while the `Braking` federate uses C for the brake pedal and brake reactions. The `@language` annotations specify their languages, and the `proto` serializer lets them exchange Protocol Buffers messages. Read the [LF Handbook section on Polyglot Federations](https://www.lf-lang.org/docs/writing-reactors/polyglot/) for more information.
 
 First, examine and run the template with the following commands:
 ```bash
@@ -306,7 +309,7 @@ If the RTI runs inside WSL, use that device's **Windows Wi-Fi IPv4 address**, no
 
 In this exercise, we will run each executable separately instead of using the script `bin/ADASPolyglotSolution`. 
 
-On each device, prepare the file structure described in Section 10.2 and compile `src/ADASPolyglotSolution.lf` using `lfc`. Use the same RTI address and coordination settings in both copies of the solution. The Vision device also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands from that device's repository root with the Python virtual environment activated in each terminal.
+On each device, prepare the file structure described in Section 10.2 and compile `src/ADASPolyglotSolution.lf` using `lfc`. Use the same RTI address and coordination settings in both copies of the solution. The Vision device also needs the supplied `data/` directory and the pretrained model dependencies. Run all commands from that device's project root with the Python virtual environment activated in each terminal.
 
 First, start the RTI on the chosen device:
 
