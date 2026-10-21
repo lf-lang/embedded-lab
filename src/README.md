@@ -20,6 +20,7 @@ You can find the Markdown sources of these labs on [GitHub](https://github.com/l
 The main authors of this version of the labs are:
 
 - Abhi Gundrala
+- Byeonggil Jun
 - Hokeun Kim
 - Aditya Krishnan 
 - Edward A. Lee

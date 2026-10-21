@@ -17,6 +17,7 @@
 - [Robot](./Robot.md)
 - [Hill Climb](./Hill.md)
 - [Track and Line Following](./Line.md)
+- [Distributed Cyber Physical Systems](./DistributedCPS.md)
 
 # Appendices
 
