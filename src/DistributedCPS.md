@@ -120,28 +120,13 @@ Please put your program in a file called `ADASPolyglotSolution.lf`.
 
 **Checkoff:** Show one complete image cycle in which only `image_10.png` is identified as a pedestrian hazard. Show that the resulting automatic brake message reaches the C `Braking` federate.
 
-## 10.3 The CAL Theorem
+## 10.3 Distributed Systems with Emulated Network latency
 
-[**Lee et al. (2023)**](https://doi.org/10.1145/3609119) proved the following result for distributed cyber-physical systems:
+The program uses decentralized coordination with `@maxwait(0)` on `Braking`. A maxwait of zero means that, once physical time reaches an event's logical timestamp, `Braking` can advance to that timestamp without waiting for an unknown input from `Vision`. In particular, it can process a local `brake_pedal` event even if an earlier automatic brake message is still in transit. This choice prioritizes **availability** by sacrificing **consistency**: local braking can respond without waiting for remote information, but timestamp order across the two inputs is not guaranteed. The order in which events are processed can depend on message arrival times, so the system can behave **nondeterministically**. Please refer to the [LF handbook - Maxwait](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#maxwait) for more information.
 
-> **CAL Theorem:** It is impossible to achieve consistency without paying a price in availability. The minimum price is proportional to the latencies in the system: network communication latency, computation overhead, and clock synchronization error.
+In this exercise, you will emulate network delay and compare the lag of automatic and manual braking with and without added delay. **Lag** is the physical time at which a reaction processes an event minus the event's logical timestamp. A larger lag means that processing occurs later relative to the scheduled logical time. Lag differs from the elapsed physical time between sending and processing a message because computation before transmission can already cause the sender's physical time to be later than the message's logical timestamp.
 
-This is a strengthening of the famous **CAP theorem** (Brewer, 2000), which says you cannot have all three of: Consistency, Availability, and Partition-tolerance. The CAL theorem goes further: even in a system with *no* partitions, apparent latency, including network delay, computation overhead, and clock synchronization error, introduces an unavoidable tradeoff.
-
-For our ADAS example:
-| Term | Meaning |
-|------|---------|
-| **Consistency** | Both brake control nodes (remote and local) agree on the brake result at every logical timestamp |
-| **Availability** | How quickly an operator's command takes effect (low wait = high availability) |
-| **Latency** | Network round-trip time + clock sync error + computation overhead |
-
-The CAL theorem says that strong consistency requires enough waiting to cover apparent latency; reducing that waiting can require tolerating inconsistency instead. There is no shortcut.
-
-For this exercise, use **lag** (physical time minus logical time) as a measure of unavailability: a larger lag indicates a less timely response to an event.
-
-The program uses decentralized coordination with `@maxwait(0)` on `Braking`. This setting allows `Braking` to advance without waiting for late messages from `Vision`, prioritizing availability at the possible expense of consistency. Please refer to the [LF handbook - Maxwait](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#maxwait) for more information.
-
-Run your completed program with the baseline network conditions, then use Linux's `tc` command to add network delay. Keep the program itself fixed so that you can compare the effect of network latency on lag.
+You will use Linux's `tc` command to add network delay while keeping the program unchanged.
 
 On Ubuntu and WSL, install `iproute2`:
 
@@ -193,7 +178,14 @@ ping localhost
 
 **Note:** When running the command inside a Docker container, omit sudo from the first line.
 
-**Checkoff:** Show the results for the baseline and the 100 ms added-delay condition. Compare the lag of automatic braking and manual braking separately between the two conditions, and explain how each changes. Using lag as a measure of unavailability, what effect does a delayed automatic brake signal have on the unavailability of manual braking? Explain why, referring to the local brake pedal event and the `@maxwait(0)` setting.
+**Checkoff:** Show your execution results with 100 ms of added network delay. Complete the table below using the lag measured in each of the two input reactions in reactor `Brake`, both without added delay and with 100 ms of added delay. Report all values in milliseconds.
+
+| Input / reported lag | Without added network latency (ms) | With 100 ms added network latency (ms) |
+|---|---|---|
+| `brake_pedal` (`Manual braking lag`) | _____ | _____ |
+| `brake_assistant` (`Automatic braking lag`) | _____ | _____ |
+
+Explain how the added network delay affects the lag of each input. Does delaying the automatic brake message arrival make the local pedal event wait longer before it is processed? Explain your observations using the explanation of `@maxwait(0)` at the beginning of Section 10.3.
 
 ## 10.4 Execution on separate machines
 
@@ -345,16 +337,28 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 
 
 ## 10.5 Postlab Questions
-1. In Lingua Franca, we can specify a logical delay on communication using the [`after`](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#communication-between-federates) keyword. The diagram below shows the `ADASPolyglotSolution` program with a logical delay of **100 ms**.
+1. In the programs that we've used so far, `@maxwait(0)` allows local events to proceed without waiting for remote messages, so timestamp order is not guaranteed. In many systems, however, preserving timestamp order is important. Consider a similar system shown below with the following assumptions:
 
-    <img src="img/ADASPolyglotWithDelay.png" alt="ADASPolyglot with delay"/>
+    - `Vision` and `BrakePedal` both sample data and send a message every **500 ms**. `Vision` starts at logical time `0`, while `BrakePedal` starts at logical time `500 ms`.
+    - The connection from `Vision` to `Braking` has a `500 msec` logical delay specified by `vision.trigger_brake -> braking.brake_assistant after 500 msec serializer "proto"`. In Lingua Franca, the `500 msec` of [`after`](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#communication-between-federates) delay increments the timestamp at the receiving end by `500 msec` compared to the timestamp at the sender. For example, when `Vision` sends a message at timestamp `0`, reactor `Brake` will process the message at timestamp `500 msec`.
+    - `Braking` uses `@maxwait(forever)`, so reactor `Brake` waits to process a message from `BrakePedal` until a message from `Vision` with an equal or later destination timestamp has arrived. For example, a message from `BrakePedal` with timestamp `2 sec` must wait until a message from `Vision` whose timestamp at `Brake` is `2 sec` or later has arrived. This preserves timestamp order across the inputs.
+    - The system is configured so that a message from `Vision` arrives at `Braking` no more than 500 ms after the data is captured, including computation and communication time.
 
-    If reactor `Vision` sends a message at logical time `1 sec`, its intended logical timestamp at reactor `Braking` is `1.1 sec`. Suppose the message arrives and is processed at physical time `1.5 sec`.
+    <img src="img/ADASPolyglotDeterministicWithAfterDelay.png" alt="ADASPolyglot with delay"/>
 
-    1. What would be the lag measured in the reaction processing the message (Reaction 2 in reactor `Brake`)?
-    2. What would be the lag without the `after` delay? Assume that physical processing time remains `1.5 sec`.
-    3. How does the `after` delay affect the lag?
-    4. Equation (2) in the [CAL theorem paper](https://doi.org/10.1145/3609119) defines unavailability as physical processing time minus event timestamp. For this program, assume that this difference equals to the lag calculated above. Using lag as a measure of unavailability, discuss how the `after` delay affects consistency and availability in this example.
+    All logical and physical times are measured from the common execution start. Assume that earlier events have been processed and that processing overhead at Brake is negligible.
+
+    1. Suppose `Vision` sends a message at logical time `500 ms`, and it arrives at `Braking` at physical time `800 ms`. What is the earliest physical time at which `Brake` can process the message from `BrakePedal` with logical timestamp `1 sec`? Explain your reasoning.
+
+        **Hint:** At what logical timestamp must `Brake` process the message that `Vision` sends at logical time `500 ms` in this program?
+
+    2. Now consider the program shown below, which removes the `after` delay and starts `BrakePedal` at logical time 0. All other assumptions, including `@maxwait(forever)`, remain unchanged. Suppose a message from `Vision` sent at logical time `1 sec` arrives at `Braking` at physical time `1.3 sec`. What is the earliest physical time at which `Brake` can process the message from `BrakePedal` with logical timestamp `1 sec`? Explain your reasoning.
+
+    <img src="img/ADASPolyglotDeterministicWithoutAfterDelay.png" alt="ADASPolyglot without delay"/>
+
+    3. Compare your answers to (a) and (b). What is improved by adding the `after` delay? What did the program give up in exchange?
+
+        **Hint:** Compare the logical timestamps at which `Camera` and `BrakePedal` send messages with timestamps at which `Brake` processes the corresponding messages.
 
 2. In 10.2, we detect the pedestrian by checking only the center of the bounding box. Suppose we want to make the system trigger braking only if a pedestrian is close enough. Which condition would you add to the current system to achieve this goal?
 
