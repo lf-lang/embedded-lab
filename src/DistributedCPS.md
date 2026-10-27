@@ -357,7 +357,7 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 
         **Hint:** At what logical timestamp must `Brake` process the message that `Vision` sends at logical time `500 ms` in this program?
 
-    2. Now consider the program shown below, which removes the `after` delay and starts `BrakePedal` at logical time 0. All other assumptions, including `@maxwait(forever)`, remain unchanged. Suppose a message from `Vision` sent at logical time `1 sec` arrives at `Braking` at physical time `1.3 sec`. What is the earliest physical time at which `Brake` can process the message from `BrakePedal` with logical timestamp `1 sec`? Explain your reasoning.
+    2. Now consider another program shown below, which removes the `after` delay and starts `BrakePedal` at logical time 0. All other assumptions, including `@maxwait(forever)`, remain unchanged. Suppose a message from `Vision` sent at logical time `1 sec` arrives at `Braking` at physical time `1.3 sec`. What is the earliest physical time at which `Brake` can process the message from `BrakePedal` with logical timestamp `1 sec`? Explain your reasoning.
 
     <img src="img/ADASPolyglotDeterministicWithoutAfterDelay.png" alt="ADASPolyglot without delay"/>
 
