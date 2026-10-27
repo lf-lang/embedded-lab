@@ -89,7 +89,10 @@ If creating the virtual environment fails because venv is unavailable on Ubuntu 
 ### Exercise
 
 ---
-In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS).
+In this exercise, you will complete a pedestrian detector for an advanced driver assistance system (ADAS) shown below:
+
+
+<img src="img/ADASPolyglotTemplate.png" alt="ADASPolyglot template"/>
 
 The program `ADASPolyglotTemplate.lf` is a **polyglot federation**, a collection of federates implemented in Python and C target languages. The `Vision` federate uses Python for image processing, while the `Braking` federate uses C for the brake pedal and brake reactions. The `@language` annotations specify their languages, and the `proto` serializer lets them exchange Protocol Buffers messages. Read the [LF Handbook section on Polyglot Federations](https://www.lf-lang.org/docs/writing-reactors/polyglot/) for more information.
 
@@ -337,14 +340,16 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 
 
 ## 10.5 Postlab Questions
-1. In the programs that we've used so far, `@maxwait(0)` allows local events to proceed without waiting for remote messages, so timestamp order is not guaranteed. In many systems, however, preserving timestamp order is important. Consider a similar system shown below with the following assumptions:
+1. In the programs that we've used so far, `@maxwait(0)` allows local events to proceed without waiting for remote messages, so timestamp order is not guaranteed. In many systems, however, preserving timestamp order is important. Consider a similar but slightly different system shown below: 
+    <img src="img/ADASPolyglotDeterministicWithAfterDelay.png" alt="ADASPolyglot with delay"/>
+    This system has the following assumptions:
 
     - `Vision` and `BrakePedal` both sample data and send a message every **500 ms**. `Vision` starts at logical time `0`, while `BrakePedal` starts at logical time `500 ms`.
     - The connection from `Vision` to `Braking` has a `500 msec` logical delay specified by `vision.trigger_brake -> braking.brake_assistant after 500 msec serializer "proto"`. In Lingua Franca, the `500 msec` of [`after`](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#communication-between-federates) delay increments the timestamp at the receiving end by `500 msec` compared to the timestamp at the sender. For example, when `Vision` sends a message at timestamp `0`, reactor `Brake` will process the message at timestamp `500 msec`.
     - `Braking` uses `@maxwait(forever)`, so reactor `Brake` waits to process a message from `BrakePedal` until a message from `Vision` with an equal or later destination timestamp has arrived. For example, a message from `BrakePedal` with timestamp `2 sec` must wait until a message from `Vision` whose timestamp at `Brake` is `2 sec` or later has arrived. This preserves timestamp order across the inputs.
     - The system is configured so that a message from `Vision` arrives at `Braking` no more than 500 ms after the data is captured, including computation and communication time.
 
-    <img src="img/ADASPolyglotDeterministicWithAfterDelay.png" alt="ADASPolyglot with delay"/>
+    
 
     All logical and physical times are measured from the common execution start. Assume that earlier events have been processed and that processing overhead at Brake is negligible.
 
