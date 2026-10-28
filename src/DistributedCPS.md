@@ -355,7 +355,7 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 
     1. Suppose `Vision` sends a message at logical time `500 ms`, and it arrives at `Braking` at physical time `800 ms`. What is the earliest physical time at which `Brake` can process the message from `BrakePedal` with logical timestamp `1 sec`? Explain your reasoning.
 
-        **Hint:** At what logical timestamp must `Brake` process the message that `Vision` sends at logical time `500 ms` in this program?
+        **Hint:** Use the second assumption to determine the destination timestamp of the message from `Vision`. In other words, at what logical timestamp must `Brake` process the message that `Vision` sends at logical time `500 ms` in this program? Then, use the third assumption to determine when `Brake` can process the message from `BrakePedal` with timestamp `1 sec`.
 
     2. Now consider another program shown below, which removes the `after` delay and starts `BrakePedal` at logical time 0. All other assumptions, including `@maxwait(forever)`, remain unchanged. Suppose a message from `Vision` sent at logical time `1 sec` arrives at `Braking` at physical time `1.3 sec`. What is the earliest physical time at which `Brake` can process the message from `BrakePedal` with logical timestamp `1 sec`? Explain your reasoning.
 
@@ -363,7 +363,7 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 
     3. Compare your answers to (a) and (b). What is improved by adding the `after` delay? What did the program give up in exchange?
 
-        **Hint:** Compare the logical timestamps at which `Camera` and `BrakePedal` send messages with timestamps at which `Brake` processes the corresponding messages.
+        **Hint:** Compare the logical timestamps at which `Camera` and `BrakePedal` send messages with timestamps at which `Brake` processes the corresponding messages. Also, recall the tradeoff among consistency, availability, and latency discussed at the beginning of the [CAL theorem](https://doi.org/10.1145/3609119) paper (which you read while answering the prelab question).
 
 2. In 10.2, we detect the pedestrian by checking only the center of the bounding box. Suppose we want to make the system trigger braking only if a pedestrian is close enough. Which condition would you add to the current system to achieve this goal?
 
