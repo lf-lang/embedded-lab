@@ -344,10 +344,10 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
     <img src="img/ADASPolyglotDeterministicWithAfterDelay.png" alt="ADASPolyglot with delay"/>
     This system has the following assumptions:
 
-    - `Vision` and `BrakePedal` both sample data and send a message every **500 ms**. `Vision` starts at logical time `0`, while `BrakePedal` starts at logical time `500 ms`.
-    - The connection from `Vision` to `Braking` has a `500 msec` logical delay specified by `vision.trigger_brake -> braking.brake_assistant after 500 msec serializer "proto"`. In Lingua Franca, the `500 msec` of [`after`](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#communication-between-federates) delay increments the timestamp at the receiving end by `500 msec` compared to the timestamp at the sender. For example, when `Vision` sends a message at timestamp `0`, reactor `Brake` will process the message at timestamp `500 msec`.
-    - `Braking` uses `@maxwait(forever)`, so reactor `Brake` waits to process a message from `BrakePedal` until a message from `Vision` with an equal or later destination timestamp has arrived. For example, a message from `BrakePedal` with timestamp `2 sec` must wait until a message from `Vision` whose timestamp at `Brake` is `2 sec` or later has arrived. This preserves timestamp order across the inputs.
-    - The system is configured so that a message from `Vision` arrives at `Braking` no more than 500 ms after the data is captured, including computation and communication time.
+    - **Assumption 1:** `Vision` and `BrakePedal` both sample data and send a message every **500 ms**. `Vision` starts at logical time `0`, while `BrakePedal` starts at logical time `500 ms`.
+    - **Assumption 2:** The connection from `Vision` to `Braking` has a `500 msec` logical delay specified by `vision.trigger_brake -> braking.brake_assistant after 500 msec serializer "proto"`. In Lingua Franca, the `500 msec` of [`after`](https://www.lf-lang.org/docs/writing-reactors/distributed-execution/#communication-between-federates) delay increments the timestamp at the receiving end by `500 msec` compared to the timestamp at the sender. For example, when `Vision` sends a message at timestamp `0`, reactor `Brake` will process the message at timestamp `500 msec`.
+    - **Assumption 3:** `Braking` uses `@maxwait(forever)`, so reactor `Brake` waits to process a message from `BrakePedal` until a message from `Vision` with an equal or later destination timestamp has arrived. For example, a message from `BrakePedal` with timestamp `2 sec` must wait until a message from `Vision` whose timestamp at `Brake` is `2 sec` or later has arrived. This preserves timestamp order across the inputs.
+    - **Assumption 4:** The system is configured so that a message from `Vision` arrives at `Braking` no more than 500 ms after the data is captured, including computation and communication time.
 
     
 
@@ -355,7 +355,7 @@ All three programs must use the same federation ID, here `adas-lab`. For this ex
 
     1. Suppose `Vision` sends a message at logical time `500 ms`, and it arrives at `Braking` at physical time `800 ms`. What is the earliest physical time at which `Brake` can process the message from `BrakePedal` with logical timestamp `1 sec`? Explain your reasoning.
 
-        **Hint:** Use the second assumption to determine the destination timestamp of the message from `Vision`. In other words, at what logical timestamp must `Brake` process the message that `Vision` sends at logical time `500 ms` in this program? Then, use the third assumption to determine when `Brake` can process the message from `BrakePedal` with timestamp `1 sec`.
+        **Hint:** Use Assumption 2 to determine the destination timestamp of the message from `Vision`. In other words, at what logical timestamp must `Brake` process the message that `Vision` sends at logical time `500 ms` in this program? Then, use Assumption 3 to determine when `Brake` can process the message from `BrakePedal` with timestamp `1 sec`.
 
     2. Now consider another program shown below, which removes the `after` delay and starts `BrakePedal` at logical time 0. All other assumptions, including `@maxwait(forever)`, remain unchanged. Suppose a message from `Vision` sent at logical time `1 sec` arrives at `Braking` at physical time `1.3 sec`. What is the earliest physical time at which `Brake` can process the message from `BrakePedal` with logical timestamp `1 sec`? Explain your reasoning.
 
