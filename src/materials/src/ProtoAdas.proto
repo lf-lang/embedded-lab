@@ -1,0 +1,10 @@
+// Simple data type storing a number.
+
+syntax = "proto3";
+
+// Use Adas rather than the all-caps acronym ADAS. Lingua Franca and
+// protobuf-c otherwise disagree on the generated C function name:
+// proto_a_d_a_s__unpack vs. proto_adas__unpack.
+message ProtoAdas {
+    int32 value = 1;
+}
