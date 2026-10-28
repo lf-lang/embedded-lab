@@ -126,14 +126,10 @@ reactor Brake {
   input brake_pedal: bool
 
   reaction(brake_pedal) {=
-    // A tardy message keeps its original tag even if the current tag is adjusted.
-    instant_t intended_time = brake_assistant->intended_tag.time;
-    if (intended_time == NEVER) {
-      intended_time = lf_time_logical();
-    }
+    instant_t intended_time = lf_time_logical();
     lf_print("[system] Brake triggered - " PRINTF_TIME " ms.\n", lf_time_physical_elapsed()/MSEC(1));
     lf_print("[system] source: manual\n");
-    lf_print("[system] Manual braking lag is " PRINTF_TIME " ms.\n", (lf_time_physical_elapsed() - intended_time)/MSEC(1));
+    lf_print("[system] Manual braking lag is " PRINTF_TIME " ms.\n", (lf_time_physical() - intended_time)/MSEC(1));
   =} tardy
 
   reaction(brake_assistant) {=
